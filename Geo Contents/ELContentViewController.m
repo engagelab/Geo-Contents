@@ -84,11 +84,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
     
-    CLLocationCoordinate2D coord;
-    coord.latitude = 59.927999267f;
-    coord.longitude = 10.759999771f;
-    
-    [self loadInstagramPicturesByLocation:coord];
+//    CLLocationCoordinate2D coord;
+//    coord.latitude = 59.927999267f;
+//    coord.longitude = 10.759999771f;
+//    
+//    [self loadInstagramPicturesByLocation:coord];
     
     /*  Location service
      Stop CLLOcationManager when you receive notification that your app is resigning active,
