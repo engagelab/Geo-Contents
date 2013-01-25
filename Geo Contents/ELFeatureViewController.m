@@ -122,6 +122,7 @@
         //Display error
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receiver Not Found" message:@"The Receiver App is not installed. It must be installed to send text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
+        //Test
     }
 
 }
