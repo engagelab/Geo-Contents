@@ -140,8 +140,8 @@
     
     UIApplication *app = [UIApplication sharedApplication];
 
-    NSString *lat = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.latitude];
-    NSString *lng = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.longitude];
+    NSString *lat = [NSString stringWithFormat:@"%f",self.feature.fLocation.coordinate.latitude];
+    NSString *lng = [NSString stringWithFormat:@"%f",self.feature.fLocation.coordinate.longitude];
     
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://browse/mapview?lat=%@&lng=%@",lat,lng]];
@@ -164,8 +164,8 @@
     
     UIApplication *app = [UIApplication sharedApplication];
     
-    NSString *lat = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.latitude];
-    NSString *lng = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.longitude];
+    NSString *lat = [NSString stringWithFormat:@"%f",self.feature.fLocation.coordinate.latitude];
+    NSString *lng = [NSString stringWithFormat:@"%f",self.feature.fLocation.coordinate.longitude];
     
     
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://browse/directMe?lat=%@&lng=%@",lat,lng]];

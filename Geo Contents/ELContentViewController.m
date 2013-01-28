@@ -84,12 +84,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
     
-    //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *bbox = [defaults objectForKey:@"bbox"];
+    [self loadFeaturesInBoundingBox:bbox];
     
-    //NSDictionary *bbox = [defaults objectForKey:@"bbox"];
     
-    
-    //[self loadFeaturesInBoundingBox:bbox];
     CLLocationCoordinate2D coor;
     coor.latitude = 59.927999267f;
     coor.longitude = 10.759999771f;
