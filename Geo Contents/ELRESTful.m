@@ -107,7 +107,7 @@
     
     NSArray *location = [[featureDic objectForKey:@"geometry"] objectForKey:@"coordinates"];
 
-   feature.fLocation = [[CLLocation alloc]initWithLatitude:[[location objectAtIndex:0] doubleValue] longitude:[[location objectAtIndex:1] doubleValue]];
+   feature.fLocation = [[CLLocation alloc]initWithLatitude:[[location objectAtIndex:1] doubleValue] longitude:[[location objectAtIndex:0] doubleValue]];
     
     return  feature;
 }
