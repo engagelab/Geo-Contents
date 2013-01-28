@@ -4,3 +4,17 @@ Geo Contents/ELRESTful.h
 Geo Contents/ELRESTful.m
 
 Geo Contents.xcodeproj/project.xcworkspace/xcuserdata/spider.xcuserdatad/UserInterfaceState.xcuserstate
+
+.svn/prop-base/.gitignore.svn-base
+
+*.gitignore
+
+.svn
+
+Geo Contents.xcodeproj/project.pbxproj
+
+Geo Contents.xcodeproj/project.xcworkspace/xcuserdata/martin.xcuserdatad/UserInterfaceState.xcuserstate
+
+Geo Contents.xcodeproj/xcuserdata/martin.xcuserdatad/xcschemes/Geo Contents.xcscheme
+
+Geo Contents.xcodeproj/xcuserdata/martin.xcuserdatad/xcschemes/xcschememanagement.plist
