@@ -69,12 +69,14 @@
 -(IBAction)showActionSheet:(id)sender {
     
     if ([self.feature.source_type isEqualToString:@"Instagram"]) {
-        UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Edit", @"View in map", @"Direct me here", nil];
+        UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View in map",@"Direct me here", @"Map this!", nil];
+        
         [sheet showFromRect:[self.actionButton frame] inView:self.view animated:YES];
     }
     else
     {
-        UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Edit", @"View in map", @"Direct me here", nil];
+        UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View in map", @"Direct me here",@"Edit",@"Delete" ,nil];
+        sheet.destructiveButtonIndex = 3;
         [sheet showFromRect:[self.actionButton frame] inView:self.view animated:YES];
     }
     
@@ -105,7 +107,7 @@
     NSLog(@"editClicked");
     UIApplication *app = [UIApplication sharedApplication];
     
-    NSString *urlPath = [NSString stringWithFormat:@"overlay://edit/entry?id=%@",@"50d33628da06456278411be3"];
+    NSString *urlPath = [NSString stringWithFormat:@"overlay://edit/entry?id=%@",self.feature.idd];
     NSURL *url = [NSURL URLWithString:urlPath];
     
     if ([app canOpenURL:url]) {
@@ -125,7 +127,14 @@
     
     UIApplication *app = [UIApplication sharedApplication];
     
-    NSURL *url = [NSURL URLWithString:@"overlay://mapview/location?lat=59.927999267f&lng=10.759999771"];
+    //TODO: get poi location and send as parameter
+    NSString *lat = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.latitude];
+    NSString *lng = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.longitude];
+    
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://brows/mapview?lat=%@&lng=%@",lat,lng]];
+                  
+                  //@"overlay://brows/mapview?lat=59.927999267f&lng=10.759999771"];
     
     if ([app canOpenURL:url]) {
         [app openURL:url];

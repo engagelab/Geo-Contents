@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ELUser.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface ELFeature : NSObject
 
@@ -18,5 +19,6 @@
 @property (nonatomic, strong) NSString *timeDistance;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) ELUser *user;
+@property (nonatomic, strong) CLLocation *fLocation;
 
 @end
