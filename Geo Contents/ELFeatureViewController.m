@@ -132,7 +132,7 @@
     NSString *lng = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.longitude];
     
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://brows/mapview?lat=%@&lng=%@",lat,lng]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://browse/mapview?lat=%@&lng=%@",lat,lng]];
                   
                   //@"overlay://brows/mapview?lat=59.927999267f&lng=10.759999771"];
     
@@ -150,7 +150,28 @@
 
 -(void)directMeHereClicked
 {
-    NSLog(@"directMeHereClicked");
+    NSLog(@"viewInMapClicked");
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    
+    //TODO: get poi location and send as parameter
+    NSString *lat = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.latitude];
+    NSString *lng = [NSString localizedStringWithFormat:@"%f",self.feature.fLocation.coordinate.longitude];
+    
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://browse/directMe?lat=%@&lng=%@",lat,lng]];
+    
+    //@"overlay://brows/mapview?lat=59.927999267f&lng=10.759999771"];
+    
+    if ([app canOpenURL:url]) {
+        [app openURL:url];
+    }
+    else {
+        //Display error
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receiver Not Found" message:@"The Receiver App is not installed. It must be installed to send text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        //Test
+    }
 }
 
 
