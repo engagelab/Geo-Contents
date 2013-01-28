@@ -57,8 +57,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     coord.latitude = 59.927999267f;
     coord.longitude = 10.759999771f;
     
-    restfull =  [[ELRESTful alloc]init];
-    nFeatures = [restfull fetchPOIsAtLocation:coord];
+    nFeatures = [ELRESTful fetchPOIsAtLocation:coord];
     
     [self.collectionView reloadData];
 

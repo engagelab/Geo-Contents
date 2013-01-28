@@ -90,6 +90,7 @@
 		3058AC0E16B298BA00F1E959 /* instagram.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = instagram.png; sourceTree = "<group>"; };
 		3058AC0F16B298BB00F1E959 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
 		3058AC1016B298BC00F1E959 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		3058AC1816B2BC5000F1E959 /* ELConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELConstants.h; sourceTree = "<group>"; };
 		309ECB9E16A580610064E88A /* ELFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELFeature.h; sourceTree = "<group>"; };
 		309ECB9F16A580610064E88A /* ELFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELFeature.m; sourceTree = "<group>"; };
 		309ECBA216A5831C0064E88A /* ELUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELUser.h; sourceTree = "<group>"; };
@@ -298,6 +299,7 @@
 				3004716916AD3D9100DB4A81 /* ELRESTful.m */,
 				3058AB7516AFD9A800F1E959 /* ELBridgingApp.h */,
 				3058AB7616AFD9A800F1E959 /* ELBridgingApp.m */,
+				3058AC1816B2BC5000F1E959 /* ELConstants.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";

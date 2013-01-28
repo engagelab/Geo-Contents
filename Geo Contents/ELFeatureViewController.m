@@ -37,16 +37,28 @@
         else
         {
             self.sourceTypeImageView.image = [UIImage imageNamed:@"overlay.png"];
-
+            
         }
         self.timeDistance.text = @"4w";
         self.standardResolutionImageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.standard_resolution]];
         if (self.feature.description !=NULL) {
             self.descriptionLabel.text = self.feature.description;
         }
+        
+    }
+}
 
+
+- (void)configureView
+{
+    // Update the user interface for the detail item.
+    
+    if (self.usernameLabel ) {
+        //self.detailImageView.image = (UIImage*)_detailItem;
+        self.usernameLabel.text = @"Spider";
     }
-    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -55,7 +67,7 @@
 }
 
 -(IBAction)showActionSheet:(id)sender {
-
+    
     if ([self.feature.source_type isEqualToString:@"Instagram"]) {
         UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Edit", @"View in map", @"Direct me here", nil];
         [sheet showFromRect:[self.actionButton frame] inView:self.view animated:YES];
@@ -65,19 +77,19 @@
         UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete" otherButtonTitles:@"Edit", @"View in map", @"Direct me here", nil];
         [sheet showFromRect:[self.actionButton frame] inView:self.view animated:YES];
     }
-   
+    
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if([buttonTitle isEqualToString:@"Delete"])
-      [self deleteClicked];
+        [self deleteClicked];
     else if([buttonTitle isEqualToString:@"Edit"])
-    [self editClicked];
-   else if([buttonTitle isEqualToString:@"View in map"])
-     [self viewInMapClicked];
+        [self editClicked];
+    else if([buttonTitle isEqualToString:@"View in map"])
+        [self viewInMapClicked];
     else if([buttonTitle isEqualToString:@"Direct me here"])
-     [self directMeHereClicked];
+        [self directMeHereClicked];
 }
 
 
@@ -90,7 +102,7 @@
 
 -(void)editClicked
 {
-     NSLog(@"editClicked");
+    NSLog(@"editClicked");
     UIApplication *app = [UIApplication sharedApplication];
     
     NSString *urlPath = [NSString stringWithFormat:@"overlay://edit/entry?id=%@",@"50d33628da06456278411be3"];
@@ -104,12 +116,12 @@
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receiver Not Found" message:@"The Receiver App is not installed. It must be installed to send text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alertView show];
     }
-
+    
 }
 
 -(void)viewInMapClicked
 {
-     NSLog(@"viewInMapClicked");
+    NSLog(@"viewInMapClicked");
     
     UIApplication *app = [UIApplication sharedApplication];
     
@@ -124,12 +136,12 @@
         [alertView show];
         //Test
     }
-
+    
 }
 
 -(void)directMeHereClicked
 {
-     NSLog(@"directMeHereClicked");
+    NSLog(@"directMeHereClicked");
 }
 
 
