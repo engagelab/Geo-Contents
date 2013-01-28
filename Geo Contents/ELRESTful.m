@@ -69,6 +69,27 @@
 }
 
 
++(ELFeature*) fetchPOIsByID:(NSString *)featureId :(NSString*)source
+{
+    NSString *path;
+    
+    if ([source isEqualToString:@"overlay"]) {
+        path = @"/overlay/";
+    }
+    else if ([source isEqualToString:@"Instagram"])
+    {
+        path = @"/instagram/";
+
+    }
+    NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
+    
+    NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, featureId];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    
+    return [self featureForDic:json];
+}
+
 
 
 
