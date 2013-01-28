@@ -95,7 +95,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *bbox = [defaults objectForKey:@"bbox"];
-    [self loadFeaturesInBoundingBox:bboxt];
+    [self loadFeaturesInBoundingBox:bbox];
     
 
     
