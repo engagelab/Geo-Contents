@@ -92,11 +92,15 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
                            @"10.761999771f",@"lng2", 
                           nil];
     
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *bbox = [defaults objectForKey:@"bbox"];
     if (bbox != nil) {
         [self loadFeaturesInBoundingBox:bbox];
+        [self.collectionView reloadData];
+    }
+    else if (bbox == nil)
+    {
+        [self loadFeaturesInBoundingBox:bboxt];
         [self.collectionView reloadData];
     }
     
@@ -112,8 +116,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     // Timer
     oLocation = [[CLLocation alloc]initWithLatitude:59.927999267f longitude:10.759999771f];
     nLocation = [[CLLocation alloc]initWithLatitude:59.927999267f longitude:10.759999771f];
-    [NSTimer scheduledTimerWithTimeInterval:20 target:self
-                                   selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
+//    [NSTimer scheduledTimerWithTimeInterval:20 target:self
+//                                   selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
+//    
+    
     
     
     UIBarButtonItem *gotoMapViewButton = [[UIBarButtonItem alloc] initWithTitle:@"Mapview" style:UIBarButtonItemStylePlain target:self action:@selector(openMapview)];
@@ -122,7 +128,52 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
     self.thumbnailQueue.maxConcurrentOperationCount = 3;
     
+    
+    //add goto my current location button
+    //[self gotoMyLocationButton];
+    gpsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [gpsButton setTitle:@"T" forState:UIControlStateNormal];
+    gpsButton.frame = CGRectMake(250.0, 20.0, 30.0, 30.0);
+    [gpsButton addTarget:self
+                  action:@selector(gpsButtonpressed)
+        forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:gpsButton];
+    
 }
+
+
+-(void) gpsButtonpressed
+{
+    
+    if (gpsButtonCurrentStatus == NO)
+    {
+        gpsButtonCurrentStatus = YES;
+        [gpsButton setImage: [UIImage imageNamed:@"gps3_30px.png"] forState:UIControlStateNormal];
+        [self startUpdatingContentViewtoMylocation];
+    }
+    else
+    {
+        gpsButtonCurrentStatus = NO;
+        [gpsButton setImage:[UIImage imageNamed:@"notselectedImage.png"] forState:UIControlStateNormal];
+        [self stopUpdatingContentViewtoMylocation];
+    }
+    
+}
+
+
+-(void)startUpdatingContentViewtoMylocation
+{
+    autoTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self
+                                        selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
+}
+
+-(void)stopUpdatingContentViewtoMylocation
+{
+    [autoTimer invalidate];
+    autoTimer = nil;
+}
+
 
 
 -(void) loadFeaturesInBoundingBox:(NSDictionary*)bbox
@@ -454,3 +505,22 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 @end
+
+
+
+//- (void)gotoMyLocationButton{    // Method for creating button, with background image and other properties
+//    
+//    UIButton *playButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    playButton.frame = CGRectMake(110.0, 360.0, 100.0, 30.0);
+//    [playButton setTitle:@"Play" forState:UIControlStateNormal];
+//    playButton.backgroundColor = [UIColor clearColor];
+//    [playButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal ];
+//    UIImage *buttonImageNormal = [UIImage imageNamed:@"blueButton.png"];
+//    UIImage *strechableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+//    [playButton setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
+//    UIImage *buttonImagePressed = [UIImage imageNamed:@"whiteButton.png"];
+//    UIImage *strechableButtonImagePressed = [buttonImagePressed stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+//    [playButton setBackgroundImage:strechableButtonImagePressed forState:UIControlStateHighlighted];
+//    [playButton addTarget:self action:@selector(playAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:playButton];
+//}

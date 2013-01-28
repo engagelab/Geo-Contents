@@ -12,6 +12,9 @@
 @interface ELContentViewController : UICollectionViewController<UICollectionViewDataSource, UICollectionViewDelegate, CLLocationManagerDelegate>
 {
     CLLocationManager *_locationManager;
+    UIButton *gpsButton;
+    BOOL gpsButtonCurrentStatus;
+    NSTimer *autoTimer;
 }
 
 
