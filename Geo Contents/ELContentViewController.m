@@ -143,6 +143,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 }
 
 
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [self stopUpdatingContentViewtoMylocation];
+}
+
 -(void) gpsButtonpressed
 {
     
@@ -164,6 +169,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 -(void)startUpdatingContentViewtoMylocation
 {
+    [self fetchPOIsAtLocation:nLocation.coordinate];
+    
     autoTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self
                                         selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
 }
