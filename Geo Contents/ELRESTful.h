@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import "ELFeature.h"
 
 
 
@@ -15,6 +16,8 @@
 
 +(NSMutableArray*) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D;
 +(NSMutableArray*) fetchPOIsInBoundingBox:(NSDictionary*)bbox;
++(ELFeature*)featureForDic:(NSDictionary*)featureDic;
+
 
 
 
