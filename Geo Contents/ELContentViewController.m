@@ -84,15 +84,20 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
     
+    
+    NSDictionary *bboxt = [[NSDictionary alloc] initWithObjectsAndKeys:
+                           @"59.927999267f",@"lat1",
+                           @"10.759999771f",@"lng1",
+                           @"59.928999267f",@"lat2", 
+                           @"10.761999771f",@"lng2", 
+                          nil];
+    
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *bbox = [defaults objectForKey:@"bbox"];
-    [self loadFeaturesInBoundingBox:bbox];
+    [self loadFeaturesInBoundingBox:bboxt];
     
-    
-    CLLocationCoordinate2D coor;
-    coor.latitude = 59.927999267f;
-    coor.longitude = 10.759999771f;
-    [self fetchPOIsAtLocation:coor];
+
     
     /*  Location service
      Stop CLLOcationManager when you receive notification that your app is resigning active,
@@ -119,8 +124,51 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 -(void) loadFeaturesInBoundingBox:(NSDictionary*)bbox
 {
+    //Randomize instagram and overlay pois
+    NSArray *results = [ELRESTful fetchPOIsInBoundingBox:bbox];
+    nFeatures = [[self shuffleArray:results] mutableCopy];
     
+    self.albums = [NSMutableArray array];
     
+    for (ELFeature *feature in  nFeatures) {
+        BHAlbum *album = [[BHAlbum alloc] init];
+        NSURL *photoURL = feature.standard_resolution;
+        BHPhoto *photo = [BHPhoto photoWithImageURL:photoURL];
+        [album addPhoto:photo];
+        [self.albums addObject:album];
+        
+        [self.collectionView reloadData];
+    }
+    
+}
+
+- (NSArray*)shuffleArray:(NSArray*)array {
+    
+    NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:array];
+    
+    for(NSUInteger i = [array count]; i > 1; i--) {
+        NSUInteger j = arc4random_uniform(i);
+        [temp exchangeObjectAtIndex:i-1 withObjectAtIndex:j];
+    }
+    
+    return [NSArray arrayWithArray:temp];
+}
+
+
+-(void) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D
+{
+    nFeatures = [ELRESTful fetchPOIsAtLocation:coordinate2D];
+    self.albums = [NSMutableArray array];
+    
+    for (ELFeature *feature in  nFeatures) {
+        BHAlbum *album = [[BHAlbum alloc] init];
+        NSURL *photoURL = feature.standard_resolution;
+        BHPhoto *photo = [BHPhoto photoWithImageURL:photoURL];
+        [album addPhoto:photo];
+        [self.albums addObject:album];
+        
+        [self.collectionView reloadData];
+    }
 }
 
 
@@ -243,21 +291,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
 }
 
--(void) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D
-{
-    nFeatures = [ELRESTful fetchPOIsAtLocation:coordinate2D];
-    self.albums = [NSMutableArray array];
-    
-    for (ELFeature *feature in  nFeatures) {
-        BHAlbum *album = [[BHAlbum alloc] init];
-        NSURL *photoURL = feature.standard_resolution;
-        BHPhoto *photo = [BHPhoto photoWithImageURL:photoURL];
-        [album addPhoto:photo];
-        [self.albums addObject:album];
-        
-        [self.collectionView reloadData];
-    }
-}
+
+
 
 
 
