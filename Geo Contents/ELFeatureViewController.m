@@ -55,7 +55,11 @@
         self.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
         self.usernameLabel.text =self.feature.user.full_name;
         self.timeDistance.text = @"4w";
+        
+        // to be Fixed to async
         self.standardResolutionImageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.standard_resolution]];
+        
+        
         if (self.feature.description !=NULL) {
             self.descriptionLabel.text = self.feature.description;
         }

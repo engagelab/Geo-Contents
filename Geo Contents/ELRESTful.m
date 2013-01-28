@@ -139,7 +139,9 @@
 +(NSDictionary *)getJSONResponsetWithURL:(NSString*)url
 {
     
+    //
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    
     NSError *error;
     NSDictionary *json = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
     

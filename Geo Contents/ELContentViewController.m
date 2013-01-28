@@ -171,6 +171,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 {
     [self fetchPOIsAtLocation:nLocation.coordinate];
     
+    
+    //TODO: Optimize to run on secondary thread
     autoTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self
                                         selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
 }
@@ -306,6 +308,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     BHAlbum *album = self.albums[indexPath.section];
     BHPhoto *photo = album.photos[indexPath.item];
+    
+    // to be optimized for faster loading
     
     // load photo images in the background
     __weak ELContentViewController *weakSelf = self;

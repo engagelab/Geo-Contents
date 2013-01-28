@@ -17,6 +17,8 @@
 +(NSMutableArray*) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D;
 +(NSMutableArray*) fetchPOIsInBoundingBox:(NSDictionary*)bbox;
 +(ELFeature*)featureForDic:(NSDictionary*)featureDic;
++(NSDictionary *)getJSONResponsetWithURL:(NSString*)url;
+
 
 
 
