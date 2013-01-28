@@ -27,6 +27,19 @@
 {
     [super viewDidLoad];
     
+    //Start Location Services
+    if ([CLLocationManager locationServicesEnabled]){
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        [self.locationManager startUpdatingLocation];
+    } else {
+        /* Location services are not enabled.
+         Take appropriate action: for instance, prompt the
+         user to enable location services */
+        NSLog(@"Location services are not enabled");
+    }
+    
+    
     if (self.feature != nil) {
         NSURL *profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",self.feature.user.idd,@"/picture"]];
         self.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
@@ -39,6 +52,7 @@
             self.sourceTypeImageView.image = [UIImage imageNamed:@"overlay.png"];
             
         }
+        
         self.timeDistance.text = @"4w";
         self.standardResolutionImageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.standard_resolution]];
         if (self.feature.description !=NULL) {
@@ -179,6 +193,23 @@
         [alertView show];
         //Test
     }
+}
+
+
+
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation{
+    /* We received the new location */
+    NSLog(@"Latitude = %f", newLocation.coordinate.latitude);
+    NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error{
+    /* Failed to receive user's location */
 }
 
 

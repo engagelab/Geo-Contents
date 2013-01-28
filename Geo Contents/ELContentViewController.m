@@ -95,7 +95,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *bbox = [defaults objectForKey:@"bbox"];
-    [self loadFeaturesInBoundingBox:bbox];
+    [self loadFeaturesInBoundingBox:bboxt];
     
 
     
@@ -411,6 +411,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 {
     
     int distance = [[self getDistanceBetweenPoint1:nLocation Point2:oLocation] integerValue];
+    //Check if user walked 100meter then reload the content view
     if (distance > 100) {
         [self fetchPOIsAtLocation:nLocation.coordinate];
     }

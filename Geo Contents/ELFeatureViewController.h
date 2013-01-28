@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ELFeature.h"
 
-@interface ELFeatureViewController : UIViewController<UIActionSheetDelegate>
+@interface ELFeatureViewController : UIViewController<UIActionSheetDelegate, CLLocationManagerDelegate>
 {
     
 //    UIImageView *userprofileImageView;
@@ -20,6 +20,7 @@
 
 }
 
+@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @property (strong, nonatomic) IBOutlet UIImageView *userprofileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -33,6 +34,9 @@
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
 
 @property (strong, nonatomic) ELFeature *feature;
+
+
+@property (strong, nonatomic) CLLocation *nLocation;
 
 
 
