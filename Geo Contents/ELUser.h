@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSString *idd;
 @property (nonatomic, strong) NSString *full_name;
+@property (nonatomic, strong) NSString *profile_picture;
 
 
 @end

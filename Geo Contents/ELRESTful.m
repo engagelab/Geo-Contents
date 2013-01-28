@@ -124,6 +124,7 @@
     NSDictionary *userD = [properties valueForKey:@"user"];
     user.idd = [userD valueForKey:@"id"];
     user.full_name = [userD valueForKey:@"full_name"];
+    user.profile_picture = [userD valueForKey:@"profile_picture"];
     feature.user = user;
     
     NSArray *location = [[featureDic objectForKey:@"geometry"] objectForKey:@"coordinates"];

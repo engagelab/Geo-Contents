@@ -95,7 +95,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *bbox = [defaults objectForKey:@"bbox"];
-    [self loadFeaturesInBoundingBox:bboxt];
+    if (bbox != nil) {
+        [self loadFeaturesInBoundingBox:bbox];
+        [self.collectionView reloadData];
+    }
     
 
     
@@ -136,8 +139,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         BHPhoto *photo = [BHPhoto photoWithImageURL:photoURL];
         [album addPhoto:photo];
         [self.albums addObject:album];
-        
-        [self.collectionView reloadData];
     }
     
 }
@@ -167,8 +168,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         [album addPhoto:photo];
         [self.albums addObject:album];
         
-        [self.collectionView reloadData];
     }
+    
+    [self.collectionView reloadData];
+
 }
 
 

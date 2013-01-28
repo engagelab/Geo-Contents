@@ -41,18 +41,19 @@
     
     
     if (self.feature != nil) {
-        NSURL *profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",self.feature.user.idd,@"/picture"]];
-        self.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
-        self.usernameLabel.text =self.feature.user.full_name;
+       
+        NSURL *profileURL;
         if ([self.feature.source_type isEqualToString:@"Instagram"]) {
             self.sourceTypeImageView.image = [UIImage imageNamed:@"instagram.png"];
+             profileURL = [NSURL URLWithString:self.feature.user.profile_picture];
         }
         else
         {
             self.sourceTypeImageView.image = [UIImage imageNamed:@"overlay.png"];
-            
+             profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",self.feature.user.idd,@"/picture"]];
         }
-        
+        self.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
+        self.usernameLabel.text =self.feature.user.full_name;
         self.timeDistance.text = @"4w";
         self.standardResolutionImageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.standard_resolution]];
         if (self.feature.description !=NULL) {
