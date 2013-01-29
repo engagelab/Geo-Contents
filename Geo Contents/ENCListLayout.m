@@ -52,8 +52,8 @@ static NSString * const IMPhotoAlbumLayoutPhotoCellKind = @"featureVeiwCell";
 //    self.numberOfColumns = 2;
     
     //Instagram setting
-    self.itemInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
-    self.itemSize = CGSizeMake(320.0f, 500.0f);
+    self.itemInsets = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
+    self.itemSize = CGSizeMake(320.0f, 450.0f);
     self.interItemSpacingY = 8.0f;
     self.numberOfColumns = 1;
 

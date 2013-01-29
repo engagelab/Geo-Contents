@@ -69,12 +69,12 @@
 }
 
 
-+(ELFeature*) fetchPOIsByID:(NSString *)featureId :(NSString*)source
++(ELFeature*) fetchPOIsByID:(NSString *)featureId withSource:(NSString *)source
 {
     NSString *path;
     
     if ([source isEqualToString:@"overlay"]) {
-        path = @"/overlay/";
+        path = @"/geo/";
     }
     else if ([source isEqualToString:@"Instagram"])
     {
@@ -111,14 +111,29 @@
     ELFeature *feature = [[ELFeature alloc]init];
     NSDictionary *properties = [featureDic valueForKey:@"properties"];
     //search for thumbnail
-    NSString *thumbnail =[properties valueForKey:@"thumbnail"];
-    feature.thumbnail = [NSURL URLWithString:thumbnail];
+    if ([properties valueForKey:@"thumbnail"] == [NSNull null])
+    {
+        NSString *thumbnail =@"";
+
+    }
+    else
+    {
+        feature.thumbnail = [NSURL URLWithString:[properties valueForKey:@"thumbnail"]];
+    }
     NSString *standardResolution =[properties valueForKey:@"standard_resolution"];
     feature.standard_resolution = [NSURL URLWithString:standardResolution];
 
     feature.idd = [featureDic valueForKey:@"id"];
     feature.timeDistance = [properties valueForKey:@"created_time"];
-    feature.description = [properties valueForKey:@"description"];
+    if ([properties valueForKey:@"description"] == [NSNull null])
+    {
+        feature.description = @"";
+    }
+    else
+    {
+        feature.description = [properties valueForKey:@"description"];
+
+    }
     feature.source_type = [properties valueForKey:@"source_type"];
     ELUser *user = [[ELUser alloc]init];
     NSDictionary *userD = [properties valueForKey:@"user"];

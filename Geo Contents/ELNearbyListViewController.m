@@ -16,8 +16,7 @@
 #import "AFImageDownloader.h"
 
 
-NSString *kDetailedViewControllerID = @"DetailView";    // view controller storyboard id
-NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
+NSString *kCellID = @"cvCell";                          // UICollectionViewCell storyboard id
 
 @interface ELNearbyListViewController ()
 {
@@ -57,16 +56,21 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     coord.latitude = 59.927999267f;
     coord.longitude = 10.759999771f;
     
-    nFeatures = [ELRESTful fetchPOIsAtLocation:coord];
+    nFeatures = [[ELRESTful fetchPOIsAtLocation:coord] mutableCopy];
+    //[self.collectionView reloadData];
     
-    [self.collectionView reloadData];
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setItemSize:CGSizeMake(320, 450)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    
+    [self.collectionView setCollectionViewLayout:flowLayout];
 
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    nFeatures = [NSMutableArray arrayWithArray:app.features];
-    [self.collectionView reloadData];
+    //nFeatures = [NSMutableArray arrayWithArray:app.features];
+    //[self.collectionView reloadData];
 }
 
 
@@ -81,42 +85,54 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 {
     //return self.albums.count;
     
-    return nFeatures.count;
+    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    return 1;
+    NSInteger size = nFeatures.count;
+    return size;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     // we're going to use a custom UICollectionViewCell, which will hold an image and its label
     //
-    Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:kCellID forIndexPath:indexPath];
+//    Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:kCellID forIndexPath:indexPath];
+//    
+//    
+        ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+//    cell.userprofileImageView.image = [UIImage imageNamed:@"default_user_icon.jpg"];
+//    cell.usernameLabel.text = feature.user.full_name;
+//    
+//    cell.timeDistance.text = @"4w";
+//    
+//    // load the image for this cell
+//    //NSData *imageData = [NSData dataWithContentsOfURL:feature.standard_resolution];
+//    //UIImage *image = [UIImage imageWithData:imageData scale:[UIScreen mainScreen].scale];
+//    if (feature.standard_resolution != nil) {
+//
+////    NSString *imageURL = [feature.standard_resolution absoluteString];
+////    [AFImageDownloader imageDownloaderWithURLString:imageURL autoStart:YES completion:^(UIImage *decompressedImage) {
+////        cell.standardResolutionImageview.image = decompressedImage;
+////    }];
+//    }
+//    //cell.standardResolutionImageview.image = image;
+//    NSString *desc = feature.description;
+//    cell.descriptionLabel.text = desc;
     
+    static NSString *cellIdentifier = @"cvCell";
+    Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
-    cell.userprofileImageView.image = [UIImage imageNamed:@"default_user_icon.jpg"];
-    cell.usernameLabel.text = feature.user.full_name;
+    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
     
-    cell.timeDistance.text = @"4w";
+    [titleLabel setText:feature.user.full_name];
     
-    // load the image for this cell
-    //NSData *imageData = [NSData dataWithContentsOfURL:feature.standard_resolution];
-    //UIImage *image = [UIImage imageWithData:imageData scale:[UIScreen mainScreen].scale];
-    if (feature.standard_resolution != nil) {
-
-    NSString *imageURL = [feature.standard_resolution absoluteString];
-    [AFImageDownloader imageDownloaderWithURLString:imageURL autoStart:YES completion:^(UIImage *decompressedImage) {
-        cell.standardResolutionImageview.image = decompressedImage;
-    }];
-    }
-    //cell.standardResolutionImageview.image = image;
-    NSString *desc = feature.description;
-    cell.descriptionLabel.text = desc;
+    cell.descriptionLabel.text = feature.description;
     
     return cell;
+    
+
 }
 
 

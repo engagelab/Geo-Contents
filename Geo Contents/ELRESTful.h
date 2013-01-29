@@ -18,6 +18,8 @@
 +(NSMutableArray*) fetchPOIsInBoundingBox:(NSDictionary*)bbox;
 +(ELFeature*)featureForDic:(NSDictionary*)featureDic;
 +(NSDictionary *)getJSONResponsetWithURL:(NSString*)url;
++(NSMutableArray*) fetchPOIsByUserID:(NSString *)userID;
++(ELFeature*) fetchPOIsByID:(NSString *)featureId withSource:(NSString*)source;
 
 
 
