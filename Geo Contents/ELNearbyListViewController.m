@@ -157,7 +157,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                     
                     cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:distance],@"m"];
                     
-                    // to be Fixed to async
+                    //TODO: to be Fixed to async/cached
                     cell.standardResolutionImageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.standard_resolution]];
                     
                     cell.descriptionLabel.text = feature.description;

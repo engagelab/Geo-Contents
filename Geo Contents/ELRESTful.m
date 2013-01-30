@@ -15,6 +15,24 @@
 
 
 
++(NSMutableArray*) fetchRecentlyAddedFeatures:(CLLocationCoordinate2D)coordinate2D
+{
+    NSString *path = @"/geo/recent/";
+    NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
+    //NSString *lng = [NSString stringWithFormat:@"%f",coordinate2D.longitude];
+    //NSString *lat = [NSString stringWithFormat:@"%f",coordinate2D.latitude];
+
+    
+    NSString *stringURL = requestUrl;
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    
+    NSArray *features = [json objectForKey:@"features"];
+    
+    return [ELRESTful jsonToFeatureArray:features];
+}
+
+
 +(NSMutableArray*) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D
 {
     NSString *path = @"/geo/radius/";
