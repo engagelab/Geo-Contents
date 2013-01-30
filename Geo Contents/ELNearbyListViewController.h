@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "ENCListLayout.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface ELNearbyListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ELNearbyListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource,CLLocationManagerDelegate>
+{
+      BOOL haveLocation;
+}
+
+
+
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocation *nLocation;
 
 @end

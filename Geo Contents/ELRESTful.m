@@ -113,8 +113,7 @@
     //search for thumbnail
     if ([properties valueForKey:@"thumbnail"] == [NSNull null])
     {
-        NSString *thumbnail =@"";
-
+        feature.thumbnail = [NSURL URLWithString:@""];
     }
     else
     {

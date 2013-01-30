@@ -33,7 +33,7 @@
     //Create Latest View Controller and give it a tittle
     ELContentViewController *contentView =
     [[ELContentViewController alloc] initWithNibName:@"ELContentViewController" bundle:nil];
-    [contentView setTitle:@"Brows"];
+    [contentView setTitle:@"Browse"];
     // Create our navigation controller using our ELLatestViewController as it's root view controller
 	self.contentNavController = [[UINavigationController alloc] initWithRootViewController:contentView];
 
