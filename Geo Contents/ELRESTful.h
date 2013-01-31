@@ -14,6 +14,7 @@
 
 @interface ELRESTful : NSObject
 
++(NSMutableArray*) fetchRecentlyAddedFeatures:(CLLocationCoordinate2D)coordinate2D;
 +(NSMutableArray*) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D;
 +(NSMutableArray*) fetchPOIsInBoundingBox:(NSDictionary*)bbox;
 +(ELFeature*)featureForDic:(NSDictionary*)featureDic;

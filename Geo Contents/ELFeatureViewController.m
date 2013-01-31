@@ -57,7 +57,21 @@
         self.timeDistance.text = @"4w";
         
         // to be Fixed to async
-        self.standardResolutionImageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.standard_resolution]];
+        
+        dispatch_queue_t concurrentQueue =
+        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_async(concurrentQueue, ^{
+            __block UIImage *image = nil;
+            dispatch_sync(concurrentQueue, ^{
+                /* Download the image here */
+                image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.standard_resolution]];
+            });
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                /* Show the image to the user here on the main queue*/
+                self.standardResolutionImageview.image = image;
+            });
+        });
+
         
         
         if (self.feature.description !=NULL) {

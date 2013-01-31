@@ -1,26 +1,24 @@
 //
-//  ELLatestViewController.m
+//  ELRecentViewController.m
 //  Geo Contents
 //
-//  Created by spider on 09.01.13.
+//  Created by spider on 30.01.13.
 //  Copyright (c) 2013 InterMedia. All rights reserved.
 //
 
-#import "ELrecentListViewController.h"
+#import "ELRecentViewController.h"
 
-@interface ELrecentListViewController ()
+@interface ELRecentViewController ()
 
 @end
 
-@implementation ELrecentListViewController
+@implementation ELRecentViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.title = NSLocalizedString(@"Latest", @"Latest");
-        //self.tabBarItem.image = [UIImage imageNamed:@"first"];
     }
     return self;
 }

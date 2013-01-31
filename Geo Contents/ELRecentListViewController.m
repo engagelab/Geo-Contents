@@ -1,40 +1,38 @@
 //
-//  ELFeatureCListViewController.m
+//  ELRecentListViewController.m
 //  Geo Contents
 //
-//  Created by spider on 21.01.13.
+//  Created by spider on 30.01.13.
 //  Copyright (c) 2013 InterMedia. All rights reserved.
 //
 
-#import "ELNearbyListViewController.h"
-#import <CoreLocation/CoreLocation.h>
+#import "ELRecentListViewController.h"
 #import "ELRESTful.h"
 #import "Cell.h"
 
 
 
-NSString *kCellID = @"cvCell";                          // UICollectionViewCell storyboard id
 
-@interface ELNearbyListViewController ()
+@interface ELRecentListViewController ()
 {
     NSMutableArray  *nFeatures;
     ELRESTful *restfull;
+    NSString *kCellID;
     UIImage *loadingImage;
-
     
 }
 @property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 
-
 @end
 
-@implementation ELNearbyListViewController
+@implementation ELRecentListViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        kCellID = @"cvCell";
         loadingImage = [UIImage imageNamed:@"loadingImage.png"];
     }
     return self;
@@ -117,9 +115,10 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
     
     // load photo images in the background
-    __weak ELNearbyListViewController *weakSelf = self;
+    __weak ELRecentListViewController *weakSelf = self;
+    __block UIImage *image = nil;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        //UIImage *image = [photo image];
+        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.standard_resolution]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // then set them via the main queue if the cell is still visible.
@@ -160,9 +159,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                     
                     cell.descriptionLabel.text = feature.description;
                     
-                    cell.standardResolutionImageview.image = loadingImage;
-
-                    
+                    cell.standardResolutionImageview.image = image;
                 }
                 
                 
@@ -173,20 +170,20 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     [self.thumbnailQueue addOperation:operation];
     
     
-    // load Images asyc 
-    dispatch_queue_t concurrentQueue =
-    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(concurrentQueue, ^{
-        __block UIImage *image = nil;
-        dispatch_sync(concurrentQueue, ^{
-            /* Download the image here */
-            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.standard_resolution]];
-        });
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            /* Show the image to the user here on the main queue*/
-            cell.standardResolutionImageview.image = image;
-        });
-    });
+    // load Images asyc
+//    dispatch_queue_t concurrentQueue =
+//    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_async(concurrentQueue, ^{
+//        __block UIImage *image = nil;
+//        dispatch_sync(concurrentQueue, ^{
+//            /* Download the image here */
+//            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.standard_resolution]];
+//        });
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            /* Show the image to the user here on the main queue*/
+//            cell.standardResolutionImageview.image = image;
+//        });
+//    });
     
     
     return cell;
@@ -206,7 +203,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         NSLog(@"Latitude = %f", _nLocation.coordinate.latitude);
         NSLog(@"Longitude = %f", _nLocation.coordinate.longitude);
         
-        nFeatures = [[ELRESTful fetchPOIsAtLocation:_nLocation.coordinate] mutableCopy];
+        nFeatures = [[ELRESTful fetchRecentlyAddedFeatures:_nLocation.coordinate] mutableCopy];
         [self.collectionView reloadData];
     }
     
@@ -235,8 +232,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
     return distance;
 }
-
-
 
 
 

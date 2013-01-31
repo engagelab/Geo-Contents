@@ -11,7 +11,7 @@
 #import "ELContentViewController.h"
 #import "ELSearchViewController.h"
 #import "ELNearbyListViewController.h"
-#import "ELrecentListViewController.h"
+#import "ELRecentListViewController.h"
 #import "ELFeatureViewController.h"
 
 
@@ -57,8 +57,8 @@
     
     
     //Create Latest View Controller and give it a tittle
-    ELrecentListViewController *recentView =
-    [[ELrecentListViewController alloc] initWithNibName:@"ELrecentListViewController" bundle:nil];
+    ELRecentListViewController *recentView =
+    [[ELRecentListViewController alloc] initWithNibName:@"ELRecentListViewController" bundle:nil];
     [recentView setTitle:@"Recent"];
     
     // Create our navigation controller using our ELLatestViewController as it's root view controller

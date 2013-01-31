@@ -328,6 +328,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     [self.thumbnailQueue addOperation:operation];
     
+    
+    
+    
+    
     return photoCell;
     
 }

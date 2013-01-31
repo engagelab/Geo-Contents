@@ -43,8 +43,6 @@
 		30B5993D169D571900565438 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5993C169D571900565438 /* Default-568h@2x.png */; };
 		30B59946169D575300565438 /* ELContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59944169D575300565438 /* ELContentViewController.m */; };
 		30B59947169D575300565438 /* ELContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B59945169D575300565438 /* ELContentViewController.xib */; };
-		30B5994B169D578200565438 /* ELrecentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59949169D578200565438 /* ELrecentListViewController.m */; };
-		30B5994C169D578200565438 /* ELrecentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B5994A169D578200565438 /* ELrecentListViewController.xib */; };
 		30B59950169D57A800565438 /* ELDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B5994E169D57A800565438 /* ELDetailViewController.m */; };
 		30B59951169D57A800565438 /* ELDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B5994F169D57A800565438 /* ELDetailViewController.xib */; };
 		30B5995A169D5DAD00565438 /* BHAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59953169D5DAC00565438 /* BHAlbum.m */; };
@@ -56,6 +54,9 @@
 		30B5999116A005A000565438 /* OldFeatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B5998F16A005A000565438 /* OldFeatureViewController.m */; };
 		30B5999216A005A000565438 /* OldFeatureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B5999016A005A000565438 /* OldFeatureViewController.xib */; };
 		30B5999B16A0121D00565438 /* menubar.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5999A16A0121D00565438 /* menubar.png */; };
+		30F9F25F16B9D90F00E40DE8 /* ELRecentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F9F25D16B9D90E00E40DE8 /* ELRecentListViewController.m */; };
+		30F9F26016B9D90F00E40DE8 /* ELRecentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30F9F25E16B9D90E00E40DE8 /* ELRecentListViewController.xib */; };
+		30F9F26216B9DD8100E40DE8 /* loadingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F9F26116B9DD8100E40DE8 /* loadingImage.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,9 +116,6 @@
 		30B59943169D575300565438 /* ELContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELContentViewController.h; sourceTree = "<group>"; };
 		30B59944169D575300565438 /* ELContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELContentViewController.m; sourceTree = "<group>"; };
 		30B59945169D575300565438 /* ELContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELContentViewController.xib; sourceTree = "<group>"; };
-		30B59948169D578200565438 /* ELrecentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELrecentListViewController.h; sourceTree = "<group>"; };
-		30B59949169D578200565438 /* ELrecentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELrecentListViewController.m; sourceTree = "<group>"; };
-		30B5994A169D578200565438 /* ELrecentListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELrecentListViewController.xib; sourceTree = "<group>"; };
 		30B5994D169D57A800565438 /* ELDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELDetailViewController.h; sourceTree = "<group>"; };
 		30B5994E169D57A800565438 /* ELDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELDetailViewController.m; sourceTree = "<group>"; };
 		30B5994F169D57A800565438 /* ELDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELDetailViewController.xib; sourceTree = "<group>"; };
@@ -135,6 +133,10 @@
 		30B5998F16A005A000565438 /* OldFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFeatureViewController.m; sourceTree = "<group>"; };
 		30B5999016A005A000565438 /* OldFeatureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OldFeatureViewController.xib; sourceTree = "<group>"; };
 		30B5999A16A0121D00565438 /* menubar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menubar.png; sourceTree = "<group>"; };
+		30F9F25C16B9D90E00E40DE8 /* ELRecentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELRecentListViewController.h; sourceTree = "<group>"; };
+		30F9F25D16B9D90E00E40DE8 /* ELRecentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELRecentListViewController.m; sourceTree = "<group>"; };
+		30F9F25E16B9D90E00E40DE8 /* ELRecentListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELRecentListViewController.xib; sourceTree = "<group>"; };
+		30F9F26116B9DD8100E40DE8 /* loadingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingImage.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,9 +202,9 @@
 				3004716316AD35AF00DB4A81 /* ELNearbyListViewController.h */,
 				3004716416AD35AF00DB4A81 /* ELNearbyListViewController.m */,
 				3004716516AD35AF00DB4A81 /* ELNearbyListViewController.xib */,
-				30B59948169D578200565438 /* ELrecentListViewController.h */,
-				30B59949169D578200565438 /* ELrecentListViewController.m */,
-				30B5994A169D578200565438 /* ELrecentListViewController.xib */,
+				30F9F25C16B9D90E00E40DE8 /* ELRecentListViewController.h */,
+				30F9F25D16B9D90E00E40DE8 /* ELRecentListViewController.m */,
+				30F9F25E16B9D90E00E40DE8 /* ELRecentListViewController.xib */,
 				3058AB7D16B0105F00F1E959 /* ELFeatureViewController.h */,
 				3058AB7E16B0105F00F1E959 /* ELFeatureViewController.m */,
 				3058AB7F16B0105F00F1E959 /* ELFeatureViewController.xib */,
@@ -264,6 +266,7 @@
 		30B59960169D5DCA00565438 /* layouts */ = {
 			isa = PBXGroup;
 			children = (
+				30F9F26116B9DD8100E40DE8 /* loadingImage.png */,
 				3004717716AE7D3A00DB4A81 /* ENCListLayout.h */,
 				3004717816AE7D3A00DB4A81 /* ENCListLayout.m */,
 				30B59958169D5DAD00565438 /* IMPhotoAlbumLayout.h */,
@@ -364,7 +367,6 @@
 				30B5993B169D571900565438 /* Default@2x.png in Resources */,
 				30B5993D169D571900565438 /* Default-568h@2x.png in Resources */,
 				30B59947169D575300565438 /* ELContentViewController.xib in Resources */,
-				30B5994C169D578200565438 /* ELrecentListViewController.xib in Resources */,
 				30B59951169D57A800565438 /* ELDetailViewController.xib in Resources */,
 				30B59972169EAC7000565438 /* default_user_icon.jpg in Resources */,
 				30B5999216A005A000565438 /* OldFeatureViewController.xib in Resources */,
@@ -380,6 +382,8 @@
 				3058AC1216B298BD00F1E959 /* overlay.png in Resources */,
 				3058AC1316B298BD00F1E959 /* user.png in Resources */,
 				3058AC1A16B6B38E00F1E959 /* images in Resources */,
+				30F9F26016B9D90F00E40DE8 /* ELRecentListViewController.xib in Resources */,
+				30F9F26216B9DD8100E40DE8 /* loadingImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,7 +397,6 @@
 				30B59933169D571900565438 /* main.m in Sources */,
 				30B59937169D571900565438 /* ELAppDelegate.m in Sources */,
 				30B59946169D575300565438 /* ELContentViewController.m in Sources */,
-				30B5994B169D578200565438 /* ELrecentListViewController.m in Sources */,
 				30B59950169D57A800565438 /* ELDetailViewController.m in Sources */,
 				30B5995A169D5DAD00565438 /* BHAlbum.m in Sources */,
 				30B5995B169D5DAD00565438 /* BHPhoto.m in Sources */,
@@ -414,6 +417,7 @@
 				3058AB7B16AFE49800F1E959 /* ELSearchViewController.m in Sources */,
 				3058AB8016B0105F00F1E959 /* ELFeatureViewController.m in Sources */,
 				3058AC0716B1D28F00F1E959 /* ELHomeScreenViewController.m in Sources */,
+				30F9F25F16B9D90F00E40DE8 /* ELRecentListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
