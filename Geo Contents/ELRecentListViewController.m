@@ -156,7 +156,6 @@
                     
                     //TODO: to be Fixed to async/cached
                     
-                    
                     cell.descriptionLabel.text = feature.description;
                     
                     cell.standardResolutionImageview.image = image;

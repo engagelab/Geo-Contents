@@ -39,7 +39,7 @@
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
     NSString *lng = [NSString stringWithFormat:@"%f",coordinate2D.longitude];
     NSString *lat = [NSString stringWithFormat:@"%f",coordinate2D.latitude];
-    NSString *distanceInMeters = [NSString stringWithFormat:@"%f",100.0f];
+    NSString *distanceInMeters = [NSString stringWithFormat:@"%f",1000.0f];
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@%@%@%@%@", requestUrl, lng, @"/",lat,@"/",distanceInMeters];
     
@@ -141,7 +141,7 @@
     feature.standard_resolution = [NSURL URLWithString:standardResolution];
 
     feature.idd = [featureDic valueForKey:@"id"];
-    feature.timeDistance = [properties valueForKey:@"created_time"];
+    feature.time = [properties valueForKey:@"created_time"];
     if ([properties valueForKey:@"description"] == [NSNull null])
     {
         feature.description = @"";

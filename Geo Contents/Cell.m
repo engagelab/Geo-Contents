@@ -18,7 +18,7 @@
         // change to our custom selected background view
         CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
         self.selectedBackgroundView = backgroundView;
- 
+        self.highlighted = NO;
         
     }
     return self;

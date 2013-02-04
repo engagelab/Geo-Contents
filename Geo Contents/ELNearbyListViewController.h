@@ -12,6 +12,7 @@
 @interface ELNearbyListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource,CLLocationManagerDelegate>
 {
       BOOL haveLocation;
+    NSMutableArray *images;
 }
 
 
