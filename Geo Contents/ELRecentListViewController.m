@@ -167,23 +167,7 @@
     }];
     
     [self.thumbnailQueue addOperation:operation];
-    
-    
-    // load Images asyc
-//    dispatch_queue_t concurrentQueue =
-//    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//    dispatch_async(concurrentQueue, ^{
-//        __block UIImage *image = nil;
-//        dispatch_sync(concurrentQueue, ^{
-//            /* Download the image here */
-//            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.standard_resolution]];
-//        });
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-//            /* Show the image to the user here on the main queue*/
-//            cell.standardResolutionImageview.image = image;
-//        });
-//    });
-    
+        
     
     return cell;
     

@@ -19,11 +19,11 @@
 {
     NSString *path = @"/geo/recent/";
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
-    //NSString *lng = [NSString stringWithFormat:@"%f",coordinate2D.longitude];
-    //NSString *lat = [NSString stringWithFormat:@"%f",coordinate2D.latitude];
+    NSString *lng = [NSString stringWithFormat:@"%f",coordinate2D.longitude];
+    NSString *lat = [NSString stringWithFormat:@"%f",coordinate2D.latitude];
 
     
-    NSString *stringURL = requestUrl;
+    NSString *stringURL =  [NSString stringWithFormat:@"%@%@%@%@", requestUrl, lng, @"/",lat];
     
     NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
     
