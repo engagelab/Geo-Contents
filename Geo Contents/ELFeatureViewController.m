@@ -125,6 +125,8 @@
         [self viewInMapClicked];
     else if([buttonTitle isEqualToString:@"Direct me here"])
         [self directMeHereClicked];
+    else if([buttonTitle isEqualToString:@"Map this!"])
+        [self mapThisClicked];
 }
 
 
@@ -214,6 +216,30 @@
     }
 }
 
+
+-(void)mapThisClicked
+{
+    NSLog(@"mapThisClicked");
+    
+    UIApplication *app = [UIApplication sharedApplication];
+    
+    NSString *feature_id = self.feature.idd;
+    NSString *source_type = self.feature.source_type;
+    
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://mapthis/entry?feauture_id=%@&source_type=%@",feature_id,source_type]];
+    
+    if ([app canOpenURL:url]) {
+        [app openURL:url];
+    }
+    else {
+        //Display error
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receiver Not Found" message:@"The Receiver App is not installed. It must be installed to send text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alertView show];
+        
+        //Test
+    }
+}
 
 
 
