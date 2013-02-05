@@ -7,6 +7,7 @@
 
 #import "Cell.h"
 #import "CustomCellBackground.h"
+#import "ELMapThisViewController.h"
 
 @implementation Cell
 
@@ -19,6 +20,7 @@
         CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
         self.selectedBackgroundView = backgroundView;
         self.highlighted = NO;
+        self.actionButton.enabled=YES;
         
     }
     return self;
@@ -58,7 +60,11 @@
         [self viewInMapClicked];
     else if([buttonTitle isEqualToString:@"Direct me here"])
         [self directMeHereClicked];
+    else if([buttonTitle isEqualToString:@"Map this!"])
+        [self mapThisClicked];
 }
+
+
 
 
 -(void)deleteClicked
@@ -81,6 +87,10 @@
     
 }
 
+
+
+
+
 -(void)editClicked
 {
     NSLog(@"editClicked");
@@ -99,6 +109,9 @@
     }
     
 }
+
+
+
 
 -(void)viewInMapClicked
 {
@@ -124,6 +137,9 @@
     
 }
 
+
+
+
 -(void)directMeHereClicked
 {
     NSLog(@"directMeHereClicked");
@@ -145,6 +161,22 @@
         [alertView show];
         //Test
     }
+}
+
+
+
+
+-(void)mapThisClicked
+{
+    NSLog(@"mapThisClicked");
+    
+    
+    ELMapThisViewController *secondView = [[ELMapThisViewController alloc] initWithNibName:@"ELMapThisViewController" bundle:nil];
+    
+    [super.self addSubview:secondView.view];
+    
+	//[self.navigationController pushViewController:self.secondView animated:YES];
+    
 }
 
 

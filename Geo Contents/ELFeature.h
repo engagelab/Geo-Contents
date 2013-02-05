@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSString *source_type;
 @property (nonatomic, strong) NSURL *standard_resolution;
 @property (nonatomic, strong) NSURL *thumbnail;
-@property (nonatomic, strong) NSString *time;
+@property (nonatomic, strong) NSNumber *time;
 @property (nonatomic, strong) NSNumber *distance;
 @property (nonatomic, strong) NSString *description;
 @property (nonatomic, strong) ELUser *user;

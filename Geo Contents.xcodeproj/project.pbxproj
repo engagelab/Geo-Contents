@@ -14,6 +14,8 @@
 		3004717316AD68AA00DB4A81 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717016AD68AA00DB4A81 /* Cell.m */; };
 		3004717416AD68AA00DB4A81 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717216AD68AA00DB4A81 /* CustomCellBackground.m */; };
 		3004717916AE7D3A00DB4A81 /* ENCListLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717816AE7D3A00DB4A81 /* ENCListLayout.m */; };
+		30505B4016C0EBAA004666F3 /* ELMapThisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */; };
+		30505B4116C0EBAA004666F3 /* ELMapThisViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */; };
 		3058AB2F16AEC0C100F1E959 /* Cell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3058AB2E16AEC0C100F1E959 /* Cell2.xib */; };
 		3058AB7316AF2ED500F1E959 /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3058AB7016AF2ED500F1E959 /* AFImageDownloader.m */; };
 		3058AB7416AF2ED500F1E959 /* NSData+AFDecompression.m in Sources */ = {isa = PBXBuildFile; fileRef = 3058AB7216AF2ED500F1E959 /* NSData+AFDecompression.m */; };
@@ -72,6 +74,9 @@
 		3004717216AD68AA00DB4A81 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
 		3004717716AE7D3A00DB4A81 /* ENCListLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENCListLayout.h; sourceTree = "<group>"; };
 		3004717816AE7D3A00DB4A81 /* ENCListLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENCListLayout.m; sourceTree = "<group>"; };
+		30505B3D16C0EBAA004666F3 /* ELMapThisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELMapThisViewController.h; sourceTree = "<group>"; };
+		30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELMapThisViewController.m; sourceTree = "<group>"; };
+		30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELMapThisViewController.xib; sourceTree = "<group>"; };
 		3058AB2E16AEC0C100F1E959 /* Cell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cell2.xib; sourceTree = "<group>"; };
 		3058AB6F16AF2ED500F1E959 /* AFImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageDownloader.h; sourceTree = "<group>"; };
 		3058AB7016AF2ED500F1E959 /* AFImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageDownloader.m; sourceTree = "<group>"; };
@@ -208,6 +213,9 @@
 				3058AB7D16B0105F00F1E959 /* ELFeatureViewController.h */,
 				3058AB7E16B0105F00F1E959 /* ELFeatureViewController.m */,
 				3058AB7F16B0105F00F1E959 /* ELFeatureViewController.xib */,
+				30505B3D16C0EBAA004666F3 /* ELMapThisViewController.h */,
+				30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */,
+				30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */,
 				30B59960169D5DCA00565438 /* layouts */,
 				30B5995E169D5DB300565438 /* models */,
 				30B5995F169D5DC200565438 /* views */,
@@ -384,6 +392,7 @@
 				3058AC1A16B6B38E00F1E959 /* images in Resources */,
 				30F9F26016B9D90F00E40DE8 /* ELRecentListViewController.xib in Resources */,
 				30F9F26216B9DD8100E40DE8 /* loadingImage.png in Resources */,
+				30505B4116C0EBAA004666F3 /* ELMapThisViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +427,7 @@
 				3058AB8016B0105F00F1E959 /* ELFeatureViewController.m in Sources */,
 				3058AC0716B1D28F00F1E959 /* ELHomeScreenViewController.m in Sources */,
 				30F9F25F16B9D90F00E40DE8 /* ELRecentListViewController.m in Sources */,
+				30505B4016C0EBAA004666F3 /* ELMapThisViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -146,13 +146,11 @@
                     cell.usernameLabel.text = feature.user.full_name;
                     
                     
-                    NSNumber *distance = [self getDistanceBetweenPoint1:self.nLocation Point2:feature.fLocation];
+                    //TODO: formate time
+                    //NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSinceNow];
                     
-                    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-                    [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
-                    [formatter setMaximumFractionDigits:0];
                     
-                    cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:distance],@"m"];
+                    cell.timeDistance.text = [NSString stringWithFormat:@"%llu", [feature.time unsignedLongLongValue]];
                     
                     //TODO: to be Fixed to async/cached
                     
@@ -187,6 +185,20 @@
         NSLog(@"Longitude = %f", _nLocation.coordinate.longitude);
         
         nFeatures = [[ELRESTful fetchRecentlyAddedFeatures:_nLocation.coordinate] mutableCopy];
+        
+        
+//        for (ELFeature *feature in unsortedArrayWithoutDisctanceProperty) {
+//            
+//            feature.time = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
+//            [nFeatures addObject:feature];
+//        }
+        
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:YES];
+        [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+        
+
+        
+        
         [self.collectionView reloadData];
     }
     
