@@ -198,6 +198,17 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 {
     //Randomize instagram and overlay pois
     NSArray *results = [ELRESTful fetchPOIsInBoundingBox:bbox];
+    
+    
+    for (ELFeature *feature in results) {
+        
+        feature.distance = [self distanceBetweenPoint1:nLocation Point2:feature.fLocation];
+        [nFeatures addObject:feature];
+}
+    
+    
+    
+    
     nFeatures = [[self shuffleArray:results] mutableCopy];
     
     self.albums = [NSMutableArray array];
@@ -211,6 +222,22 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     }
     
 }
+
+
+-(NSNumber*)distanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
+{
+    
+    double meters1 = [point1 distanceFromLocation:point2];
+    
+    double meters2 = [point2 distanceFromLocation:point1];
+    
+    double meters = (meters1 + meters2)/2;
+    
+    NSNumber *distance = [NSNumber numberWithDouble:meters];
+    
+    return distance;
+}
+
 
 - (NSArray*)shuffleArray:(NSArray*)array {
     
