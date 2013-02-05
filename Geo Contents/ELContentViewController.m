@@ -85,25 +85,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
     
     
-    NSDictionary *bboxt = [[NSDictionary alloc] initWithObjectsAndKeys:
-                           @"59.927999267f",@"lat1",
-                           @"10.759999771f",@"lng1",
-                           @"59.928999267f",@"lat2", 
-                           @"10.761999771f",@"lng2", 
-                          nil];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *bbox = [defaults objectForKey:@"bbox"];
-    if (bbox != nil) {
-        [self loadFeaturesInBoundingBox:bbox];
-        [self.collectionView reloadData];
-    }
-    else if (bbox == nil)
-    {
-        [self loadFeaturesInBoundingBox:bboxt];
-        [self.collectionView reloadData];
-    }
-    
+        
 
     
     /*  Location service
@@ -114,8 +96,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveNotif:) name:UIApplicationWillResignActiveNotification object:nil];
     
     // Timer
-    oLocation = [[CLLocation alloc]initWithLatitude:59.927999267f longitude:10.759999771f];
-    nLocation = [[CLLocation alloc]initWithLatitude:59.927999267f longitude:10.759999771f];
+    //oLocation = [[CLLocation alloc]initWithLatitude:59.927999267f longitude:10.759999771f];
+    //nLocation = [[CLLocation alloc]initWithLatitude:59.927999267f longitude:10.759999771f];
 //    [NSTimer scheduledTimerWithTimeInterval:20 target:self
 //                                   selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
 //    
@@ -141,6 +123,33 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [self.view addSubview:gpsButton];
     
 }
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    
+    NSDictionary *bboxt = [[NSDictionary alloc] initWithObjectsAndKeys:
+                           @"59.927999267f",@"lat1",
+                           @"10.759999771f",@"lng1",
+                           @"59.928999267f",@"lat2",
+                           @"10.761999771f",@"lng2",
+                           nil];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *bbox = [defaults objectForKey:@"bbox"];
+    if (bbox != nil) {
+        [self loadFeaturesInBoundingBox:bbox];
+        [self.collectionView reloadData];
+    }
+    else if (bbox == nil)
+    {
+        [self loadFeaturesInBoundingBox:bboxt];
+        [self.collectionView reloadData];
+    }
+
+    
+}
+
 
 
 -(void) viewDidDisappear:(BOOL)animated
