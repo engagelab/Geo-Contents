@@ -176,17 +176,17 @@
     NSString *source_type = self.feature.source_type;
     
     
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://browse/mapThis?feauture=%@&lng=%@",lat,lng]];
+    //NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"overlay://browse/mapThis?feauture=%@&lng=%@",lat,lng]];
     
-    if ([app canOpenURL:url]) {
-        [app openURL:url];
-    }
-    else {
-        //Display error
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receiver Not Found" message:@"The Receiver App is not installed. It must be installed to send text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alertView show];
-        //Test
-    }
+//    if ([app canOpenURL:url]) {
+//        [app openURL:url];
+//    }
+//    else {
+//        //Display error
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Receiver Not Found" message:@"The Receiver App is not installed. It must be installed to send text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alertView show];
+//        //Test
+//    }
     
 }
 
