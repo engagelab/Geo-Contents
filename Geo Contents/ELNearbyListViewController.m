@@ -117,9 +117,11 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
     // load photo images in the background
     __weak ELNearbyListViewController *weakSelf = self;
+    __block UIImage *image = nil;
+
+    
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        //UIImage *image = [photo image];
-        
+        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.images.standard_resolution]];
         dispatch_async(dispatch_get_main_queue(), ^{
             // then set them via the main queue if the cell is still visible.
             if ([weakSelf.collectionView.indexPathsForVisibleItems containsObject:indexPath]) {
@@ -156,7 +158,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                     
                     //cell.descriptionLabel.text = feature.description;
                     
-                    cell.standardResolutionImageview.image = loadingImage;
+                    cell.standardResolutionImageview.image = image;
 
                     
                 }

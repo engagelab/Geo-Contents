@@ -83,9 +83,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     nFeatures = [@[] mutableCopy];
     
     self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
-    
-    
-        
 
     
     /*  Location service
