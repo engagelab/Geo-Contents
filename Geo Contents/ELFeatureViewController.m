@@ -7,12 +7,14 @@
 //
 
 #import "ELFeatureViewController.h"
+#import "ELTweetGenerator.h"
 
 @interface ELFeatureViewController ()
 
 @end
 
 @implementation ELFeatureViewController
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,22 +25,15 @@
     return self;
 }
 
+
+
+
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //Start Location Services
-    if ([CLLocationManager locationServicesEnabled]){
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        [self.locationManager startUpdatingLocation];
-    } else {
-        /* Location services are not enabled.
-         Take appropriate action: for instance, prompt the
-         user to enable location services */
-        NSLog(@"Location services are not enabled");
-    }
-    
     
     if (self.feature != nil) {
        
@@ -64,7 +59,7 @@
             __block UIImage *image = nil;
             dispatch_sync(concurrentQueue, ^{
                 /* Download the image here */
-                image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.standard_resolution]];
+                image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.images.standard_resolution]];
             });
             dispatch_sync(dispatch_get_main_queue(), ^{
                 /* Show the image to the user here on the main queue*/
@@ -73,13 +68,39 @@
         });
 
         
-        
         if (self.feature.description !=NULL) {
-            self.descriptionLabel.text = self.feature.description;
+            
+            NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:self.feature.description];
+        
+            self.descriptionLabel = [[RCLabel alloc] initWithFrame:CGRectMake(6,355,300,100)];
+            RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+            self.descriptionLabel.componentsAndPlainText = componentsDS;
+            
+            self.descriptionLabel.delegate = self;
+
+            
+            [self.scroll addSubview:self.descriptionLabel];
+            //self.descriptionLabel.text = self.feature.description;
         }
         
     }
 }
+
+
+
+
+
+- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
+{
+    NSLog(@"%@",url);
+    
+}
+
+
+
+
+
+
 
 
 - (void)configureView
@@ -242,20 +263,24 @@
 }
 
 
+//
+//- (void)locationManager:(CLLocationManager *)manager
+//    didUpdateToLocation:(CLLocation *)newLocation
+//           fromLocation:(CLLocation *)oldLocation{
+//    /* We received the new location */
+//    //NSLog(@"Latitude = %f", newLocation.coordinate.latitude);
+//    //NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
+//}
+//
+//
+//- (void)locationManager:(CLLocationManager *)manager
+//       didFailWithError:(NSError *)error{
+//    /* Failed to receive user's location */
+//}
 
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation{
-    /* We received the new location */
-    NSLog(@"Latitude = %f", newLocation.coordinate.latitude);
-    NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
-}
 
 
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error{
-    /* Failed to receive user's location */
-}
+
 
 
 @end

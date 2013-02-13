@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3002AAA916C997FA00CBC428 /* RCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002AAA816C997FA00CBC428 /* RCLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3002AAAB16C998D900CBC428 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002AAAA16C998D900CBC428 /* CoreText.framework */; };
+		3002AAAD16C9990900CBC428 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002AAAC16C9990900CBC428 /* libicucore.dylib */; };
+		3002AAF516CA486F00CBC428 /* ELTweetGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002AAF416CA486F00CBC428 /* ELTweetGenerator.m */; };
+		3002AAF816CA630300CBC428 /* ELImages.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002AAF716CA630300CBC428 /* ELImages.m */; };
 		3004715F16AD329A00DB4A81 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3004715E16AD329A00DB4A81 /* Cell.xib */; };
 		3004716616AD35AF00DB4A81 /* ELNearbyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004716416AD35AF00DB4A81 /* ELNearbyListViewController.m */; };
 		3004716716AD35AF00DB4A81 /* ELNearbyListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3004716516AD35AF00DB4A81 /* ELNearbyListViewController.xib */; };
 		3004716A16AD3D9100DB4A81 /* ELRESTful.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004716916AD3D9100DB4A81 /* ELRESTful.m */; };
 		3004717316AD68AA00DB4A81 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717016AD68AA00DB4A81 /* Cell.m */; };
 		3004717416AD68AA00DB4A81 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717216AD68AA00DB4A81 /* CustomCellBackground.m */; };
-		3004717916AE7D3A00DB4A81 /* ENCListLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717816AE7D3A00DB4A81 /* ENCListLayout.m */; };
 		30505B4016C0EBAA004666F3 /* ELMapThisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */; };
 		30505B4116C0EBAA004666F3 /* ELMapThisViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */; };
 		3058AB2F16AEC0C100F1E959 /* Cell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3058AB2E16AEC0C100F1E959 /* Cell2.xib */; };
@@ -62,6 +66,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3002AAA716C997FA00CBC428 /* RCLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCLabel.h; sourceTree = "<group>"; };
+		3002AAA816C997FA00CBC428 /* RCLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCLabel.m; sourceTree = "<group>"; };
+		3002AAAA16C998D900CBC428 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		3002AAAC16C9990900CBC428 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		3002AAF316CA486F00CBC428 /* ELTweetGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELTweetGenerator.h; sourceTree = "<group>"; };
+		3002AAF416CA486F00CBC428 /* ELTweetGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELTweetGenerator.m; sourceTree = "<group>"; };
+		3002AAF616CA630300CBC428 /* ELImages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELImages.h; sourceTree = "<group>"; };
+		3002AAF716CA630300CBC428 /* ELImages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELImages.m; sourceTree = "<group>"; };
 		3004715E16AD329A00DB4A81 /* Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
 		3004716316AD35AF00DB4A81 /* ELNearbyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELNearbyListViewController.h; sourceTree = "<group>"; };
 		3004716416AD35AF00DB4A81 /* ELNearbyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELNearbyListViewController.m; sourceTree = "<group>"; };
@@ -72,8 +84,6 @@
 		3004717016AD68AA00DB4A81 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		3004717116AD68AA00DB4A81 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
 		3004717216AD68AA00DB4A81 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
-		3004717716AE7D3A00DB4A81 /* ENCListLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENCListLayout.h; sourceTree = "<group>"; };
-		3004717816AE7D3A00DB4A81 /* ENCListLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENCListLayout.m; sourceTree = "<group>"; };
 		30505B3D16C0EBAA004666F3 /* ELMapThisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELMapThisViewController.h; sourceTree = "<group>"; };
 		30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELMapThisViewController.m; sourceTree = "<group>"; };
 		30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELMapThisViewController.xib; sourceTree = "<group>"; };
@@ -149,6 +159,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3002AAAD16C9990900CBC428 /* libicucore.dylib in Frameworks */,
+				3002AAAB16C998D900CBC428 /* CoreText.framework in Frameworks */,
 				30B59962169D77D400565438 /* CoreLocation.framework in Frameworks */,
 				30B59927169D571900565438 /* UIKit.framework in Frameworks */,
 				30B59929169D571900565438 /* Foundation.framework in Frameworks */,
@@ -162,6 +174,8 @@
 		30B59917169D571900565438 = {
 			isa = PBXGroup;
 			children = (
+				3002AAAC16C9990900CBC428 /* libicucore.dylib */,
+				3002AAAA16C998D900CBC428 /* CoreText.framework */,
 				30B59961169D77D400565438 /* CoreLocation.framework */,
 				30B5992C169D571900565438 /* Geo Contents */,
 				30B59925169D571900565438 /* Frameworks */,
@@ -255,6 +269,8 @@
 				309ECB9F16A580610064E88A /* ELFeature.m */,
 				309ECBA216A5831C0064E88A /* ELUser.h */,
 				309ECBA316A5831C0064E88A /* ELUser.m */,
+				3002AAF616CA630300CBC428 /* ELImages.h */,
+				3002AAF716CA630300CBC428 /* ELImages.m */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -275,8 +291,6 @@
 			isa = PBXGroup;
 			children = (
 				30F9F26116B9DD8100E40DE8 /* loadingImage.png */,
-				3004717716AE7D3A00DB4A81 /* ENCListLayout.h */,
-				3004717816AE7D3A00DB4A81 /* ENCListLayout.m */,
 				30B59958169D5DAD00565438 /* IMPhotoAlbumLayout.h */,
 				30B59959169D5DAD00565438 /* IMPhotoAlbumLayout.m */,
 			);
@@ -300,6 +314,8 @@
 		30B599A416A02DE600565438 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				3002AAA716C997FA00CBC428 /* RCLabel.h */,
+				3002AAA816C997FA00CBC428 /* RCLabel.m */,
 				3058AB6F16AF2ED500F1E959 /* AFImageDownloader.h */,
 				3058AB7016AF2ED500F1E959 /* AFImageDownloader.m */,
 				3058AB7116AF2ED500F1E959 /* NSData+AFDecompression.h */,
@@ -314,6 +330,8 @@
 				3058AB7516AFD9A800F1E959 /* ELBridgingApp.h */,
 				3058AB7616AFD9A800F1E959 /* ELBridgingApp.m */,
 				3058AC1816B2BC5000F1E959 /* ELConstants.h */,
+				3002AAF316CA486F00CBC428 /* ELTweetGenerator.h */,
+				3002AAF416CA486F00CBC428 /* ELTweetGenerator.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -419,7 +437,6 @@
 				3004716A16AD3D9100DB4A81 /* ELRESTful.m in Sources */,
 				3004717316AD68AA00DB4A81 /* Cell.m in Sources */,
 				3004717416AD68AA00DB4A81 /* CustomCellBackground.m in Sources */,
-				3004717916AE7D3A00DB4A81 /* ENCListLayout.m in Sources */,
 				3058AB7316AF2ED500F1E959 /* AFImageDownloader.m in Sources */,
 				3058AB7416AF2ED500F1E959 /* NSData+AFDecompression.m in Sources */,
 				3058AB7716AFD9A800F1E959 /* ELBridgingApp.m in Sources */,
@@ -428,6 +445,9 @@
 				3058AC0716B1D28F00F1E959 /* ELHomeScreenViewController.m in Sources */,
 				30F9F25F16B9D90F00E40DE8 /* ELRecentListViewController.m in Sources */,
 				30505B4016C0EBAA004666F3 /* ELMapThisViewController.m in Sources */,
+				3002AAA916C997FA00CBC428 /* RCLabel.m in Sources */,
+				3002AAF516CA486F00CBC428 /* ELTweetGenerator.m in Sources */,
+				3002AAF816CA630300CBC428 /* ELImages.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

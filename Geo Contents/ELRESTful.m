@@ -9,6 +9,7 @@
 #import "ELRESTful.h"
 #import "ELFeature.h"
 #import "ELConstants.h"
+#import "ELImages.h"
 
 @implementation ELRESTful
 
@@ -127,21 +128,30 @@
 +(ELFeature*)featureForDic:(NSDictionary*)featureDic
 {
     ELFeature *feature = [[ELFeature alloc]init];
-    NSDictionary *properties = [featureDic valueForKey:@"properties"];
-    //search for thumbnail
-    if ([properties valueForKey:@"thumbnail"] == [NSNull null])
-    {
-        feature.thumbnail = [NSURL URLWithString:@""];
-    }
-    else
-    {
-        feature.thumbnail = [NSURL URLWithString:[properties valueForKey:@"thumbnail"]];
-    }
-    NSString *standardResolution =[properties valueForKey:@"standard_resolution"];
-    feature.standard_resolution = [NSURL URLWithString:standardResolution];
-
     feature.idd = [featureDic valueForKey:@"id"];
+
+    
+    NSDictionary *properties = [featureDic valueForKey:@"properties"];
+    
+    feature.source_type = [properties valueForKey:@"source_type"];
     feature.time = [properties valueForKey:@"created_time"];
+    
+    NSArray *location = [[featureDic objectForKey:@"geometry"] objectForKey:@"coordinates"];
+    feature.fLocation = [[CLLocation alloc]initWithLatitude:[[location objectAtIndex:1] doubleValue] longitude:[[location objectAtIndex:0] doubleValue]];
+    
+    NSDictionary *images = [properties valueForKey:@"images"];
+
+    ELImages *imagesObject = [[ELImages alloc] init];
+    
+    imagesObject.thumbnail = [NSURL URLWithString:[images valueForKey:@"thumbnail"]];
+    imagesObject.standard_resolution = [NSURL URLWithString:[images valueForKey:@"standard_resolution"]];
+    if ([images valueForKey:@"high_resolution"] != [NSNull null])
+    {
+        imagesObject.high_resolution = [NSURL URLWithString:[images valueForKey:@"high_resolution"]];
+    }
+
+    feature.images = imagesObject;
+
     if ([properties valueForKey:@"description"] == [NSNull null])
     {
         feature.description = @"";
@@ -151,7 +161,7 @@
         feature.description = [properties valueForKey:@"description"];
 
     }
-    feature.source_type = [properties valueForKey:@"source_type"];
+    
     ELUser *user = [[ELUser alloc]init];
     NSDictionary *userD = [properties valueForKey:@"user"];
     user.idd = [userD valueForKey:@"id"];
@@ -159,9 +169,27 @@
     user.profile_picture = [userD valueForKey:@"profile_picture"];
     feature.user = user;
     
-    NSArray *location = [[featureDic objectForKey:@"geometry"] objectForKey:@"coordinates"];
-
-   feature.fLocation = [[CLLocation alloc]initWithLatitude:[[location objectAtIndex:1] doubleValue] longitude:[[location objectAtIndex:0] doubleValue]];
+    // if source type is mapped then store addition meta info
+    if ([feature.source_type isEqualToString:@"mapped_instagram"])
+    {
+        
+        if ([properties valueForKey:@"mapper_description"] == [NSNull null])
+        {
+            feature.mapper_description = @"";
+        }
+        else
+        {
+            feature.mapper_description = [properties valueForKey:@"mapper_description"];
+            
+        }
+        
+        ELUser *mapper = [[ELUser alloc]init];
+        NSDictionary *mapperD = [properties valueForKey:@"mapper"];
+        mapper.idd = [mapperD valueForKey:@"id"];
+        mapper.full_name = [mapperD valueForKey:@"full_name"];
+        mapper.profile_picture = [mapperD valueForKey:@"profile_picture"];
+        feature.mapper = mapper;
+    }
     
     return  feature;
 }

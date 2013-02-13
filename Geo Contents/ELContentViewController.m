@@ -124,10 +124,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
 }
 
-
--(void)viewWillAppear:(BOOL)animated
+-(void)viewDidAppear:(BOOL)animated
 {
-    
     NSDictionary *bboxt = [[NSDictionary alloc] initWithObjectsAndKeys:
                            @"59.927999267f",@"lat1",
                            @"10.759999771f",@"lng1",
@@ -146,8 +144,13 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         [self loadFeaturesInBoundingBox:bboxt];
         [self.collectionView reloadData];
     }
+}
 
-    
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+  //update?
 }
 
 
@@ -204,9 +207,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         
         feature.distance = [self distanceBetweenPoint1:nLocation Point2:feature.fLocation];
         [nFeatures addObject:feature];
-}
-    
-    
+    }
     
     
     nFeatures = [[self shuffleArray:results] mutableCopy];
@@ -215,7 +216,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     for (ELFeature *feature in  nFeatures) {
         BHAlbum *album = [[BHAlbum alloc] init];
-        NSURL *photoURL = feature.standard_resolution;
+        NSURL *photoURL = feature.images.standard_resolution ;
         BHPhoto *photo = [BHPhoto photoWithImageURL:photoURL];
         [album addPhoto:photo];
         [self.albums addObject:album];
@@ -259,7 +260,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     for (ELFeature *feature in  nFeatures) {
         BHAlbum *album = [[BHAlbum alloc] init];
-        NSURL *photoURL = feature.standard_resolution;
+        NSURL *photoURL = feature.images.standard_resolution;
         BHPhoto *photo = [BHPhoto photoWithImageURL:photoURL];
         [album addPhoto:photo];
         [self.albums addObject:album];
@@ -313,7 +314,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 {
     //return self.albums.count;
     
-    return self.albums.count;
+    return nFeatures.count;
 }
 
 
@@ -324,10 +325,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    BHAlbum *album = self.albums[section];
-    return album.photos.count;
+//    BHAlbum *album = self.albums[section];
+//    return album.photos.count;
     //return nFeatures.count;
-    //return 1;
+    return 1;
 }
 
 
@@ -341,16 +342,13 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     IMAlbumPhotoCell *photoCell =
     [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier
                                               forIndexPath:indexPath];
+
     
-    BHAlbum *album = self.albums[indexPath.section];
-    BHPhoto *photo = album.photos[indexPath.item];
-    
-    // to be optimized for faster loading
-    
+    ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
     // load photo images in the background
     __weak ELContentViewController *weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        UIImage *image = [photo image];
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.images.thumbnail]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // then set them via the main queue if the cell is still visible.
@@ -364,10 +362,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     [self.thumbnailQueue addOperation:operation];
     
-    
-    
-    
-    
     return photoCell;
     
 }
@@ -379,21 +373,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    BHAlbum *album = self.albums[indexPath.section];
-    BHPhoto *photo = album.photos[indexPath.item];
-    //detailviewcontroller.imageURL = [photo imageURL];
-    
     self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
-
     self.secondView.feature = [nFeatures objectAtIndex:indexPath.section];
-//    self.secondView.standardResolutionImageview.image = [photo image];
-//    self.secondView.usernameLabel.text = @"fahied";
-//    [self.secondView.usernameLabel setText:@"spider"];
-    
 	[self.navigationController pushViewController:self.secondView animated:YES];
-    
-    
 }
 
 

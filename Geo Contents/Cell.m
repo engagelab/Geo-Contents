@@ -8,6 +8,7 @@
 #import "Cell.h"
 #import "CustomCellBackground.h"
 #import "ELMapThisViewController.h"
+#import "ELTweetGenerator.h"
 
 @implementation Cell
 
@@ -22,12 +23,33 @@
         self.highlighted = NO;
         self.actionButton.enabled=YES;
         
+        if (self.feature.description !=NULL) {
+            
+            NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:self.feature.description];
+            
+            self.descriptionLabel = [[RCLabel alloc] initWithFrame:CGRectMake(6,355,300,100)];
+            RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+            self.descriptionLabel.componentsAndPlainText = componentsDS;
+            
+            self.descriptionLabel.delegate = self;
+            
+            [self addSubview:self.descriptionLabel];
+        }
+
+        
+        
+        
     }
     return self;
 }
 
 
 
+- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
+{
+    NSLog(@"%@",url);
+    
+}
 
 
 
@@ -62,6 +84,7 @@
         [self directMeHereClicked];
     else if([buttonTitle isEqualToString:@"Map this!"])
         [self mapThisClicked];
+    
 }
 
 

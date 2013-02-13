@@ -51,7 +51,7 @@
     
     
     self.creationTime.text = @"4w";
-    self.standardResolutionImageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.standard_resolution]];
+    self.standardResolutionImageview.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.images.standard_resolution]];
     if (self.feature.description !=NULL) {
         [self.descriptionTextView setText:self.feature.description];
     }

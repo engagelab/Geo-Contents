@@ -20,11 +20,10 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     NSMutableArray  *nFeatures;
     ELRESTful *restfull;
     UIImage *loadingImage;
-
     
 }
-@property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 
+@property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 
 @end
 
@@ -155,7 +154,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                     //TODO: to be Fixed to async/cached
                     
                     
-                    cell.descriptionLabel.text = feature.description;
+                    //cell.descriptionLabel.text = feature.description;
                     
                     cell.standardResolutionImageview.image = loadingImage;
 
@@ -171,20 +170,20 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
     
     // load Images asyc 
-    dispatch_queue_t concurrentQueue =
-    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(concurrentQueue, ^{
-        __block UIImage *image = nil;
-        dispatch_sync(concurrentQueue, ^{
-            /* Download the image here */
-            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.standard_resolution]];
-        });
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            /* Show the image to the user here on the main queue*/
-            cell.standardResolutionImageview.image = image;
-        });
-    });
-    
+//    dispatch_queue_t concurrentQueue =
+//    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_async(concurrentQueue, ^{
+//        __block UIImage *image = nil;
+//        dispatch_sync(concurrentQueue, ^{
+//            /* Download the image here */
+//            image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.standard_resolution]];
+//        });
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            /* Show the image to the user here on the main queue*/
+//            cell.standardResolutionImageview.image = image;
+//        });
+//    });
+//    
     
     return cell;
     

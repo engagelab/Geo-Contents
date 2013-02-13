@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "ELFeature.h"
+#import "RCLabel.h"
 
-@interface ELFeatureViewController : UIViewController<UIActionSheetDelegate, CLLocationManagerDelegate>
+
+@interface ELFeatureViewController : UIViewController<UIActionSheetDelegate, CLLocationManagerDelegate, RTLabelDelegate>
 {
     
 //    UIImageView *userprofileImageView;
@@ -20,14 +22,16 @@
 
 }
 
-@property (nonatomic, strong) CLLocationManager *locationManager;
+//@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @property (strong, nonatomic) IBOutlet UIImageView *userprofileImageView;
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeDistance;
 @property (strong, nonatomic) IBOutlet UIImageView *standardResolutionImageview;
-@property (retain, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (retain, nonatomic) IBOutlet RCLabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *sourceTypeImageView;
+
+@property (strong, nonatomic) IBOutlet UIScrollView *scroll;
 
 
 -(IBAction)showActionSheet:(id)sender;
@@ -36,7 +40,7 @@
 @property (strong, nonatomic) ELFeature *feature;
 
 
-@property (strong, nonatomic) CLLocation *nLocation;
+//@property (strong, nonatomic) CLLocation *nLocation;
 
 
 

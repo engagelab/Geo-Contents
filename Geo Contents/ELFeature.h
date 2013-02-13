@@ -7,19 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ELUser.h"
 #import <CoreLocation/CoreLocation.h>
+#import "ELUser.h"
+#import "ELImages.h"
 
 @interface ELFeature : NSObject
 
 @property (nonatomic, strong) NSString *idd;
 @property (nonatomic, strong) NSString *source_type;
-@property (nonatomic, strong) NSURL *standard_resolution;
-@property (nonatomic, strong) NSURL *thumbnail;
 @property (nonatomic, strong) NSNumber *time;
 @property (nonatomic, strong) NSNumber *distance;
 @property (nonatomic, strong) NSString *description;
-@property (nonatomic, strong) ELUser *user;
+@property (nonatomic, strong) NSString *mapper_description;
 @property (nonatomic, strong) CLLocation *fLocation;
+@property (nonatomic, strong) ELUser *user;
+@property (nonatomic, strong) ELUser *mapper;
+@property (nonatomic, strong) ELImages *images;
+
+
 
 @end

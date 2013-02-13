@@ -5,8 +5,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ELFeature.h"
+#import "RCLabel.h"
 
-@interface Cell : UICollectionViewCell<UIActionSheetDelegate, CLLocationManagerDelegate>
+@interface Cell : UICollectionViewCell<UIActionSheetDelegate, CLLocationManagerDelegate,RTLabelDelegate>
 {
     BOOL haveLocation;
 }
@@ -15,7 +16,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeDistance;
 @property (strong, nonatomic) IBOutlet UIImageView *standardResolutionImageview;
-@property (retain, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (retain, nonatomic) IBOutlet RCLabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *sourceTypeImageView;
 
 

@@ -118,15 +118,13 @@
     __weak ELRecentListViewController *weakSelf = self;
     __block UIImage *image = nil;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.standard_resolution]];
+        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.images.standard_resolution]];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // then set them via the main queue if the cell is still visible.
             if ([weakSelf.collectionView.indexPathsForVisibleItems containsObject:indexPath]) {
                 Cell *cell =
                 (Cell *)[weakSelf.collectionView cellForItemAtIndexPath:indexPath];
-                
-                
                 
                 
                 if (feature != nil) {
@@ -154,7 +152,7 @@
                     
                     //TODO: to be Fixed to async/cached
                     
-                    cell.descriptionLabel.text = feature.description;
+                    //cell.descriptionLabel.text = feature.description;
                     
                     cell.standardResolutionImageview.image = image;
                 }
@@ -193,11 +191,8 @@
 //            [nFeatures addObject:feature];
 //        }
         
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:YES];
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO];
         [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-        
-
-        
         
         [self.collectionView reloadData];
     }
