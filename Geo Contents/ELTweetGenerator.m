@@ -7,6 +7,7 @@
 //
 
 #import "ELTweetGenerator.h"
+#import "ELFeature.h"
 
 @implementation ELTweetGenerator
 
@@ -52,6 +53,23 @@
     }
     
     return htmlTweet;
+}
+
+
+
++(NSString*)createHTMLUserString:(ELFeature*)feature
+{
+    NSString *userHTML;
+    if ([feature.source_type isEqualToString:@"overlay"])
+    {
+        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href='http://geocontent/search?tag=",feature.user.idd,"'>",feature.user.full_name,"</a>"];
+    }
+    else if([feature.source_type isEqualToString:@"Instagram"] || [feature.source_type isEqualToString:@"mapped_instagram"])
+    {
+        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href='instagram://user?username=",feature.user.username,"'>",feature.user.full_name,"</a>"];
+
+    }
+    return userHTML;
 }
 
 @end

@@ -102,6 +102,12 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     return size;
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     //    if (self.nLocation == nil) {

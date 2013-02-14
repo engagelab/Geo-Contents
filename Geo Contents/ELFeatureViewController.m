@@ -48,7 +48,16 @@
              profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",self.feature.user.idd,@"/picture"]];
         }
         self.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
-        self.usernameLabel.text =self.feature.user.full_name;
+        
+        //clickable user label
+        
+        self.usernameLabel = [[RCLabel alloc] initWithFrame:CGRectMake(94,13,144,31)];
+        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:self.feature]];
+        self.usernameLabel.componentsAndPlainText = componentsDS;
+        self.usernameLabel.delegate = self;
+        [self.scroll addSubview:self.usernameLabel];
+        
+        //self.usernameLabel.text =self.feature.user.full_name;
         self.timeDistance.text = [NSString stringWithFormat:@"%llu", [self.feature.distance unsignedLongLongValue]];;
         
         // to be Fixed to async
@@ -90,9 +99,15 @@
 
 
 
+
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
     NSLog(@"%@",url);
+    
+    NSURL *urlp = [NSURL URLWithString:@"instagram://app"];
+    if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
+        [[UIApplication sharedApplication] openURL:urlp];
+    }
     
 }
 
@@ -109,7 +124,7 @@
     
     if (self.usernameLabel ) {
         //self.detailImageView.image = (UIImage*)_detailItem;
-        self.usernameLabel.text = @"Spider";
+        //self.usernameLabel.text = @"Spider";
     }
 }
 

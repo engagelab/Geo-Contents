@@ -25,7 +25,7 @@
 //@property (nonatomic, strong) CLLocationManager *locationManager;
 
 @property (strong, nonatomic) IBOutlet UIImageView *userprofileImageView;
-@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (strong, nonatomic) IBOutlet RCLabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeDistance;
 @property (strong, nonatomic) IBOutlet UIImageView *standardResolutionImageview;
 @property (retain, nonatomic) IBOutlet RCLabel *descriptionLabel;

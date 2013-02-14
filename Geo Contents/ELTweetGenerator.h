@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ELFeature.h"
 
 @interface ELTweetGenerator : NSObject
 
 +(NSString*)createHTMLTWeet:(NSString*)tweet;
++(NSString*)createHTMLUserString:(ELFeature*)feature;
+
 
 @end

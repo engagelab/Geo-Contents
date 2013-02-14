@@ -167,6 +167,12 @@
     user.idd = [userD valueForKey:@"id"];
     user.full_name = [userD valueForKey:@"full_name"];
     user.profile_picture = [userD valueForKey:@"profile_picture"];
+    
+    if (!([userD valueForKey:@"username"] == [NSNull null]))
+    {
+        user.username = [userD valueForKey:@"username"];
+    }
+    
     feature.user = user;
     
     // if source type is mapped then store addition meta info

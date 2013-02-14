@@ -74,6 +74,11 @@
     
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     //nFeatures = [NSMutableArray arrayWithArray:app.features];
