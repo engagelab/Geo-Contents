@@ -7,16 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 
 
-@interface ELRecentListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource,CLLocationManagerDelegate>
-{
-    BOOL haveLocation;
-}
-
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLLocation *nLocation;
-
+@interface ELRecentListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end

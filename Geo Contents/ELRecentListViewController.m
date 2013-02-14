@@ -42,11 +42,13 @@
 {
     [super viewDidLoad];
     
+    // Do any additional setup after loading the view from its nib.
+    nFeatures = [@[] mutableCopy];
+    
     //Start Location Services
     if ([CLLocationManager locationServicesEnabled]){
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        [self.locationManager startUpdatingLocation];
+        CLLocationManager *locationManager = [CLLocationManager new];
+        [self showItemsAtLocation:locationManager.location];
     } else {
         /* Location services are not enabled.
          Take appropriate action: for instance, prompt the
@@ -54,9 +56,6 @@
         NSLog(@"Location services are not enabled");
     }
     
-    
-    // Do any additional setup after loading the view from its nib.
-    nFeatures = [@[] mutableCopy];
     
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];
@@ -177,33 +176,23 @@
 
 
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    /* We received the new location */
-    CLLocation * newLocation = [locations lastObject];
-    
-    if (!haveLocation) {
-        _nLocation = newLocation;
-        haveLocation = YES;
-        NSLog(@"Latitude = %f", _nLocation.coordinate.latitude);
-        NSLog(@"Longitude = %f", _nLocation.coordinate.longitude);
-        
-        nFeatures = [[ELRESTful fetchRecentlyAddedFeatures:_nLocation.coordinate] mutableCopy];
-        
-        
-//        for (ELFeature *feature in unsortedArrayWithoutDisctanceProperty) {
-//            
-//            feature.time = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
-//            [nFeatures addObject:feature];
-//        }
-        
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO];
-        [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-        
-        [self.collectionView reloadData];
-    }
-    
+- (void)showItemsAtLocation:(CLLocation*)newLocation {
+    // Fetch the content on a worker thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsAtLocation:newLocation.coordinate] mutableCopy];
+        // Register the content on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Move all features to nFeatures
+            [nFeatures removeAllObjects];
+            [nFeatures addObjectsFromArray:unsortedArrayWithoutDisctanceProperty];
+            // Sort all features by distance
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO];
+            [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+            // Ensure the new data is used in the collection view
+            [self.collectionView reloadData];
+        });
+    });
 }
-
 
 
 
