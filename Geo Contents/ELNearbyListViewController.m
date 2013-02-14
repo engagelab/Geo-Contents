@@ -15,11 +15,12 @@
 
 NSString *kCellID = @"cvCell";                          // UICollectionViewCell storyboard id
 
-@interface ELNearbyListViewController ()
+@interface ELNearbyListViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
     NSMutableArray  *nFeatures;
     ELRESTful *restfull;
     UIImage *loadingImage;
+    NSMutableArray *images;
     
 }
 
@@ -43,11 +44,13 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 {
     [super viewDidLoad];
     
+    // Ensure nFeatures is instantiated before it is used
+    nFeatures = [@[] mutableCopy];
+    
     //Start Location Services
     if ([CLLocationManager locationServicesEnabled]){
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        [self.locationManager startUpdatingLocation];
+        CLLocationManager *locationManager = [CLLocationManager new];
+        [self showItemsAtLocation:locationManager.location];
     } else {
         /* Location services are not enabled.
          Take appropriate action: for instance, prompt the
@@ -55,9 +58,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         NSLog(@"Location services are not enabled");
     }
     
-    
-    // Do any additional setup after loading the view from its nib.
-    nFeatures = [@[] mutableCopy];
     
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];
@@ -124,7 +124,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     // load photo images in the background
     __weak ELNearbyListViewController *weakSelf = self;
     __block UIImage *image = nil;
-
+    
     
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.images.standard_resolution]];
@@ -151,7 +151,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                     }
                     cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
                     cell.usernameLabel.text = feature.user.full_name;
-                
+                    
                     
                     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
                     [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
@@ -165,7 +165,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                     //cell.descriptionLabel.text = feature.description;
                     
                     cell.standardResolutionImageview.image = image;
-
+                    
                     
                 }
                 
@@ -176,46 +176,30 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
     [self.thumbnailQueue addOperation:operation];
     
+    
     return cell;
     
 }
 
 
-
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    /* We received the new location */
-    CLLocation * newLocation = [locations lastObject];
-    
-    if (!haveLocation) {
-        _nLocation = newLocation;
-        haveLocation = YES;
-        NSLog(@"Latitude = %f", _nLocation.coordinate.latitude);
-        NSLog(@"Longitude = %f", _nLocation.coordinate.longitude);
-        
-        
-        
-        
-        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsAtLocation:_nLocation.coordinate] mutableCopy];
-        
-        for (ELFeature *feature in unsortedArrayWithoutDisctanceProperty) {
-            
-            feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
-            [nFeatures addObject:feature];
-        }
-        
-        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
-        [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-        [self.collectionView reloadData];
-    }
-    
-}
-
-
-
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
-    /* Failed to receive user's location */
+- (void)showItemsAtLocation:(CLLocation*)newLocation {
+    // Fetch the content on a worker thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsAtLocation:newLocation.coordinate] mutableCopy];
+        // Register the content on the main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Calculate the distance for each feature
+            for (ELFeature *feature in unsortedArrayWithoutDisctanceProperty) {
+                feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
+                [nFeatures addObject:feature];
+            }
+            // Sort all features by distance
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
+            [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+            // Ensure the new data is used in the collection view
+            [self.collectionView reloadData];
+        });
+    });
 }
 
 

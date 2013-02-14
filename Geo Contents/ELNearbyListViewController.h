@@ -7,17 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
 
-@interface ELNearbyListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource,CLLocationManagerDelegate>
-{
-      BOOL haveLocation;
-    NSMutableArray *images;
-}
-
-
-
-@property (nonatomic, strong) CLLocationManager *locationManager;
-@property (strong, nonatomic) CLLocation *nLocation;
+@interface ELNearbyListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @end
