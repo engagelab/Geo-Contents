@@ -177,8 +177,9 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     [self.thumbnailQueue addOperation:operation];
     
     
+
     return cell;
-    
+
 }
 
 

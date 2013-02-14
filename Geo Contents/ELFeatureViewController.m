@@ -102,6 +102,9 @@
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
+    
+    
+    
     NSURL *urlp = [NSURL URLWithString:url];
     if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
         [[UIApplication sharedApplication] openURL:urlp];
