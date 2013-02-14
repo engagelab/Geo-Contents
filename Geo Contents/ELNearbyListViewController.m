@@ -193,6 +193,9 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         NSLog(@"Latitude = %f", _nLocation.coordinate.latitude);
         NSLog(@"Longitude = %f", _nLocation.coordinate.longitude);
         
+        
+        
+        
         NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsAtLocation:_nLocation.coordinate] mutableCopy];
         
         for (ELFeature *feature in unsortedArrayWithoutDisctanceProperty) {
