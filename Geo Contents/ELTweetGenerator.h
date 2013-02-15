@@ -11,7 +11,7 @@
 
 @interface ELTweetGenerator : NSObject
 
-+(NSString*)createHTMLTWeet:(NSString*)tweet;
++(NSString*)createHTMLTWeet:(ELFeature*)feature;
 +(NSString*)createHTMLUserString:(ELFeature*)feature;
 
 

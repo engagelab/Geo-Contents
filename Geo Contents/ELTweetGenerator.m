@@ -9,15 +9,47 @@
 #import "ELTweetGenerator.h"
 #import "ELFeature.h"
 
+@interface ELTweetGenerator()
+
+
+@end
 @implementation ELTweetGenerator
 
 
 
-+(NSString*)createHTMLTWeet:(NSString*)tweet
++(NSString*)createHTMLTWeet:(ELFeature*)feature
 {
+    NSString *htmlTweet = @"";
+    
+    NSString *userDescription = feature.description;
+    if ([userDescription length])
+    {
+        htmlTweet = [ELTweetGenerator getHTML:userDescription];
+    }
+    
+    if([feature.source_type isEqualToString:@"mapped_instagram"])
+    {
+        NSString *mapper_description = feature.mapper_description;
+        // if mapper_description is not empty
+        if ([mapper_description length]) {
+            htmlTweet = [htmlTweet stringByAppendingFormat:@"\r\r%@\r%@",
+                         @"\t\t---------- Mapper ----------",
+                         [ELTweetGenerator getHTML:mapper_description]];
+        }
+        
+    }
+    
+    
+        
+    return htmlTweet;
+}
+
+
+
++(NSString*)getHTML:(NSString*)tweet
+{
+    
     NSString *htmlTweet = tweet;
-    
-    
     NSError *error = nil;
     
     NSString *hashTagRegExp = @"#(\\w+)";
@@ -34,7 +66,6 @@
         NSLog(@"Found tag %@", word);
         NSString *html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href='http://geocontent/search?tag=",word,"'>",word,"</a>"];
         htmlTweet = [htmlTweet stringByReplacingOccurrencesOfString:word withString:html];
-        
     }
     
     
@@ -51,11 +82,9 @@
         htmlTweet = [htmlTweet stringByReplacingOccurrencesOfString:word withString:html];
         
     }
-    
+
     return htmlTweet;
 }
-
-
 
 +(NSString*)createHTMLUserString:(ELFeature*)feature
 {

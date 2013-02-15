@@ -79,14 +79,15 @@
         
         if (self.feature.description !=NULL) {
             
-            NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:self.feature.description];
-        
-            self.descriptionLabel = [[RCLabel alloc] initWithFrame:CGRectMake(6,355,300,100)];
+            NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:self.feature];
+    
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
-            self.descriptionLabel.componentsAndPlainText = componentsDS;
+            //find the height of RTLabel
+            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
             
+            self.descriptionLabel = [[RCLabel alloc] initWithFrame:CGRectMake(6,355,300,suggestedSize.height)];
+            self.descriptionLabel.componentsAndPlainText = componentsDS;
             self.descriptionLabel.delegate = self;
-
             
             [self.scroll addSubview:self.descriptionLabel];
             //self.descriptionLabel.text = self.feature.description;
@@ -97,7 +98,10 @@
 
 
 
-
+- (void)rtLabel:(id)rtLabel didChangedSize:(CGSize)size
+{
+    NSLog(@"%@",@"string");
+}
 
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url

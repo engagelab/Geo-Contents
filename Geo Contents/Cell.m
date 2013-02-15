@@ -25,10 +25,13 @@
         
         if (self.feature.description !=NULL) {
             
-            NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:self.feature.description];
+            NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:self.feature];
             
-            self.descriptionLabel = [[RCLabel alloc] initWithFrame:CGRectMake(6,355,300,100)];
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+            //find the height of RTLabel
+            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+            
+            self.descriptionLabel = [[RCLabel alloc] initWithFrame:CGRectMake(6,355,300,suggestedSize.height)];
             self.descriptionLabel.componentsAndPlainText = componentsDS;
             
             self.descriptionLabel.delegate = self;

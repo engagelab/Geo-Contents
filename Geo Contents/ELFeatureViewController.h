@@ -11,7 +11,7 @@
 #import "RCLabel.h"
 
 
-@interface ELFeatureViewController : UIViewController<UIActionSheetDelegate, CLLocationManagerDelegate, RTLabelDelegate>
+@interface ELFeatureViewController : UIViewController<UIActionSheetDelegate, CLLocationManagerDelegate, RTLabelDelegate,RTLabelSizeDelegate>
 {
     
 //    UIImageView *userprofileImageView;
