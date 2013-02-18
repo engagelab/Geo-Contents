@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RCLabel.h"
 
-@interface ELNearbyListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ELNearbyListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource, RTLabelDelegate>
 
 @end

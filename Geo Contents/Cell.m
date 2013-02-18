@@ -23,24 +23,14 @@
         self.highlighted = NO;
         self.actionButton.enabled=YES;
         
-        if (self.feature.description !=NULL) {
-            
-            NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:self.feature];
-            
-            RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
-            //find the height of RTLabel
-            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
-            
-            self.descriptionLabel = [[RCLabel alloc] initWithFrame:CGRectMake(6,355,300,suggestedSize.height)];
-            self.descriptionLabel.componentsAndPlainText = componentsDS;
-            
-            self.descriptionLabel.delegate = self;
-            
-            [self addSubview:self.descriptionLabel];
-        }
+        
+        self.usernameLabel = [[RCLabel alloc] initWithFrame:CGRectMake(94,12,165,21)];
+        [self addSubview:self.usernameLabel];
 
         
-        
+        self.descriptionLabel = [[RCLabel alloc]initWithFrame:CGRectMake(6,355,308,100)];
+        //self.descriptionLabel.delegate = self;
+        [self addSubview:self.descriptionLabel];
         
     }
     return self;

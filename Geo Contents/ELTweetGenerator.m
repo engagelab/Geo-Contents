@@ -21,20 +21,42 @@
 {
     NSString *htmlTweet = @"";
     
-    NSString *userDescription = feature.description;
-    if ([userDescription length])
+    NSString *featureDescription;
+    
+
+    if([feature.source_type isEqualToString:@"overlay"])
     {
-        htmlTweet = [ELTweetGenerator getHTML:userDescription];
+        featureDescription = feature.description;
+        if ([featureDescription length]) {
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type];
+        }
+    }
+    else if ([feature.source_type isEqualToString:@"Instagram"])
+    {
+        featureDescription = feature.description;
+        if ([featureDescription length])
+        {
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type];
+        }
     }
     
-    if([feature.source_type isEqualToString:@"mapped_instagram"])
+    
+    else if([feature.source_type isEqualToString:@"mapped_instagram"])
     {
+        featureDescription = feature.description;
+        //FixME: hard coded check, please remove it as soon as possible with a good logic
+        // the reason is feature.description is the instagram description in this mapped scenario
+        if ([featureDescription length])
+        {
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:@"Instagram"];
+        }
+        
         NSString *mapper_description = feature.mapper_description;
         // if mapper_description is not empty
         if ([mapper_description length]) {
             htmlTweet = [htmlTweet stringByAppendingFormat:@"\r\r%@\r%@",
                          @"\t\t---------- Mapper ----------",
-                         [ELTweetGenerator getHTML:mapper_description]];
+                         [ELTweetGenerator getHTML:mapper_description withSourceType:feature.source_type]];
         }
         
     }
@@ -46,7 +68,7 @@
 
 
 
-+(NSString*)getHTML:(NSString*)tweet
++(NSString*)getHTML:(NSString*)tweet withSourceType:(NSString*)sourceType
 {
     
     NSString *htmlTweet = tweet;
@@ -62,10 +84,19 @@
     
     for (NSTextCheckingResult *match in matches) {
         NSRange wordRange = [match rangeAtIndex:1];
-        NSString* word = [tweet substringWithRange:wordRange];
-        NSLog(@"Found tag %@", word);
-        NSString *html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href='http://geocontent/search?tag=",word,"'>",word,"</a>"];
-        htmlTweet = [htmlTweet stringByReplacingOccurrencesOfString:word withString:html];
+        NSString* hashtag = [tweet substringWithRange:wordRange];
+        NSLog(@"Found tag %@", hashtag);
+        NSString *html;
+        if ([sourceType isEqualToString:@"overlay"] || [sourceType isEqualToString:@"mapped_instagram"] ) {
+            html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://tage?name=",hashtag,">",hashtag,"</a>"];
+        }
+        else if([sourceType isEqualToString:@"Instagram"])
+        {
+            html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://tag?name=",hashtag,">",hashtag,"</a>"];
+
+        }
+        
+        htmlTweet = [htmlTweet stringByReplacingOccurrencesOfString:hashtag withString:html];
     }
     
     
@@ -76,10 +107,19 @@
     
     for (NSTextCheckingResult *match in matches) {
         NSRange wordRange = [match rangeAtIndex:1];
-        NSString* word = [tweet substringWithRange:wordRange];
-        NSLog(@"Found tag %@", word);
-        NSString *html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href='http://geocontent/user?name=",word,"'>",word,"</a>"];
-        htmlTweet = [htmlTweet stringByReplacingOccurrencesOfString:word withString:html];
+        NSString* username = [tweet substringWithRange:wordRange];
+        NSLog(@"Found tag %@", username);
+        NSString *html;
+        if ([sourceType isEqualToString:@"overlay"] || [sourceType isEqualToString:@"mapped_instagram"] ) {
+            html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://user?username=",username,">",username,"</a>"];
+        }
+        else if([sourceType isEqualToString:@"Instagram"])
+        {
+            html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",[username substringFromIndex:1],">",username,"</a>"];
+            
+        }
+        
+        htmlTweet = [htmlTweet stringByReplacingOccurrencesOfString:username withString:html];
         
     }
 
@@ -91,7 +131,7 @@
     NSString *userHTML;
     if ([feature.source_type isEqualToString:@"overlay"])
     {
-        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=http://geocontent/user?idd=",feature.user.idd,">",feature.user.full_name,"</a>"];
+        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://user?idd=",feature.user.idd,">",feature.user.full_name,"</a>"];
     }
     else if([feature.source_type isEqualToString:@"Instagram"] || [feature.source_type isEqualToString:@"mapped_instagram"])
     {

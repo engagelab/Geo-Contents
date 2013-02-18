@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "ELRESTful.h"
 #import "Cell.h"
+#import "ELTweetGenerator.h"
 
 
 
@@ -75,6 +76,12 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
 }
 
+
+
+
+
+
+
 -(void)viewDidAppear:(BOOL)animated
 {
     //nFeatures = [NSMutableArray arrayWithArray:app.features];
@@ -107,6 +114,21 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     return NO;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout  *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    CGSize suggestedSize;
+        
+        NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
+        
+        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+        //find the height of RTLabel
+        suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+    return CGSizeMake(320.f, 400.f + suggestedSize.height);
+}
+
+
+
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
@@ -134,8 +156,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                 Cell *cell =
                 (Cell *)[weakSelf.collectionView cellForItemAtIndexPath:indexPath];
                 
-                
-                
                 if (feature != nil) {
                     
                     cell.feature = feature;
@@ -150,8 +170,12 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                         profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
                     }
                     cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
-                    cell.usernameLabel.text = feature.user.full_name;
                     
+                    
+                    //clickable user label
+                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature]];
+                    cell.usernameLabel.componentsAndPlainText = componentsDS;
+                    cell.usernameLabel.delegate = self;
                     
                     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
                     [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
@@ -159,27 +183,54 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                     
                     cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"m"];
                     
-                    //TODO: to be Fixed to async/cached
-                    
-                    
                     //cell.descriptionLabel.text = feature.description;
+                    if (feature.description !=NULL) {
+                        
+                        NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
+                        
+                        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+                        //find the height of RTLabel
+                        CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+                        
+                        [cell.descriptionLabel setFrame:CGRectMake(6,355,300,suggestedSize.height)];
+                        
+                        cell.descriptionLabel.componentsAndPlainText = componentsDS;
+                        
+                        cell.descriptionLabel.delegate = self;
+                        
+                    }
                     
                     cell.standardResolutionImageview.image = image;
                     
-                    
-                }
-                
-                
+                }                
             }
         });
     }];
     
     [self.thumbnailQueue addOperation:operation];
     
-    
 
     return cell;
 
+}
+
+
+
+- (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
+{
+    NSLog(@"%@",url);
+    NSURL *urlp = [NSURL URLWithString:url];
+    if ([url hasPrefix:@"instagram"]) {
+        if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
+            [[UIApplication sharedApplication] openURL:urlp];
+        }
+    }
+    if ([url hasPrefix:@"content"]) {
+        
+        NSLog(@"%@",@"send to content view");
+
+    }
+    
 }
 
 

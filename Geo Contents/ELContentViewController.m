@@ -46,7 +46,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 @property (nonatomic, weak) IBOutlet IMPhotoAlbumLayout *photoAlbumLayout;
 @property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 @property (nonatomic,strong) NSMutableArray *photos;
-@property (nonatomic, strong) ELFeatureViewController *secondView ;
+@property (nonatomic, strong) ELFeatureViewController *secondView;    
 @end
 
 @implementation ELContentViewController

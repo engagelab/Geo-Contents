@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RCLabel.h"
 
 
-@interface ELRecentListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ELRecentListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource, RTLabelDelegate>
 
 @end

@@ -13,7 +13,7 @@
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *userprofileImageView;
-@property (strong, nonatomic) IBOutlet UILabel *usernameLabel;
+@property (strong, nonatomic) IBOutlet RCLabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeDistance;
 @property (strong, nonatomic) IBOutlet UIImageView *standardResolutionImageview;
 @property (retain, nonatomic) IBOutlet RCLabel *descriptionLabel;
@@ -23,7 +23,7 @@
 -(IBAction)showActionSheet:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *actionButton;
 
-@property (strong, nonatomic) ELFeature *feature;
+@property (strong, nonatomic) IBOutlet ELFeature *feature;
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (strong, nonatomic) CLLocation *nLocation;
