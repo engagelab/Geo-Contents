@@ -18,6 +18,7 @@
 		3004716A16AD3D9100DB4A81 /* ELRESTful.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004716916AD3D9100DB4A81 /* ELRESTful.m */; };
 		3004717316AD68AA00DB4A81 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717016AD68AA00DB4A81 /* Cell.m */; };
 		3004717416AD68AA00DB4A81 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717216AD68AA00DB4A81 /* CustomCellBackground.m */; };
+		3029729B16D37144004943D0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3029729A16D37144004943D0 /* NSDate+Helper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		30505B4016C0EBAA004666F3 /* ELMapThisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */; };
 		30505B4116C0EBAA004666F3 /* ELMapThisViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */; };
 		3058AB2F16AEC0C100F1E959 /* Cell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3058AB2E16AEC0C100F1E959 /* Cell2.xib */; };
@@ -83,6 +84,8 @@
 		3004717016AD68AA00DB4A81 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		3004717116AD68AA00DB4A81 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
 		3004717216AD68AA00DB4A81 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
+		3029729916D37144004943D0 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
+		3029729A16D37144004943D0 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		30505B3D16C0EBAA004666F3 /* ELMapThisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELMapThisViewController.h; sourceTree = "<group>"; };
 		30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELMapThisViewController.m; sourceTree = "<group>"; };
 		30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELMapThisViewController.xib; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 				3058AC1816B2BC5000F1E959 /* ELConstants.h */,
 				3002AAF316CA486F00CBC428 /* ELTweetGenerator.h */,
 				3002AAF416CA486F00CBC428 /* ELTweetGenerator.m */,
+				3029729916D37144004943D0 /* NSDate+Helper.h */,
+				3029729A16D37144004943D0 /* NSDate+Helper.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 				3002AAA916C997FA00CBC428 /* RCLabel.m in Sources */,
 				3002AAF516CA486F00CBC428 /* ELTweetGenerator.m in Sources */,
 				3002AAF816CA630300CBC428 /* ELImages.m in Sources */,
+				3029729B16D37144004943D0 /* NSDate+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

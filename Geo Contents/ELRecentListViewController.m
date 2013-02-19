@@ -10,6 +10,7 @@
 #import "ELRESTful.h"
 #import "Cell.h"
 #import "ELTweetGenerator.h"
+#import "NSDate+Helper.h"
 
 
 
@@ -151,15 +152,13 @@
                     cell.usernameLabel.componentsAndPlainText = componentsDS;
                     cell.usernameLabel.delegate = self;
                     
-                    //TODO: formate time
-                    //NSTimeInterval timeInMiliseconds = [[NSDate date] timeIntervalSinceNow];
+                    //: formate time using Utitlity category NSDATE+Helper
+                    NSTimeInterval timeInterval = (double)([feature.time unsignedLongLongValue]/1000);
+                    NSDate *theDate = [[NSDate alloc]initWithTimeIntervalSince1970: timeInterval];
+                    NSString *displayString = [NSDate stringForDisplayFromDate:theDate];
                     
-                    
-                    cell.timeDistance.text = [NSString stringWithFormat:@"%llu", [feature.time unsignedLongLongValue]];
-                    
-                    //TODO: to be Fixed to async/cached
-                    
-                    //cell.descriptionLabel.text = feature.description;
+                    cell.timeDistance.text = displayString;
+                
                     if (feature.description !=NULL) {
                         
                         NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
@@ -223,7 +222,7 @@
             [nFeatures removeAllObjects];
             [nFeatures addObjectsFromArray:unsortedArrayWithoutDisctanceProperty];
             // Sort all features by distance
-            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO];
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:YES];
             [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
             // Ensure the new data is used in the collection view
             [self.collectionView reloadData];

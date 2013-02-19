@@ -58,7 +58,7 @@
         [self.scroll addSubview:self.usernameLabel];
         
         //self.usernameLabel.text =self.feature.user.full_name;
-        self.timeDistance.text = [NSString stringWithFormat:@"%llu", [self.feature.distance unsignedLongLongValue]];;
+        self.timeDistance.text = [NSString stringWithFormat:@"%llu", [self.feature.distance unsignedLongLongValue]];
         
         // to be Fixed to async
         
