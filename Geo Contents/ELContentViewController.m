@@ -84,7 +84,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     //
     nFeatures = [@[] mutableCopy];
     
-    self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
+    //self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+
 
     
     /*  Location service
@@ -101,9 +103,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     //add goto my current location button
     //[self gotoMyLocationButton];
-    gpsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [gpsButton setTitle:@"T" forState:UIControlStateNormal];
-    gpsButton.frame = CGRectMake(250.0, 20.0, 30.0, 30.0);
+    gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    gpsButton.frame = CGRectMake(250.0, 20.0, 48.0, 30.0);
+    [gpsButton setImage:[UIImage imageNamed:@"gps_inactivex30.png"] forState:UIControlStateNormal];
     [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:gpsButton];
     
@@ -162,13 +164,13 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     if (gpsButtonCurrentStatus == NO)
     {
         gpsButtonCurrentStatus = YES;
-        [gpsButton setImage: [UIImage imageNamed:@"gps3_30px.png"] forState:UIControlStateNormal];
+        [gpsButton setImage: [UIImage imageNamed:@"gps_activex30.png"] forState:UIControlStateNormal];
         [self startUpdatingContentViewtoMylocation];
     }
     else
     {
         gpsButtonCurrentStatus = NO;
-        [gpsButton setImage:[UIImage imageNamed:@"notselectedImage.png"] forState:UIControlStateNormal];
+        [gpsButton setImage:[UIImage imageNamed:@"gps_inactivex30.png"] forState:UIControlStateNormal];
         [self stopUpdatingContentViewtoMylocation];
     }
     
@@ -177,6 +179,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 -(void)startUpdatingContentViewtoMylocation
 {
+    
     [self fetchPOIsAtLocation:nLocation.coordinate];
     
     
@@ -494,7 +497,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     int distance = [[self getDistanceBetweenPoint1:nLocation Point2:oLocation] integerValue];
     //Check if user walked 100meter then reload the content view
-    if (distance > 100) {
+    if (distance > 10) {
         [self fetchPOIsAtLocation:nLocation.coordinate];
         oLocation = nLocation;
     }

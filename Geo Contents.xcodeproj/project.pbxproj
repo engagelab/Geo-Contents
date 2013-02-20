@@ -21,6 +21,10 @@
 		3029729B16D37144004943D0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3029729A16D37144004943D0 /* NSDate+Helper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		304496E116D4B76400CAD52D /* JMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 304496DE16D4B76400CAD52D /* JMImageCache.m */; };
 		304496E216D4B76400CAD52D /* UIImageView+JMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 304496E016D4B76400CAD52D /* UIImageView+JMImageCache.m */; };
+		304496E616D4CD1400CAD52D /* gps_activex30.png in Resources */ = {isa = PBXBuildFile; fileRef = 304496E416D4CD1400CAD52D /* gps_activex30.png */; };
+		304496E716D4CD1400CAD52D /* gps_inactivex30.png in Resources */ = {isa = PBXBuildFile; fileRef = 304496E516D4CD1400CAD52D /* gps_inactivex30.png */; };
+		304496EB16D4D0D100CAD52D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 304496E916D4D0D100CAD52D /* Default@2x.png */; };
+		304496EC16D4D0D100CAD52D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 304496EA16D4D0D100CAD52D /* Default.png */; };
 		30505B4016C0EBAA004666F3 /* ELMapThisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */; };
 		30505B4116C0EBAA004666F3 /* ELMapThisViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */; };
 		3058AB2F16AEC0C100F1E959 /* Cell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3058AB2E16AEC0C100F1E959 /* Cell2.xib */; };
@@ -37,7 +41,6 @@
 		3058AC1116B298BD00F1E959 /* instagram.png in Resources */ = {isa = PBXBuildFile; fileRef = 3058AC0E16B298BA00F1E959 /* instagram.png */; };
 		3058AC1216B298BD00F1E959 /* overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 3058AC0F16B298BB00F1E959 /* overlay.png */; };
 		3058AC1316B298BD00F1E959 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 3058AC1016B298BC00F1E959 /* user.png */; };
-		3058AC1A16B6B38E00F1E959 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 3058AC1916B6B38D00F1E959 /* images */; };
 		309ECBA016A580610064E88A /* ELFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 309ECB9F16A580610064E88A /* ELFeature.m */; };
 		309ECBA416A5831C0064E88A /* ELUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 309ECBA316A5831C0064E88A /* ELUser.m */; };
 		309ECBC016A7F0540064E88A /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 309ECBBF16A7F0540064E88A /* TTTTimeIntervalFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -47,8 +50,7 @@
 		30B59931169D571900565438 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30B5992F169D571900565438 /* InfoPlist.strings */; };
 		30B59933169D571900565438 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59932169D571900565438 /* main.m */; };
 		30B59937169D571900565438 /* ELAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59936169D571900565438 /* ELAppDelegate.m */; };
-		30B59939169D571900565438 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B59938169D571900565438 /* Default.png */; };
-		30B5993B169D571900565438 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5993A169D571900565438 /* Default@2x.png */; };
+		30B5993B169D571900565438 /* aDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5993A169D571900565438 /* aDefault@2x.png */; };
 		30B5993D169D571900565438 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5993C169D571900565438 /* Default-568h@2x.png */; };
 		30B59946169D575300565438 /* ELContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59944169D575300565438 /* ELContentViewController.m */; };
 		30B59947169D575300565438 /* ELContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B59945169D575300565438 /* ELContentViewController.xib */; };
@@ -87,6 +89,10 @@
 		304496DE16D4B76400CAD52D /* JMImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMImageCache.m; sourceTree = "<group>"; };
 		304496DF16D4B76400CAD52D /* UIImageView+JMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+JMImageCache.h"; sourceTree = "<group>"; };
 		304496E016D4B76400CAD52D /* UIImageView+JMImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+JMImageCache.m"; sourceTree = "<group>"; };
+		304496E416D4CD1400CAD52D /* gps_activex30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gps_activex30.png; sourceTree = "<group>"; };
+		304496E516D4CD1400CAD52D /* gps_inactivex30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gps_inactivex30.png; sourceTree = "<group>"; };
+		304496E916D4D0D100CAD52D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		304496EA16D4D0D100CAD52D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		30505B3D16C0EBAA004666F3 /* ELMapThisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELMapThisViewController.h; sourceTree = "<group>"; };
 		30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELMapThisViewController.m; sourceTree = "<group>"; };
 		30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELMapThisViewController.xib; sourceTree = "<group>"; };
@@ -111,7 +117,6 @@
 		3058AC0F16B298BB00F1E959 /* overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overlay.png; sourceTree = "<group>"; };
 		3058AC1016B298BC00F1E959 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		3058AC1816B2BC5000F1E959 /* ELConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELConstants.h; sourceTree = "<group>"; };
-		3058AC1916B6B38D00F1E959 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		309ECB9E16A580610064E88A /* ELFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELFeature.h; sourceTree = "<group>"; };
 		309ECB9F16A580610064E88A /* ELFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELFeature.m; sourceTree = "<group>"; };
 		309ECBA216A5831C0064E88A /* ELUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELUser.h; sourceTree = "<group>"; };
@@ -128,8 +133,7 @@
 		30B59934169D571900565438 /* Geo Contents-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Geo Contents-Prefix.pch"; sourceTree = "<group>"; };
 		30B59935169D571900565438 /* ELAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ELAppDelegate.h; sourceTree = "<group>"; };
 		30B59936169D571900565438 /* ELAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ELAppDelegate.m; sourceTree = "<group>"; };
-		30B59938169D571900565438 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		30B5993A169D571900565438 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		30B5993A169D571900565438 /* aDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aDefault@2x.png"; sourceTree = "<group>"; };
 		30B5993C169D571900565438 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		30B59943169D575300565438 /* ELContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELContentViewController.h; sourceTree = "<group>"; };
 		30B59944169D575300565438 /* ELContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELContentViewController.m; sourceTree = "<group>"; };
@@ -175,6 +179,24 @@
 			name = JMImageCache;
 			sourceTree = "<group>";
 		};
+		304496E316D4CCC800CAD52D /* GPS Icons */ = {
+			isa = PBXGroup;
+			children = (
+				304496E416D4CD1400CAD52D /* gps_activex30.png */,
+				304496E516D4CD1400CAD52D /* gps_inactivex30.png */,
+			);
+			name = "GPS Icons";
+			sourceTree = "<group>";
+		};
+		304496E816D4D0C100CAD52D /* splash screen */ = {
+			isa = PBXGroup;
+			children = (
+				304496E916D4D0D100CAD52D /* Default@2x.png */,
+				304496EA16D4D0D100CAD52D /* Default.png */,
+			);
+			name = "splash screen";
+			sourceTree = "<group>";
+		};
 		30B59917169D571900565438 = {
 			isa = PBXGroup;
 			children = (
@@ -208,7 +230,6 @@
 		30B5992C169D571900565438 /* Geo Contents */ = {
 			isa = PBXGroup;
 			children = (
-				3058AC1916B6B38D00F1E959 /* images */,
 				3058AC0C16B2968700F1E959 /* revisions.txt */,
 				30B59935169D571900565438 /* ELAppDelegate.h */,
 				30B59936169D571900565438 /* ELAppDelegate.m */,
@@ -245,6 +266,8 @@
 		30B5992D169D571900565438 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				304496E816D4D0C100CAD52D /* splash screen */,
+				304496E316D4CCC800CAD52D /* GPS Icons */,
 				3058AC0E16B298BA00F1E959 /* instagram.png */,
 				3058AC0F16B298BB00F1E959 /* overlay.png */,
 				3058AC1016B298BC00F1E959 /* user.png */,
@@ -254,8 +277,7 @@
 				30B5992F169D571900565438 /* InfoPlist.strings */,
 				30B59932169D571900565438 /* main.m */,
 				30B59934169D571900565438 /* Geo Contents-Prefix.pch */,
-				30B59938169D571900565438 /* Default.png */,
-				30B5993A169D571900565438 /* Default@2x.png */,
+				30B5993A169D571900565438 /* aDefault@2x.png */,
 				30B5993C169D571900565438 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
@@ -377,8 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B59931169D571900565438 /* InfoPlist.strings in Resources */,
-				30B59939169D571900565438 /* Default.png in Resources */,
-				30B5993B169D571900565438 /* Default@2x.png in Resources */,
+				30B5993B169D571900565438 /* aDefault@2x.png in Resources */,
 				30B5993D169D571900565438 /* Default-568h@2x.png in Resources */,
 				30B59947169D575300565438 /* ELContentViewController.xib in Resources */,
 				30B59972169EAC7000565438 /* default_user_icon.jpg in Resources */,
@@ -393,10 +414,13 @@
 				3058AC1116B298BD00F1E959 /* instagram.png in Resources */,
 				3058AC1216B298BD00F1E959 /* overlay.png in Resources */,
 				3058AC1316B298BD00F1E959 /* user.png in Resources */,
-				3058AC1A16B6B38E00F1E959 /* images in Resources */,
 				30F9F26016B9D90F00E40DE8 /* ELRecentListViewController.xib in Resources */,
 				30F9F26216B9DD8100E40DE8 /* placeholder.png in Resources */,
 				30505B4116C0EBAA004666F3 /* ELMapThisViewController.xib in Resources */,
+				304496E616D4CD1400CAD52D /* gps_activex30.png in Resources */,
+				304496E716D4CD1400CAD52D /* gps_inactivex30.png in Resources */,
+				304496EB16D4D0D100CAD52D /* Default@2x.png in Resources */,
+				304496EC16D4D0D100CAD52D /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
