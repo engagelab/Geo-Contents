@@ -70,7 +70,8 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     
     [self.collectionView setCollectionViewLayout:flowLayout];
-    
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
     self.thumbnailQueue.maxConcurrentOperationCount = 3;
     

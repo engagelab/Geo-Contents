@@ -69,6 +69,8 @@
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     
     [self.collectionView setCollectionViewLayout:flowLayout];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+
     
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
     self.thumbnailQueue.maxConcurrentOperationCount = 3;
@@ -124,6 +126,8 @@
     return 1;
 }
 
+
+
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
     NSInteger size = nFeatures.count;
@@ -131,6 +135,8 @@
 }
 
 
+
+//recalculate the size of the CELL runtime to fit the content in it
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout  *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
@@ -145,14 +151,11 @@
 }
 
 
+
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    //    if (self.nLocation == nil) {
-    //        [self.collectionView reloadData];
-    //    }
-    // we're going to use a custom UICollectionViewCell, which will hold an image and its label
     ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
-    
     
     static NSString *cellIdentifier = @"cvCell";
     Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
