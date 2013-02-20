@@ -117,6 +117,16 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    if (nFeatures.count < 1) {
+        [self getAndShowFeaturesInBoundingBox];
+    }
+}
+
+
+
+-(void)getAndShowFeaturesInBoundingBox
+{
+    
     // dafualt boounding box in case GPS does not work
     NSDictionary *bboxt = [[NSDictionary alloc] initWithObjectsAndKeys:
                            @"59.927999267f",@"lat1",
@@ -136,13 +146,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         [self loadFeaturesInBoundingBox:bboxt];
         [self.collectionView reloadData];
     }
-}
 
-
-
--(void)viewWillAppear:(BOOL)animated
-{
-  //update?
 }
 
 

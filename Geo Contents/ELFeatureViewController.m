@@ -8,6 +8,7 @@
 
 #import "ELFeatureViewController.h"
 #import "ELTweetGenerator.h"
+#import "JMImageCache.h"
 
 @interface ELFeatureViewController ()
 
@@ -60,22 +61,7 @@
         //self.usernameLabel.text =self.feature.user.full_name;
         self.timeDistance.text = [NSString stringWithFormat:@"%llu", [self.feature.distance unsignedLongLongValue]];
         
-        // to be Fixed to async
-        
-        dispatch_queue_t concurrentQueue =
-        dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_async(concurrentQueue, ^{
-            __block UIImage *image = nil;
-            dispatch_sync(concurrentQueue, ^{
-                /* Download the image here */
-                image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.feature.images.standard_resolution]];
-            });
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                /* Show the image to the user here on the main queue*/
-                self.standardResolutionImageview.image = image;
-            });
-        });
-
+        [self.standardResolutionImageview setImageWithURL:self.feature.images.standard_resolution  placeholder:[UIImage imageNamed:@"placeholder.png"]];
         
         if (self.feature.description !=NULL) {
             
