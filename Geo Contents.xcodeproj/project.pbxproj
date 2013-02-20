@@ -173,6 +173,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		304496DC16D4B6C200CAD52D /* JMImageCache */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = JMImageCache;
+			sourceTree = "<group>";
+		};
 		30B59917169D571900565438 = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +323,7 @@
 		30B599A416A02DE600565438 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				304496DC16D4B6C200CAD52D /* JMImageCache */,
 				3002AAA716C997FA00CBC428 /* RCLabel.h */,
 				3002AAA816C997FA00CBC428 /* RCLabel.m */,
 				3058AB6F16AF2ED500F1E959 /* AFImageDownloader.h */,
