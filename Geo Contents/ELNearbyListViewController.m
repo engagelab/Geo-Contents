@@ -11,7 +11,7 @@
 #import "ELRESTful.h"
 #import "Cell.h"
 #import "ELTweetGenerator.h"
-
+#import "JMImageCache.h"
 
 
 NSString *kCellID = @"cvCell";                          // UICollectionViewCell storyboard id
@@ -214,6 +214,11 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     return cell;
 
 }
+
+
+
+
+
 
 
 
