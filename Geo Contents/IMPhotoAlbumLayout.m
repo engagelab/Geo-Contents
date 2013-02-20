@@ -52,9 +52,15 @@ static NSString * const IMPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 //    self.numberOfColumns = 2;
     
     //Instagram setting
-    self.itemInsets = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
-    self.itemSize = CGSizeMake(95.0f, 95.0f);
-    self.interItemSpacingY = 8.0f;
+//    self.itemInsets = UIEdgeInsetsMake(8.0f, 8.0f, 8.0f, 8.0f);
+//    self.itemSize = CGSizeMake(95.0f, 95.0f);
+//    self.interItemSpacingY = 8.0f;
+//    self.numberOfColumns = 3;
+    
+    //overlay setting
+    self.itemInsets = UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f);
+    self.itemSize = CGSizeMake(107.0f, 107.0f);
+    self.interItemSpacingY = 0.0f;
     self.numberOfColumns = 3;
 
 }

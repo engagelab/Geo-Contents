@@ -9,8 +9,6 @@
 #import "ELContentViewController.h"
 #import "IMPhotoAlbumLayout.h"
 #import "IMAlbumPhotoCell.h"
-#import "BHAlbum.h"
-#import "BHPhoto.h"
 
 #import "ELFeature.h"
 
@@ -41,8 +39,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     CLLocation *oLocation;
     CLLocation *nLocation;
     NSMutableArray  *nFeatures;
+    NSMutableArray *cashedImages;
 }
-@property (nonatomic, strong) NSMutableArray *albums;
 @property (nonatomic, weak) IBOutlet IMPhotoAlbumLayout *photoAlbumLayout;
 @property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 @property (nonatomic,strong) NSMutableArray *photos;
@@ -77,6 +75,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     [self.collectionView registerClass:[IMAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
     
+    cashedImages = [[NSMutableArray alloc]init];
+    
     self.photos = [@[] mutableCopy];
     
     //
@@ -92,20 +92,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveNotif:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveNotif:) name:UIApplicationWillResignActiveNotification object:nil];
     
-    // Timer
-    //oLocation = [[CLLocation alloc]initWithLatitude:59.927999267f longitude:10.759999771f];
-    //nLocation = [[CLLocation alloc]initWithLatitude:59.927999267f longitude:10.759999771f];
-//    [NSTimer scheduledTimerWithTimeInterval:20 target:self
-//                                   selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
-//    
-    
-    
-    
+    // Toggle button to switch between content mode and Map mode
     UIBarButtonItem *gotoMapViewButton = [[UIBarButtonItem alloc] initWithTitle:@"Mapview" style:UIBarButtonItemStylePlain target:self action:@selector(openMapview)];
     self.navigationItem.rightBarButtonItem = gotoMapViewButton;
-    
-    self.thumbnailQueue = [[NSOperationQueue alloc] init];
-    self.thumbnailQueue.maxConcurrentOperationCount = 3;
     
     
     //add goto my current location button
@@ -113,16 +102,20 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     gpsButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [gpsButton setTitle:@"T" forState:UIControlStateNormal];
     gpsButton.frame = CGRectMake(250.0, 20.0, 30.0, 30.0);
-    [gpsButton addTarget:self
-                  action:@selector(gpsButtonpressed)
-        forControlEvents:UIControlEventTouchUpInside];
-    
+    [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:gpsButton];
+    
+    // intialize the thumbnails que
+    self.thumbnailQueue = [[NSOperationQueue alloc] init];
+    self.thumbnailQueue.maxConcurrentOperationCount = 3;
     
 }
 
+
+
 -(void)viewDidAppear:(BOOL)animated
 {
+    // dafualt boounding box in case GPS does not work
     NSDictionary *bboxt = [[NSDictionary alloc] initWithObjectsAndKeys:
                            @"59.927999267f",@"lat1",
                            @"10.759999771f",@"lng1",
@@ -205,20 +198,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         feature.distance = [self distanceBetweenPoint1:nLocation Point2:feature.fLocation];
         [nFeatures addObject:feature];
     }
-    
-    
+
     nFeatures = [[self shuffleArray:results] mutableCopy];
-    
-    self.albums = [NSMutableArray array];
-    
-    for (ELFeature *feature in  nFeatures) {
-        BHAlbum *album = [[BHAlbum alloc] init];
-        NSURL *photoURL = feature.images.standard_resolution ;
-        BHPhoto *photo = [BHPhoto photoWithImageURL:photoURL];
-        [album addPhoto:photo];
-        [self.albums addObject:album];
-    }
-    
+    //cach images here?
 }
 
 
@@ -253,17 +235,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 -(void) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D
 {
     nFeatures = [ELRESTful fetchPOIsAtLocation:coordinate2D];
-    self.albums = [NSMutableArray array];
-    
-    for (ELFeature *feature in  nFeatures) {
-        BHAlbum *album = [[BHAlbum alloc] init];
-        NSURL *photoURL = feature.images.standard_resolution;
-        BHPhoto *photo = [BHPhoto photoWithImageURL:photoURL];
-        [album addPhoto:photo];
-        [self.albums addObject:album];
-        
-    }
-    
     [self.collectionView reloadData];
 
 }
@@ -309,7 +280,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    //return self.albums.count;
     
     return nFeatures.count;
 }
@@ -322,9 +292,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-//    BHAlbum *album = self.albums[section];
-//    return album.photos.count;
-    //return nFeatures.count;
+
     return 1;
 }
 
@@ -346,13 +314,20 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     __weak ELContentViewController *weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.images.thumbnail]];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             // then set them via the main queue if the cell is still visible.
             if ([weakSelf.collectionView.indexPathsForVisibleItems containsObject:indexPath]) {
                 IMAlbumPhotoCell *cell =
                 (IMAlbumPhotoCell *)[weakSelf.collectionView cellForItemAtIndexPath:indexPath];
                 cell.imageView.image = image;
+                
+                //cach image in memory
+                
+                
+                NSString *source_type = feature.source_type;
+                if ([source_type isEqualToString:@"Instagram"]) {
+                    cell.imageView.alpha = 0.6;
+                }
             }
         });
     }];
@@ -491,6 +466,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
+
 -(void)setOldLocationTo:(NSTimer*)theTimer
 {
     
@@ -498,14 +474,15 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     //Check if user walked 100meter then reload the content view
     if (distance > 100) {
         [self fetchPOIsAtLocation:nLocation.coordinate];
+        oLocation = nLocation;
     }
     
     if (oLocation == nil) {
         oLocation = [[CLLocation alloc]init];
         oLocation = nLocation;
     }
-    else
-        oLocation = nLocation;
+    
+    
 }
 
 

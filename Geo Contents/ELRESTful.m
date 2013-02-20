@@ -40,7 +40,7 @@
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
     NSString *lng = [NSString stringWithFormat:@"%f",coordinate2D.longitude];
     NSString *lat = [NSString stringWithFormat:@"%f",coordinate2D.latitude];
-    NSString *distanceInMeters = [NSString stringWithFormat:@"%f",1000.0f];
+    NSString *distanceInMeters = [NSString stringWithFormat:@"%f",10.0f];
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@%@%@%@%@", requestUrl, lng, @"/",lat,@"/",distanceInMeters];
     

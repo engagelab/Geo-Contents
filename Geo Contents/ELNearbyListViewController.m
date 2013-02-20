@@ -202,6 +202,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
                     
                     cell.standardResolutionImageview.image = image;
                     
+                    
                 }                
             }
         });
