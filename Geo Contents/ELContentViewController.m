@@ -306,47 +306,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-// added cache
-
-
-
-//- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-//                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    IMAlbumPhotoCell *photoCell =
-//    [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier
-//                                              forIndexPath:indexPath];
-//
-//    
-//    ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
-//    // load photo images in the background
-//    __weak ELContentViewController *weakSelf = self;
-//    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.images.thumbnail]];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            // then set them via the main queue if the cell is still visible.
-//            if ([weakSelf.collectionView.indexPathsForVisibleItems containsObject:indexPath]) {
-//                IMAlbumPhotoCell *cell =
-//                (IMAlbumPhotoCell *)[weakSelf.collectionView cellForItemAtIndexPath:indexPath];
-//                cell.imageView.image = image;
-//                
-//                //cach image in memory
-//                
-//                
-//                NSString *source_type = feature.source_type;
-//                if ([source_type isEqualToString:@"Instagram"]) {
-//                    cell.imageView.alpha = 0.6;
-//                }
-//            }
-//        });
-//    }];
-//    
-//    [self.thumbnailQueue addOperation:operation];
-//    
-//    return photoCell;
-//    
-//}
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -356,8 +315,18 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
                                               forIndexPath:indexPath];
     
     ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
+    
     //load images using JMImageCache liberary. Awesome :)
     [photoCell.imageView setImageWithURL:feature.images.thumbnail];
+    
+    // differentiate external POIs with 60% alpha
+    NSString *source_type = feature.source_type;
+    if ([source_type isEqualToString:@"overlay"])
+    {
+        photoCell.imageView.alpha = 1.0;
+    }
+    else
+        photoCell.imageView.alpha = 0.6;
     return photoCell;
     
 }
