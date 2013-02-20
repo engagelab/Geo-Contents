@@ -74,7 +74,30 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
     self.thumbnailQueue.maxConcurrentOperationCount = 3;
     
+    // Refresh button to update list
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                      target:self
+                                      action:@selector(refresh)];
+    self.navigationItem.rightBarButtonItem = refreshButton;
+    
 }
+
+-(void)refresh
+{
+    if ([CLLocationManager locationServicesEnabled]){
+        CLLocationManager *locationManager = [CLLocationManager new];
+        [self showItemsAtLocation:locationManager.location];
+    } else {
+        /* Location services are not enabled.
+         Take appropriate action: for instance, prompt the
+         user to enable location services */
+        NSLog(@"Location services are not enabled");
+    }
+
+    NSLog(@"%@",@"refresh pressed");
+}
+
 
 
 

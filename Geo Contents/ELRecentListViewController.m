@@ -73,7 +73,30 @@
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
     self.thumbnailQueue.maxConcurrentOperationCount = 3;
     
+    // Refresh button to update list
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+                                      initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+                                      target:self
+                                      action:@selector(refresh)];
+    self.navigationItem.rightBarButtonItem = refreshButton;
+    
 }
+
+-(void)refresh
+{
+    if ([CLLocationManager locationServicesEnabled]){
+        CLLocationManager *locationManager = [CLLocationManager new];        
+        [self showItemsAtLocation:locationManager.location];
+    } else {
+        /* Location services are not enabled.
+         Take appropriate action: for instance, prompt the
+         user to enable location services */
+        NSLog(@"Location services are not enabled");
+    }
+    
+    NSLog(@"%@",@"refresh pressed");
+}
+
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -215,14 +238,14 @@
 - (void)showItemsAtLocation:(CLLocation*)newLocation {
     // Fetch the content on a worker thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsAtLocation:newLocation.coordinate] mutableCopy];
+        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchRecentlyAddedFeatures:newLocation.coordinate] mutableCopy];
         // Register the content on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             // Move all features to nFeatures
             [nFeatures removeAllObjects];
             [nFeatures addObjectsFromArray:unsortedArrayWithoutDisctanceProperty];
             // Sort all features by distance
-            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:YES];
+            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO];
             [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
             // Ensure the new data is used in the collection view
             [self.collectionView reloadData];
