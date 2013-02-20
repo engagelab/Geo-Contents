@@ -297,8 +297,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 
     return 1;
@@ -307,8 +306,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     IMAlbumPhotoCell *photoCell =
     [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier
@@ -339,7 +337,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
-    self.secondView.feature = [nFeatures objectAtIndex:indexPath.section];
+    ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
+    feature.distance = [self distanceBetweenPoint1:nLocation Point2:feature.fLocation];
+    self.secondView.feature = feature;
+        
 	[self.navigationController pushViewController:self.secondView animated:YES];
 }
 

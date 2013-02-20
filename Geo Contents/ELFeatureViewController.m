@@ -58,8 +58,11 @@
         self.usernameLabel.delegate = self;
         [self.scroll addSubview:self.usernameLabel];
         
-        //self.usernameLabel.text =self.feature.user.full_name;
-        self.timeDistance.text = [NSString stringWithFormat:@"%llu", [self.feature.distance unsignedLongLongValue]];
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
+        [formatter setMaximumFractionDigits:0];
+        
+        self.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:self.feature.distance],@"m"];
         
         [self.standardResolutionImageview setImageWithURL:self.feature.images.standard_resolution  placeholder:[UIImage imageNamed:@"placeholder.png"]];
         
