@@ -147,7 +147,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
         //find the height of RTLabel
         suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
-    return CGSizeMake(320.f, 400.f + suggestedSize.height);
+    return CGSizeMake(320.f, 380.f + suggestedSize.height);
 }
 
 

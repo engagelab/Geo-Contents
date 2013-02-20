@@ -87,7 +87,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     //self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
     self.collectionView.backgroundColor = [UIColor whiteColor];
 
-
     
     /*  Location service
      Stop CLLOcationManager when you receive notification that your app is resigning active,
@@ -374,6 +373,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     self.secondView.feature = [nFeatures objectAtIndex:indexPath.section];
 	[self.navigationController pushViewController:self.secondView animated:YES];
 }
+
 
 
 

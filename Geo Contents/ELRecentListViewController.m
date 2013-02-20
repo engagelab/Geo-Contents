@@ -130,6 +130,21 @@
     return size;
 }
 
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout  *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    CGSize suggestedSize;
+    
+    NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
+    
+    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+    //find the height of RTLabel
+    suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+    return CGSizeMake(320.f, 380.f + suggestedSize.height);
+}
+
+
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     //    if (self.nLocation == nil) {
