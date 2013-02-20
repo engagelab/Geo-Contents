@@ -52,13 +52,10 @@
 		30B5993D169D571900565438 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5993C169D571900565438 /* Default-568h@2x.png */; };
 		30B59946169D575300565438 /* ELContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59944169D575300565438 /* ELContentViewController.m */; };
 		30B59947169D575300565438 /* ELContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B59945169D575300565438 /* ELContentViewController.xib */; };
-		30B59950169D57A800565438 /* ELDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B5994E169D57A800565438 /* ELDetailViewController.m */; };
-		30B59951169D57A800565438 /* ELDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B5994F169D57A800565438 /* ELDetailViewController.xib */; };
 		30B5995C169D5DAD00565438 /* IMAlbumPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59957169D5DAD00565438 /* IMAlbumPhotoCell.m */; };
 		30B5995D169D5DAD00565438 /* IMPhotoAlbumLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59959169D5DAD00565438 /* IMPhotoAlbumLayout.m */; };
 		30B59962169D77D400565438 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B59961169D77D400565438 /* CoreLocation.framework */; };
 		30B59972169EAC7000565438 /* default_user_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30B59971169EAC7000565438 /* default_user_icon.jpg */; };
-		30B5999216A005A000565438 /* OldFeatureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B5999016A005A000565438 /* OldFeatureViewController.xib */; };
 		30B5999B16A0121D00565438 /* menubar.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5999A16A0121D00565438 /* menubar.png */; };
 		30F9F25F16B9D90F00E40DE8 /* ELRecentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F9F25D16B9D90E00E40DE8 /* ELRecentListViewController.m */; };
 		30F9F26016B9D90F00E40DE8 /* ELRecentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30F9F25E16B9D90E00E40DE8 /* ELRecentListViewController.xib */; };
@@ -137,18 +134,12 @@
 		30B59943169D575300565438 /* ELContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELContentViewController.h; sourceTree = "<group>"; };
 		30B59944169D575300565438 /* ELContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELContentViewController.m; sourceTree = "<group>"; };
 		30B59945169D575300565438 /* ELContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELContentViewController.xib; sourceTree = "<group>"; };
-		30B5994D169D57A800565438 /* ELDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELDetailViewController.h; sourceTree = "<group>"; };
-		30B5994E169D57A800565438 /* ELDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELDetailViewController.m; sourceTree = "<group>"; };
-		30B5994F169D57A800565438 /* ELDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELDetailViewController.xib; sourceTree = "<group>"; };
 		30B59956169D5DAD00565438 /* IMAlbumPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMAlbumPhotoCell.h; sourceTree = "<group>"; };
 		30B59957169D5DAD00565438 /* IMAlbumPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMAlbumPhotoCell.m; sourceTree = "<group>"; };
 		30B59958169D5DAD00565438 /* IMPhotoAlbumLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMPhotoAlbumLayout.h; sourceTree = "<group>"; };
 		30B59959169D5DAD00565438 /* IMPhotoAlbumLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMPhotoAlbumLayout.m; sourceTree = "<group>"; };
 		30B59961169D77D400565438 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		30B59971169EAC7000565438 /* default_user_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_user_icon.jpg; sourceTree = "<group>"; };
-		30B5998E16A005A000565438 /* OldFeatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldFeatureViewController.h; sourceTree = "<group>"; };
-		30B5998F16A005A000565438 /* OldFeatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldFeatureViewController.m; sourceTree = "<group>"; };
-		30B5999016A005A000565438 /* OldFeatureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OldFeatureViewController.xib; sourceTree = "<group>"; };
 		30B5999A16A0121D00565438 /* menubar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menubar.png; sourceTree = "<group>"; };
 		30F9F25C16B9D90E00E40DE8 /* ELRecentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELRecentListViewController.h; sourceTree = "<group>"; };
 		30F9F25D16B9D90E00E40DE8 /* ELRecentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELRecentListViewController.m; sourceTree = "<group>"; };
@@ -193,7 +184,6 @@
 				30B5992C169D571900565438 /* Geo Contents */,
 				30B59925169D571900565438 /* Frameworks */,
 				30B59923169D571900565438 /* Products */,
-				30B5999C16A0149700565438 /* old */,
 			);
 			sourceTree = "<group>";
 		};
@@ -306,20 +296,6 @@
 			name = layouts;
 			sourceTree = "<group>";
 		};
-		30B5999C16A0149700565438 /* old */ = {
-			isa = PBXGroup;
-			children = (
-				30B5998E16A005A000565438 /* OldFeatureViewController.h */,
-				30B5998F16A005A000565438 /* OldFeatureViewController.m */,
-				30B5999016A005A000565438 /* OldFeatureViewController.xib */,
-				30B5994D169D57A800565438 /* ELDetailViewController.h */,
-				30B5994E169D57A800565438 /* ELDetailViewController.m */,
-				30B5994F169D57A800565438 /* ELDetailViewController.xib */,
-			);
-			name = old;
-			path = "Geo Contents";
-			sourceTree = "<group>";
-		};
 		30B599A416A02DE600565438 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,9 +381,7 @@
 				30B5993B169D571900565438 /* Default@2x.png in Resources */,
 				30B5993D169D571900565438 /* Default-568h@2x.png in Resources */,
 				30B59947169D575300565438 /* ELContentViewController.xib in Resources */,
-				30B59951169D57A800565438 /* ELDetailViewController.xib in Resources */,
 				30B59972169EAC7000565438 /* default_user_icon.jpg in Resources */,
-				30B5999216A005A000565438 /* OldFeatureViewController.xib in Resources */,
 				30B5999B16A0121D00565438 /* menubar.png in Resources */,
 				3004715F16AD329A00DB4A81 /* Cell.xib in Resources */,
 				3004716716AD35AF00DB4A81 /* ELNearbyListViewController.xib in Resources */,
@@ -436,7 +410,6 @@
 				30B59933169D571900565438 /* main.m in Sources */,
 				30B59937169D571900565438 /* ELAppDelegate.m in Sources */,
 				30B59946169D575300565438 /* ELContentViewController.m in Sources */,
-				30B59950169D57A800565438 /* ELDetailViewController.m in Sources */,
 				30B5995C169D5DAD00565438 /* IMAlbumPhotoCell.m in Sources */,
 				30B5995D169D5DAD00565438 /* IMPhotoAlbumLayout.m in Sources */,
 				309ECBA016A580610064E88A /* ELFeature.m in Sources */,
