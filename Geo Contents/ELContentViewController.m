@@ -318,8 +318,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [photoCell.imageView setImageWithURL:feature.images.thumbnail];
     
     // differentiate external POIs with 60% alpha
-    NSString *source_type = feature.source_type;
-    if ([source_type isEqualToString:@"overlay"])
+    if ([feature.source_type isEqualToString:@"overlay"])
     {
         photoCell.imageView.alpha = 1.0;
     }
