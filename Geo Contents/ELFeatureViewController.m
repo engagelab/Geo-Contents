@@ -7,6 +7,7 @@
 //
 
 #import "ELFeatureViewController.h"
+#import "ELContentViewController.h"
 #import "ELTweetGenerator.h"
 #import "JMImageCache.h"
 
@@ -62,7 +63,11 @@
         [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
         [formatter setMaximumFractionDigits:0];
         
-        self.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:self.feature.distance],@"m"];
+        CLLocationManager *manager = [CLLocationManager new];
+        CLLocation *userLoc = manager.location;
+        CLLocation *featureLoc = self.feature.fLocation;
+        NSNumber *distance = [ELContentViewController getDistanceBetweenPoint1:userLoc Point2:featureLoc];
+        self.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:distance],@"m"];
         
         [self.standardResolutionImageview setImageWithURL:self.feature.images.standard_resolution  placeholder:[UIImage imageNamed:@"placeholder.png"]];
         
