@@ -104,7 +104,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     //[self gotoMyLocationButton];
     gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
     gpsButton.frame = CGRectMake(250.0, 20.0, 48.0, 30.0);
-    [gpsButton setImage:[UIImage imageNamed:@"gps_inactivex30.png"] forState:UIControlStateNormal];
+    [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
     [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:gpsButton];
     
@@ -163,13 +163,13 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     if (gpsButtonCurrentStatus == NO)
     {
         gpsButtonCurrentStatus = YES;
-        [gpsButton setImage: [UIImage imageNamed:@"gps_activex30.png"] forState:UIControlStateNormal];
+        [gpsButton setImage: [UIImage imageNamed:@"gpsloc"] forState:UIControlStateNormal];
         [self startUpdatingContentViewtoMylocation];
     }
     else
     {
         gpsButtonCurrentStatus = NO;
-        [gpsButton setImage:[UIImage imageNamed:@"gps_inactivex30.png"] forState:UIControlStateNormal];
+        [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
         [self stopUpdatingContentViewtoMylocation];
     }
     
@@ -444,7 +444,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
  var d = R * c;
  */
--(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
++(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
 {
     
     double meters1 = [point1 distanceFromLocation:point2];
@@ -464,7 +464,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 -(void)setOldLocationTo:(NSTimer*)theTimer
 {
     
-    int distance = [[self getDistanceBetweenPoint1:nLocation Point2:oLocation] integerValue];
+    int distance = [[ELContentViewController getDistanceBetweenPoint1:nLocation Point2:oLocation] integerValue];
     //Check if user walked 100meter then reload the content view
     if (distance > 10) {
         [self fetchPOIsAtLocation:nLocation.coordinate];

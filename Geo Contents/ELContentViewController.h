@@ -17,6 +17,7 @@
     NSTimer *autoTimer;
 }
 
++(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2;
 
 
 @end
