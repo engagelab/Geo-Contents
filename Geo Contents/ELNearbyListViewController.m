@@ -266,6 +266,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 - (void)showItemsAtLocation:(CLLocation*)newLocation {
     // Fetch the content on a worker thread
+    [nFeatures removeAllObjects];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsAtLocation:newLocation.coordinate] mutableCopy];
         // Register the content on the main thread

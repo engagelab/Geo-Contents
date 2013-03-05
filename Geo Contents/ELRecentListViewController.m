@@ -254,6 +254,7 @@
 
 
 - (void)showItemsAtLocation:(CLLocation*)newLocation {
+    [nFeatures removeAllObjects];
     // Fetch the content on a worker thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchRecentlyAddedFeatures:newLocation.coordinate] mutableCopy];
