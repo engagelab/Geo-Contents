@@ -60,7 +60,8 @@
     {
         UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View in map", @"Direct me here",@"Edit",@"Delete" ,nil];
         sheet.destructiveButtonIndex = 3;
-        [sheet showFromRect:[self.actionButton frame] inView:self animated:YES];
+        [sheet showInView:self];
+        //[sheet showFromRect:[self.actionButton frame] inView:self animated:YES];
     }
     
 }

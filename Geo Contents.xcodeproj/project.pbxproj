@@ -50,8 +50,6 @@
 		30B59931169D571900565438 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 30B5992F169D571900565438 /* InfoPlist.strings */; };
 		30B59933169D571900565438 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59932169D571900565438 /* main.m */; };
 		30B59937169D571900565438 /* ELAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59936169D571900565438 /* ELAppDelegate.m */; };
-		30B5993B169D571900565438 /* aDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5993A169D571900565438 /* aDefault@2x.png */; };
-		30B5993D169D571900565438 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5993C169D571900565438 /* Default-568h@2x.png */; };
 		30B59946169D575300565438 /* ELContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59944169D575300565438 /* ELContentViewController.m */; };
 		30B59947169D575300565438 /* ELContentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B59945169D575300565438 /* ELContentViewController.xib */; };
 		30B5995C169D5DAD00565438 /* IMAlbumPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30B59957169D5DAD00565438 /* IMAlbumPhotoCell.m */; };
@@ -133,8 +131,6 @@
 		30B59934169D571900565438 /* Geo Contents-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Geo Contents-Prefix.pch"; sourceTree = "<group>"; };
 		30B59935169D571900565438 /* ELAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ELAppDelegate.h; sourceTree = "<group>"; };
 		30B59936169D571900565438 /* ELAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ELAppDelegate.m; sourceTree = "<group>"; };
-		30B5993A169D571900565438 /* aDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aDefault@2x.png"; sourceTree = "<group>"; };
-		30B5993C169D571900565438 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		30B59943169D575300565438 /* ELContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELContentViewController.h; sourceTree = "<group>"; };
 		30B59944169D575300565438 /* ELContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELContentViewController.m; sourceTree = "<group>"; };
 		30B59945169D575300565438 /* ELContentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELContentViewController.xib; sourceTree = "<group>"; };
@@ -277,8 +273,6 @@
 				30B5992F169D571900565438 /* InfoPlist.strings */,
 				30B59932169D571900565438 /* main.m */,
 				30B59934169D571900565438 /* Geo Contents-Prefix.pch */,
-				30B5993A169D571900565438 /* aDefault@2x.png */,
-				30B5993C169D571900565438 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -399,8 +393,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B59931169D571900565438 /* InfoPlist.strings in Resources */,
-				30B5993B169D571900565438 /* aDefault@2x.png in Resources */,
-				30B5993D169D571900565438 /* Default-568h@2x.png in Resources */,
 				30B59947169D575300565438 /* ELContentViewController.xib in Resources */,
 				30B59972169EAC7000565438 /* default_user_icon.jpg in Resources */,
 				30B5999B16A0121D00565438 /* menubar.png in Resources */,

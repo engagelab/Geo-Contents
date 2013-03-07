@@ -118,13 +118,19 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
+
+
 -(void)viewDidAppear:(BOOL)animated
 {
-    
-    if (nFeatures.count < 1) {
+    //TODO: update only when you are coming from MapView but not from List Views
+    //if (nFeatures.count < 1)
+    {
         [self getAndShowFeaturesInBoundingBox];
     }
 }
+
+
+
 
 
 
