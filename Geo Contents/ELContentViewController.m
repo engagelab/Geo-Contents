@@ -116,8 +116,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
+
+
 -(void)viewDidAppear:(BOOL)animated
 {
+    
     if (nFeatures.count < 1) {
         [self getAndShowFeaturesInBoundingBox];
     }

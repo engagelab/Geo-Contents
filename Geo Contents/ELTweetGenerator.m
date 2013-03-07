@@ -68,6 +68,11 @@
 
 
 
+
+
+
+
+
 +(NSString*)getHTML:(NSString*)tweet withSourceType:(NSString*)sourceType
 {
     
@@ -126,12 +131,21 @@
     return htmlTweet;
 }
 
+
+
+
+
 +(NSString*)createHTMLUserString:(ELFeature*)feature
 {
     NSString *userHTML;
     if ([feature.source_type isEqualToString:@"overlay"])
     {
-        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://user?idd=",feature.user.idd,">",feature.user.full_name,"</a>"];
+        /*
+         <a href="http://www.yahoo.com"><font color="FF00CC">here</font></a>
+         */
+        userHTML = [NSString stringWithFormat:@"%@%@%s%s%@%s",@"<a href=fb://profile/",feature.user.idd,">","<font color=\"B8D336\">",feature.user.full_name,"</font></a>"];
+
+        //userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=fb://profile/",feature.user.idd,">",feature.user.full_name,"</a>"];
     }
     else if([feature.source_type isEqualToString:@"Instagram"] || [feature.source_type isEqualToString:@"mapped_instagram"])
     {
