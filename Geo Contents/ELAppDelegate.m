@@ -13,6 +13,7 @@
 #import "ELNearbyListViewController.h"
 #import "ELRecentListViewController.h"
 #import "ELFeatureViewController.h"
+#import "ELRESTful.h"
 
 
 
@@ -109,7 +110,7 @@
     NSLog(@"query string: %@", [url query]);
     NSLog(@"host: %@", [url host]);
     NSLog(@"url path: %@", [url path]);
-    NSDictionary *dict = [self parseQueryString:[url query]];
+    NSDictionary *dict = [ELRESTful parseQueryString:[url query]];
     
     
     if ([[url host] isEqualToString:@"browse"]) {
@@ -164,23 +165,6 @@
     
     NSLog(@"query dict: %@", dict);
     return YES;
-}
-
-
-
-//parse parameters to NSDictionary
-- (NSDictionary *)parseQueryString:(NSString *)query {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:6] ;
-    NSArray *pairs = [query componentsSeparatedByString:@"&"];
-    
-    for (NSString *pair in pairs) {
-        NSArray *elements = [pair componentsSeparatedByString:@"="];
-        NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        [dict setObject:val forKey:key];
-    }
-    return dict;
 }
 
 

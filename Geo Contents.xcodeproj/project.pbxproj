@@ -25,8 +25,6 @@
 		304496E716D4CD1400CAD52D /* gps_inactivex30.png in Resources */ = {isa = PBXBuildFile; fileRef = 304496E516D4CD1400CAD52D /* gps_inactivex30.png */; };
 		304496EB16D4D0D100CAD52D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 304496E916D4D0D100CAD52D /* Default@2x.png */; };
 		304496EC16D4D0D100CAD52D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 304496EA16D4D0D100CAD52D /* Default.png */; };
-		30505B4016C0EBAA004666F3 /* ELMapThisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */; };
-		30505B4116C0EBAA004666F3 /* ELMapThisViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */; };
 		3058AB2F16AEC0C100F1E959 /* Cell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3058AB2E16AEC0C100F1E959 /* Cell2.xib */; };
 		3058AB7316AF2ED500F1E959 /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3058AB7016AF2ED500F1E959 /* AFImageDownloader.m */; };
 		3058AB7416AF2ED500F1E959 /* NSData+AFDecompression.m in Sources */ = {isa = PBXBuildFile; fileRef = 3058AB7216AF2ED500F1E959 /* NSData+AFDecompression.m */; };
@@ -57,6 +55,11 @@
 		30B59962169D77D400565438 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B59961169D77D400565438 /* CoreLocation.framework */; };
 		30B59972169EAC7000565438 /* default_user_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30B59971169EAC7000565438 /* default_user_icon.jpg */; };
 		30B5999B16A0121D00565438 /* menubar.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5999A16A0121D00565438 /* menubar.png */; };
+		30F2904416E8B89E006E1112 /* ELUserFeaturesCVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F2904216E8B89E006E1112 /* ELUserFeaturesCVController.m */; };
+		30F2904516E8B89E006E1112 /* ELUserFeaturesCVController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30F2904316E8B89E006E1112 /* ELUserFeaturesCVController.xib */; };
+		30F2904716E8BF65006E1112 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F2904616E8BF65006E1112 /* Default-568h@2x.png */; };
+		30F2904B16E8C4AE006E1112 /* ELHashedFeatureCVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F2904916E8C4AE006E1112 /* ELHashedFeatureCVController.m */; };
+		30F2904C16E8C4AE006E1112 /* ELHashedFeatureCVController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30F2904A16E8C4AE006E1112 /* ELHashedFeatureCVController.xib */; };
 		30F9F25F16B9D90F00E40DE8 /* ELRecentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F9F25D16B9D90E00E40DE8 /* ELRecentListViewController.m */; };
 		30F9F26016B9D90F00E40DE8 /* ELRecentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30F9F25E16B9D90E00E40DE8 /* ELRecentListViewController.xib */; };
 		30F9F26216B9DD8100E40DE8 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F9F26116B9DD8100E40DE8 /* placeholder.png */; };
@@ -91,9 +94,6 @@
 		304496E516D4CD1400CAD52D /* gps_inactivex30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gps_inactivex30.png; sourceTree = "<group>"; };
 		304496E916D4D0D100CAD52D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		304496EA16D4D0D100CAD52D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		30505B3D16C0EBAA004666F3 /* ELMapThisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELMapThisViewController.h; sourceTree = "<group>"; };
-		30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELMapThisViewController.m; sourceTree = "<group>"; };
-		30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELMapThisViewController.xib; sourceTree = "<group>"; };
 		3058AB2E16AEC0C100F1E959 /* Cell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cell2.xib; sourceTree = "<group>"; };
 		3058AB6F16AF2ED500F1E959 /* AFImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFImageDownloader.h; sourceTree = "<group>"; };
 		3058AB7016AF2ED500F1E959 /* AFImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFImageDownloader.m; sourceTree = "<group>"; };
@@ -141,6 +141,13 @@
 		30B59961169D77D400565438 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		30B59971169EAC7000565438 /* default_user_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_user_icon.jpg; sourceTree = "<group>"; };
 		30B5999A16A0121D00565438 /* menubar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menubar.png; sourceTree = "<group>"; };
+		30F2904116E8B89E006E1112 /* ELUserFeaturesCVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELUserFeaturesCVController.h; sourceTree = "<group>"; };
+		30F2904216E8B89E006E1112 /* ELUserFeaturesCVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELUserFeaturesCVController.m; sourceTree = "<group>"; };
+		30F2904316E8B89E006E1112 /* ELUserFeaturesCVController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELUserFeaturesCVController.xib; sourceTree = "<group>"; };
+		30F2904616E8BF65006E1112 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		30F2904816E8C4AE006E1112 /* ELHashedFeatureCVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELHashedFeatureCVController.h; sourceTree = "<group>"; };
+		30F2904916E8C4AE006E1112 /* ELHashedFeatureCVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELHashedFeatureCVController.m; sourceTree = "<group>"; };
+		30F2904A16E8C4AE006E1112 /* ELHashedFeatureCVController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELHashedFeatureCVController.xib; sourceTree = "<group>"; };
 		30F9F25C16B9D90E00E40DE8 /* ELRecentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELRecentListViewController.h; sourceTree = "<group>"; };
 		30F9F25D16B9D90E00E40DE8 /* ELRecentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELRecentListViewController.m; sourceTree = "<group>"; };
 		30F9F25E16B9D90E00E40DE8 /* ELRecentListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELRecentListViewController.xib; sourceTree = "<group>"; };
@@ -196,6 +203,7 @@
 		30B59917169D571900565438 = {
 			isa = PBXGroup;
 			children = (
+				30F2904616E8BF65006E1112 /* Default-568h@2x.png */,
 				3002AAAC16C9990900CBC428 /* libicucore.dylib */,
 				3002AAAA16C998D900CBC428 /* CoreText.framework */,
 				30B59961169D77D400565438 /* CoreLocation.framework */,
@@ -244,12 +252,15 @@
 				30F9F25C16B9D90E00E40DE8 /* ELRecentListViewController.h */,
 				30F9F25D16B9D90E00E40DE8 /* ELRecentListViewController.m */,
 				30F9F25E16B9D90E00E40DE8 /* ELRecentListViewController.xib */,
+				30F2904116E8B89E006E1112 /* ELUserFeaturesCVController.h */,
+				30F2904216E8B89E006E1112 /* ELUserFeaturesCVController.m */,
+				30F2904816E8C4AE006E1112 /* ELHashedFeatureCVController.h */,
+				30F2904916E8C4AE006E1112 /* ELHashedFeatureCVController.m */,
+				30F2904A16E8C4AE006E1112 /* ELHashedFeatureCVController.xib */,
+				30F2904316E8B89E006E1112 /* ELUserFeaturesCVController.xib */,
 				3058AB7D16B0105F00F1E959 /* ELFeatureViewController.h */,
 				3058AB7E16B0105F00F1E959 /* ELFeatureViewController.m */,
 				3058AB7F16B0105F00F1E959 /* ELFeatureViewController.xib */,
-				30505B3D16C0EBAA004666F3 /* ELMapThisViewController.h */,
-				30505B3E16C0EBAA004666F3 /* ELMapThisViewController.m */,
-				30505B3F16C0EBAA004666F3 /* ELMapThisViewController.xib */,
 				30B59960169D5DCA00565438 /* layouts */,
 				30B5995E169D5DB300565438 /* models */,
 				30B5995F169D5DC200565438 /* views */,
@@ -408,11 +419,13 @@
 				3058AC1316B298BD00F1E959 /* user.png in Resources */,
 				30F9F26016B9D90F00E40DE8 /* ELRecentListViewController.xib in Resources */,
 				30F9F26216B9DD8100E40DE8 /* placeholder.png in Resources */,
-				30505B4116C0EBAA004666F3 /* ELMapThisViewController.xib in Resources */,
 				304496E616D4CD1400CAD52D /* gps_activex30.png in Resources */,
 				304496E716D4CD1400CAD52D /* gps_inactivex30.png in Resources */,
 				304496EB16D4D0D100CAD52D /* Default@2x.png in Resources */,
 				304496EC16D4D0D100CAD52D /* Default.png in Resources */,
+				30F2904516E8B89E006E1112 /* ELUserFeaturesCVController.xib in Resources */,
+				30F2904716E8BF65006E1112 /* Default-568h@2x.png in Resources */,
+				30F2904C16E8C4AE006E1112 /* ELHashedFeatureCVController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,13 +455,14 @@
 				3058AB8016B0105F00F1E959 /* ELFeatureViewController.m in Sources */,
 				3058AC0716B1D28F00F1E959 /* ELHomeScreenViewController.m in Sources */,
 				30F9F25F16B9D90F00E40DE8 /* ELRecentListViewController.m in Sources */,
-				30505B4016C0EBAA004666F3 /* ELMapThisViewController.m in Sources */,
 				3002AAA916C997FA00CBC428 /* RCLabel.m in Sources */,
 				3002AAF516CA486F00CBC428 /* ELTweetGenerator.m in Sources */,
 				3002AAF816CA630300CBC428 /* ELImages.m in Sources */,
 				3029729B16D37144004943D0 /* NSDate+Helper.m in Sources */,
 				304496E116D4B76400CAD52D /* JMImageCache.m in Sources */,
 				304496E216D4B76400CAD52D /* UIImageView+JMImageCache.m in Sources */,
+				30F2904416E8B89E006E1112 /* ELUserFeaturesCVController.m in Sources */,
+				30F2904B16E8C4AE006E1112 /* ELHashedFeatureCVController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,9 +10,40 @@
 #import "ELFeature.h"
 #import "ELConstants.h"
 #import "ELImages.h"
+#import "ELContentViewController.h"
 
 @implementation ELRESTful
 
+
+
++(NSMutableArray*) fetchFeaturesWithHashtag:(NSString*)hashTag
+{
+    NSString *path = @"/search/";
+    NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
+    
+    NSString *stringURL =  [NSString stringWithFormat:@"%@%@", requestUrl, hashTag];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    NSArray *featuresNode = [json objectForKey:@"features"];
+    
+    CLLocationManager *manager = [CLLocationManager new];
+    CLLocation *userLoc = manager.location;
+    
+    
+    NSArray *featureArrayWithoutDistance = [NSArray arrayWithArray:[ELRESTful jsonToFeatureArray:featuresNode]];
+    NSMutableArray *featureArrayWithDistance  = [[NSMutableArray alloc]init];
+    
+    for (ELFeature *feature in featureArrayWithoutDistance)
+    {
+        CLLocation *featureLoc = feature.fLocation;
+        NSNumber *distance = [ELContentViewController getDistanceBetweenPoint1:userLoc Point2:featureLoc];
+        feature.distance = distance;
+        [featureArrayWithDistance addObject:feature];
+    }
+    
+       
+    return featureArrayWithDistance;
+}
 
 
 
@@ -134,11 +165,14 @@
     NSDictionary *properties = [featureDic valueForKey:@"properties"];
     
     feature.source_type = [properties valueForKey:@"source_type"];
+    
     feature.time = [properties valueForKey:@"created_time"];
-    
-    NSArray *location = [[featureDic objectForKey:@"geometry"] objectForKey:@"coordinates"];
-    feature.fLocation = [[CLLocation alloc]initWithLatitude:[[location objectAtIndex:1] doubleValue] longitude:[[location objectAtIndex:0] doubleValue]];
-    
+    if ([[featureDic objectForKey:@"geometry"] objectForKey:@"coordinates"] != [NSNull null])
+    {
+        NSArray *location = [[featureDic objectForKey:@"geometry"] objectForKey:@"coordinates"];
+        feature.fLocation = [[CLLocation alloc]initWithLatitude:[[location objectAtIndex:1] doubleValue] longitude:[[location objectAtIndex:0] doubleValue]];
+    }
+   
     NSDictionary *images = [properties valueForKey:@"images"];
 
     ELImages *imagesObject = [[ELImages alloc] init];
@@ -185,8 +219,7 @@
         }
         else
         {
-            feature.mapper_description = [properties valueForKey:@"mapper_description"];
-            
+            feature.mapper_description = [properties valueForKey:@"mapper_description"];            
         }
         
         ELUser *mapper = [[ELUser alloc]init];
@@ -213,6 +246,8 @@
     
     return  json;
 }
+
+
 
 
 
@@ -245,6 +280,11 @@
      }];
 }
 
+
+
+
+
+
 +(NSString*)urlEscapeString:(NSString *)unencodedString
 {
     CFStringRef originalStringRef = (__bridge_retained CFStringRef)unencodedString;
@@ -269,6 +309,22 @@
         }
     }
     return urlWithQuerystring;
+}
+
+
+//parse parameters to NSDictionary
++ (NSDictionary *)parseQueryString:(NSString *)query {
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithCapacity:6] ;
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    
+    for (NSString *pair in pairs) {
+        NSArray *elements = [pair componentsSeparatedByString:@"="];
+        NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [dict setObject:val forKey:key];
+    }
+    return dict;
 }
 
 @end

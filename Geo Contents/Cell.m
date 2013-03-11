@@ -7,7 +7,6 @@
 
 #import "Cell.h"
 #import "CustomCellBackground.h"
-#import "ELMapThisViewController.h"
 #import "ELTweetGenerator.h"
 
 @implementation Cell

@@ -276,7 +276,7 @@
                         
                         RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
                         //find the height of RTLabel
-                        CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+                        CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
                         
                         [cell.descriptionLabel setFrame:CGRectMake(6,355,300,suggestedSize.height)];
                         

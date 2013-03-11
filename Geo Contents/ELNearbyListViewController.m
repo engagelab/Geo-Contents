@@ -12,6 +12,7 @@
 #import "Cell.h"
 #import "ELTweetGenerator.h"
 #import "JMImageCache.h"
+#import "ELHashedFeatureCVController.h"
 
 
 NSString *kCellID = @"cvCell";                          // UICollectionViewCell storyboard id
@@ -26,6 +27,8 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 }
 
 @property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
+@property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
+
 
 @end
 
@@ -289,9 +292,16 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
             //find the height of RTLabel
-            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+            //Calculate the expected size based on the font and linebreak mode of your label
+            // FLT_MAX here simply means no constraint in height
+//            CGSize maximumLabelSize = CGSizeMake(296, FLT_MAX);
+//            
+//            CGSize expectedLabelSize = [yourString sizeWithFont:yourLabel.font constrainedToSize:maximumLabelSize lineBreakMode:yourLabel.lineBreakMode];
+//
             
-            [cell.descriptionLabel setFrame:CGRectMake(6,355,300,suggestedSize.height)];
+            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+            
+            [cell.descriptionLabel setFrame:CGRectMake(6,355,306,suggestedSize.height)];
             
             cell.descriptionLabel.componentsAndPlainText = componentsDS;
             
@@ -311,20 +321,37 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 
 
-
-
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
     NSLog(@"%@",url);
     NSURL *urlp = [NSURL URLWithString:url];
+    NSDictionary *dict = [ELRESTful parseQueryString:[urlp query]];
+    
     if ([url hasPrefix:@"instagram"]) {
         if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
             [[UIApplication sharedApplication] openURL:urlp];
         }
     }
-    if ([url hasPrefix:@"content"]) {
+    
+    if ([url hasPrefix:@"geocontent"]) {
         
         NSLog(@"%@",@"send to content view");
+        
+        if ([[urlp host] isEqualToString:@"tag"])
+        {
+            NSLog(@"%@",@"Your have a user");
+            
+            self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
+        }
+                
+//        self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
+//        ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
+//        feature.distance = [self distanceBetweenPoint1:nLocation Point2:feature.fLocation];
+//        self.secondView.feature = feature;
+//        
+//        [self.navigationController pushViewController:self.secondView animated:YES];
 
     }
     if ([url hasPrefix:@"fb"]) {

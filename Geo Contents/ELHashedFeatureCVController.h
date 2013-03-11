@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RCLabel.h"
 
-@interface ELHashedFeatureCVController : UICollectionViewController
+
+@interface ELHashedFeatureCVController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource, RTLabelDelegate>
+
+@property (strong, nonatomic) NSString *hashTag;
 
 @end

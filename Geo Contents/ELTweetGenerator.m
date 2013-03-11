@@ -93,7 +93,7 @@
         NSLog(@"Found tag %@", hashtag);
         NSString *html;
         if ([sourceType isEqualToString:@"overlay"] || [sourceType isEqualToString:@"mapped_instagram"] ) {
-            html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://tage?name=",hashtag,">",hashtag,"</a>"];
+            html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://tag?name=",hashtag,">",hashtag,"</a>"];
         }
         else if([sourceType isEqualToString:@"Instagram"])
         {

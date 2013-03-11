@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RCLabel.h"
 
-@interface ELUserFeaturesCVController : UICollectionViewController
+
+@interface ELUserFeaturesCVController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource, RTLabelDelegate>
+
+@property (strong, nonatomic) NSString *userId;
+
 
 @end

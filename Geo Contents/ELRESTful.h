@@ -21,6 +21,9 @@
 +(NSDictionary *)getJSONResponsetWithURL:(NSString*)url;
 +(NSMutableArray*) fetchPOIsByUserID:(NSString *)userID;
 +(ELFeature*) fetchPOIsByID:(NSString *)featureId withSource:(NSString*)source;
++(NSMutableArray*) fetchFeaturesWithHashtag:(NSString*)hashTag;
++ (NSDictionary *)parseQueryString:(NSString *)query ;
+
 
 
 
