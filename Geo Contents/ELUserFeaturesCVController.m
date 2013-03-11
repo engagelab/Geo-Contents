@@ -1,18 +1,18 @@
 //
-//  ELMapThisViewController.m
+//  ELUserFeaturesCVController.m
 //  Geo Contents
 //
-//  Created by spider on 05.02.13.
+//  Created by spider on 07.03.13.
 //  Copyright (c) 2013 InterMedia. All rights reserved.
 //
 
-#import "ELMapThisViewController.h"
+#import "ELUserFeaturesCVController.h"
 
-@interface ELMapThisViewController ()
+@interface ELUserFeaturesCVController ()
 
 @end
 
-@implementation ELMapThisViewController
+@implementation ELUserFeaturesCVController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
