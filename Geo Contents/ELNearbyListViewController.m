@@ -153,7 +153,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         
         RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
         //find the height of RTLabel
-        suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+        suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(304, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
     return CGSizeMake(320.f, 380.f + suggestedSize.height);
 }
 
@@ -299,9 +299,9 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 //            CGSize expectedLabelSize = [yourString sizeWithFont:yourLabel.font constrainedToSize:maximumLabelSize lineBreakMode:yourLabel.lineBreakMode];
 //
             
-            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
             
-            [cell.descriptionLabel setFrame:CGRectMake(6,355,306,suggestedSize.height)];
+            [cell.descriptionLabel setFrame:CGRectMake(6,355,304,suggestedSize.height)];
             
             cell.descriptionLabel.componentsAndPlainText = componentsDS;
             
@@ -371,6 +371,8 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     //Empty the view
     [nFeatures removeAllObjects];
     [self.collectionView reloadData];
+    
+    NSMutableArray *temp = [[NSMutableArray alloc]init];
     // Fetch the content on a worker thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsAtLocation:newLocation.coordinate] mutableCopy];
@@ -379,12 +381,14 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             // Calculate the distance for each feature
             for (ELFeature *feature in unsortedArrayWithoutDisctanceProperty) {
                 feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
-                [nFeatures addObject:feature];
+                [temp addObject:feature];
             }
             // Sort all features by distance
             NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
-            [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+            [temp sortUsingDescriptors:[NSArray arrayWithObject:sort]];
             // Ensure the new data is used in the collection view
+            [nFeatures removeAllObjects];
+            [nFeatures addObjectsFromArray:temp];
             [self.collectionView reloadData];
         });
     });

@@ -147,7 +147,7 @@
     
     RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
     //find the height of RTLabel
-    suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+    suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(304, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
     return CGSizeMake(320.f, 380.f + suggestedSize.height);
 }
 
@@ -276,9 +276,9 @@
                         
                         RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
                         //find the height of RTLabel
-                        CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:15] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+                        CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
                         
-                        [cell.descriptionLabel setFrame:CGRectMake(6,355,300,suggestedSize.height)];
+                        [cell.descriptionLabel setFrame:CGRectMake(6,355,304,suggestedSize.height)];
                         
                         cell.descriptionLabel.componentsAndPlainText = componentsDS;
                         
@@ -328,17 +328,18 @@
 - (void)showItemsAtLocation:(CLLocation*)newLocation {
     [nFeatures removeAllObjects];
     [self.collectionView reloadData];
+    
+    NSMutableArray *temp = [[NSMutableArray alloc]init];
+    
     // Fetch the content on a worker thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchRecentlyAddedFeatures:newLocation.coordinate] mutableCopy];
+        [temp addObjectsFromArray: [ELRESTful fetchRecentlyAddedFeatures:newLocation.coordinate]];
         // Register the content on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            // Move all features to nFeatures
-            [nFeatures removeAllObjects];
-            [nFeatures addObjectsFromArray:unsortedArrayWithoutDisctanceProperty];
-            // Sort all features by distance
             NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO];
-            [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+            [temp sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+            [nFeatures removeAllObjects];
+            [nFeatures addObjectsFromArray:temp];
             // Ensure the new data is used in the collection view
             [self.collectionView reloadData];
         });

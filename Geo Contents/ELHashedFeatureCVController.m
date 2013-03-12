@@ -98,7 +98,7 @@
     
     RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
     //find the height of RTLabel
-    suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+    suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(304, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
     return CGSizeMake(320.f, 380.f + suggestedSize.height);
 }
 
@@ -151,9 +151,9 @@
             
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
             //find the height of RTLabel
-            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(304, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
             
-            [cell.descriptionLabel setFrame:CGRectMake(6,355,300,suggestedSize.height)];
+            [cell.descriptionLabel setFrame:CGRectMake(6,355,304,suggestedSize.height)];
             
             cell.descriptionLabel.componentsAndPlainText = componentsDS;
             
