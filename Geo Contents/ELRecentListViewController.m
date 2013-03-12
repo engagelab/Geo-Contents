@@ -12,6 +12,7 @@
 #import "ELTweetGenerator.h"
 #import "NSDate+Helper.h"
 #import "JMImageCache.h"
+#import "ELHashedFeatureCVController.h"
 
 
 
@@ -25,6 +26,8 @@
     
 }
 @property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
+@property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
+
 
 @end
 
@@ -300,14 +303,26 @@
 {
     NSLog(@"%@",url);
     NSURL *urlp = [NSURL URLWithString:url];
+    NSDictionary *dict = [ELRESTful parseQueryString:[urlp query]];
+    
     if ([url hasPrefix:@"instagram"]) {
         if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
             [[UIApplication sharedApplication] openURL:urlp];
         }
     }
-    if ([url hasPrefix:@"content"]) {
+    
+    if ([url hasPrefix:@"geocontent"]) {
         
         NSLog(@"%@",@"send to content view");
+        
+        if ([[urlp host] isEqualToString:@"tag"])
+        {
+            NSLog(@"%@",@"Your have a user");
+            
+            self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
+        }
         
     }
     if ([url hasPrefix:@"fb"]) {

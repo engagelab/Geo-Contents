@@ -190,18 +190,10 @@
         {
             NSLog(@"%@",@"Your have a user");
             
-//            ELHashedFeatureCVController *s = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
-//            self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
-//            self.navigationController.title = @"Search";
-//            [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
+            ELHashedFeatureCVController *child = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            child.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:child animated:YES];
         }
-        
-        //        self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
-        //        ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
-        //        feature.distance = [self distanceBetweenPoint1:nLocation Point2:feature.fLocation];
-        //        self.secondView.feature = feature;
-        //
-        //        [self.navigationController pushViewController:self.secondView animated:YES];
         
     }
     if ([url hasPrefix:@"fb"]) {
@@ -212,9 +204,9 @@
         }
         
     }
-
     
 }
+
 
 
 - (void)showItemsAtLocation:(NSString*)hashTAG
