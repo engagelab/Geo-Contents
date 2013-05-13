@@ -9,7 +9,8 @@
 #ifndef Geo_Contents_ELConstants_h
 #define Geo_Contents_ELConstants_h
 
-#define SERVER_URL @"http://intermedia-prod03.uio.no:9010"
+//#define SERVER_URL @"http://intermedia-prod03.uio.no:9010"
+#define SERVER_URL @"http://mappa.uio.im"
 
 
 
