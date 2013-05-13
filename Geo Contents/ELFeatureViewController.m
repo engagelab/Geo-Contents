@@ -54,7 +54,7 @@
         //clickable user label
         
         self.usernameLabel = [[RCLabel alloc] initWithFrame:CGRectMake(94,13,144,31)];
-        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:self.feature]];
+        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:self.feature.user withSourceType:self.feature.source_type]];
         self.usernameLabel.componentsAndPlainText = componentsDS;
         self.usernameLabel.delegate = self;
         [self.scroll addSubview:self.usernameLabel];

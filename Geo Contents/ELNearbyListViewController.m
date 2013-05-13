@@ -273,7 +273,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         
         
         //clickable user label
-        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature]];
+        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
         cell.usernameLabel.componentsAndPlainText = componentsDS;
 //        [cell.usernameLabel setTextColor:[UIColor redColor]];
 //        UIColor *test = cell.usernameLabel.textColor;

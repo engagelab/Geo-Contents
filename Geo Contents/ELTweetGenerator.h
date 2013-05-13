@@ -11,8 +11,8 @@
 
 @interface ELTweetGenerator : NSObject
 
++(NSString*)createHTMLUserString:(ELUser*)user withSourceType:(NSString*)source_type;
 +(NSString*)createHTMLTWeet:(ELFeature*)feature;
-+(NSString*)createHTMLUserString:(ELFeature*)feature;
 
 
 @end

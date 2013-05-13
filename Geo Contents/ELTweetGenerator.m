@@ -28,7 +28,7 @@
     {
         featureDescription = feature.description;
         if ([featureDescription length]) {
-            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type];
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type andUser:feature.user];
         }
     }
     else if ([feature.source_type isEqualToString:@"Instagram"])
@@ -36,7 +36,7 @@
         featureDescription = feature.description;
         if ([featureDescription length])
         {
-            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type];
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type andUser:feature.user];
         }
     }
     
@@ -48,7 +48,7 @@
         // the reason is feature.description is the instagram description in this mapped scenario
         if ([featureDescription length])
         {
-            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:@"Instagram"];
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:@"Instagram" andUser:feature.user];
         }
         
         NSString *mapper_description = feature.mapper_description;
@@ -56,7 +56,7 @@
         if ([mapper_description length]) {
             htmlTweet = [htmlTweet stringByAppendingFormat:@"\r\r%@\r%@",
                          @"\t\t---------- Mapper ----------",
-                         [ELTweetGenerator getHTML:mapper_description withSourceType:feature.source_type]];
+                         [ELTweetGenerator getHTML:mapper_description withSourceType:feature.source_type andUser:feature.mapper]];
         }
         
     }
@@ -71,7 +71,7 @@
 
 
 
-+(NSString*)getHTML:(NSString*)tweet withSourceType:(NSString*)sourceType
++(NSString*)getHTML:(NSString*)tweet withSourceType:(NSString*)sourceType andUser:(ELUser*)user
 {
     
     NSString *htmlTweet = tweet;
@@ -127,29 +127,32 @@
     }
     
     
+    NSString *userLink = [ELTweetGenerator createHTMLUserString:user withSourceType:sourceType];
+    
+    NSString *descriptionHTML = [userLink stringByAppendingString:htmlTweet];
 
-    return htmlTweet;
+    return descriptionHTML;
 }
 
 
 
 
 
-+(NSString*)createHTMLUserString:(ELFeature*)feature
++(NSString*)createHTMLUserString:(ELUser*)user withSourceType:(NSString*)source_type
 {
     NSString *userHTML;
-    if ([feature.source_type isEqualToString:@"overlay"])
+    if ([source_type isEqualToString:@"overlay"])
     {
         /*
          <a href="http://www.yahoo.com"><font color="FF00CC">here</font></a>
          */
-        userHTML = [NSString stringWithFormat:@"%@%@%s%s%@%s",@"<a href=fb://profile/",feature.user.idd,">","<font color=\"B8D336\">",feature.user.full_name,"</font></a>"];
+        userHTML = [NSString stringWithFormat:@"%@%@%s%s%@%s",@"<a href=fb://profile/",user.idd,">","<font color=\"B8D336\">",user.full_name,"</font></a>"];
 
         //userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=fb://profile/",feature.user.idd,">",feature.user.full_name,"</a>"];
     }
-    else if([feature.source_type isEqualToString:@"Instagram"] || [feature.source_type isEqualToString:@"mapped_instagram"])
+    else if([source_type isEqualToString:@"Instagram"] || [source_type isEqualToString:@"mapped_instagram"])
     {
-        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",feature.user.username,">",feature.user.full_name,"</a>"];
+        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",user.username,">",user.full_name,"</a>"];
 
     }
     return userHTML;
