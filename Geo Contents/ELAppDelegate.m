@@ -177,7 +177,8 @@
     [[UIApplication sharedApplication]
      setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:NO];
     
-    [[UINavigationBar appearance] setBackgroundColor:[UIColor greenColor]];
+    //[[UINavigationBar appearance] setBackgroundColor:[UIColor colorWithRed:184/255.0 green:211/255.0 blue:54/255.0 alpha:1.0]];
+    [[UINavigationBar appearance] setTintColor:[UIColor colorWithRed:184/255.0 green:211/255.0 blue:54/255.0 alpha:1.0]];
     
 //    UIImage *navBarImage = [[UIImage imageNamed:@"menubar.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(5, 15, 5, 15)];
 //    
