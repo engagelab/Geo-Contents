@@ -12,7 +12,7 @@
 #import "JMImageCache.h"
 #import "ELHashedFeatureCVController.h"
 #import "ELRESTful.h"
-
+#import "ELConstants.h"
 
 @interface ELFeatureViewController ()
 @property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
@@ -167,7 +167,7 @@
 
 -(IBAction)showActionSheet:(id)sender {
     
-    if ([self.feature.source_type isEqualToString:@"Instagram"]) {
+    if ([self.feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
         UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View in map",@"Direct me here", @"Map this!", nil];
         
         [sheet showFromRect:[self.actionButton frame] inView:self.view animated:YES];

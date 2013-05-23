@@ -12,6 +12,11 @@
 //#define SERVER_URL @"http://intermedia-prod03.uio.no:9010"
 #define SERVER_URL @"http://mappa.uio.im"
 
+#define FEATURE_TYPE_MAPPA @"mappa"
+
+#define FEATURE_TYPE_INSTAGRAM @"instagram"
+
+#define FEATURE_TYPE_MAPPED_INSTAGRAM @"mapped_instagram"
 
 
 #endif

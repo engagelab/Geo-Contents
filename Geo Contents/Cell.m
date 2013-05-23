@@ -8,6 +8,7 @@
 #import "Cell.h"
 #import "CustomCellBackground.h"
 #import "ELTweetGenerator.h"
+#import "ELConstants.h"
 
 @implementation Cell
 
@@ -50,7 +51,7 @@
     
     
     
-    if ([self.feature.source_type isEqualToString:@"Instagram"]) {
+    if ([self.feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
         UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View in map",@"Direct me here", @"Map this!", nil];
         
         [sheet showFromRect:[self.actionButton frame] inView:self animated:YES];

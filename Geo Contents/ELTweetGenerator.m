@@ -8,6 +8,7 @@
 
 #import "ELTweetGenerator.h"
 #import "ELFeature.h"
+#import "ELConstants.h"
 
 @interface ELTweetGenerator()
 
@@ -24,14 +25,14 @@
     NSString *featureDescription;
     
 
-    if([feature.source_type isEqualToString:@"mappa"])
+    if([feature.source_type isEqualToString:FEATURE_TYPE_MAPPA])
     {
         featureDescription = [NSString stringWithFormat:@"%@%@ %@",@"@",feature.user.username,feature.description];
         if ([featureDescription length]) {
             htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type andUser:feature.user];
         }
     }
-    else if ([feature.source_type isEqualToString:@"instagram"])
+    else if ([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM])
     {
         featureDescription = feature.description;
         if ([featureDescription length])
@@ -41,14 +42,14 @@
     }
     
     
-    else if([feature.source_type isEqualToString:@"mapped_instagram"])
+    else if([feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
     {
         featureDescription = feature.description;
         //FixME: hard coded check, please remove it as soon as possible with a good logic
         // the reason is feature.description is the instagram description in this mapped scenario
         if ([featureDescription length])
         {
-            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:@"instagram" andUser:feature.user];
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:FEATURE_TYPE_INSTAGRAM andUser:feature.user];
         }
         
         NSString *mapper_description = feature.mapper_description;
@@ -93,7 +94,7 @@
         if ([sourceType isEqualToString:@"overlay"] || [sourceType isEqualToString:@"mapped_instagram"] ) {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://tag?name=",hashtag,">",hashtag,"</a>"];
         }
-        else if([sourceType isEqualToString:@"Instagram"])
+        else if([sourceType isEqualToString:FEATURE_TYPE_INSTAGRAM])
         {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://tag?name=",hashtag,">",hashtag,"</a>"];
 
@@ -113,10 +114,10 @@
         NSString* username = [tweet substringWithRange:wordRange];
         NSLog(@"Found tag %@", username);
         NSString *html;
-        if ([sourceType isEqualToString:@"overlay"] || [sourceType isEqualToString:@"mapped_instagram"] ) {
+        if ([sourceType isEqualToString:FEATURE_TYPE_MAPPA] || [sourceType isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM] ) {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://user?username=",username,">",username,"</a>"];
         }
-        else if([sourceType isEqualToString:@"Instagram"])
+        else if([sourceType isEqualToString:FEATURE_TYPE_INSTAGRAM])
         {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",[username substringFromIndex:1],">",username,"</a>"];
             
@@ -141,7 +142,7 @@
 +(NSString*)createHTMLUserString:(ELUser*)user withSourceType:(NSString*)source_type
 {
     NSString *userHTML;
-    if ([source_type isEqualToString:@"mappa"])
+    if ([source_type isEqualToString:FEATURE_TYPE_MAPPA])
     {
         /*
          <a href="http://www.yahoo.com"><font color="FF00CC">here</font></a>
@@ -150,7 +151,7 @@
 
         //userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=fb://profile/",feature.user.idd,">",feature.user.full_name,"</a>"];
     }
-    else if([source_type isEqualToString:@"instagram"] || [source_type isEqualToString:@"mapped_instagram"])
+    else if([source_type isEqualToString:FEATURE_TYPE_INSTAGRAM] || [source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
     {
         userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",user.username,">",user.full_name,"</a>"];
 
@@ -172,7 +173,7 @@
         
         //userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=fb://profile/",feature.user.idd,">",feature.user.full_name,"</a>"];
     }
-    else if([feature.source_type isEqualToString:@"Instagram"] || [feature.source_type isEqualToString:@"mapped_instagram"])
+    else if([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM] || [feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
     {
         userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",feature.user.username,">",feature.user.full_name,"</a>"];
         

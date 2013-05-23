@@ -192,7 +192,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 //                    
 //                    cell.feature = feature;
 //                    NSURL *profileURL;
-//                    if ([feature.source_type isEqualToString:@"Instagram"]) {
+//                    if ([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
 //                        cell.sourceTypeImageView.image = [UIImage imageNamed:@"instagram.png"];
 //                        profileURL = [NSURL URLWithString:feature.user.profile_picture];
 //                    }
