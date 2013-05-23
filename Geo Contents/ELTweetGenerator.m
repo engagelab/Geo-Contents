@@ -24,14 +24,14 @@
     NSString *featureDescription;
     
 
-    if([feature.source_type isEqualToString:@"overlay"])
+    if([feature.source_type isEqualToString:@"mappa"])
     {
         featureDescription = [NSString stringWithFormat:@"%@%@ %@",@"@",feature.user.username,feature.description];
         if ([featureDescription length]) {
             htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type andUser:feature.user];
         }
     }
-    else if ([feature.source_type isEqualToString:@"Instagram"])
+    else if ([feature.source_type isEqualToString:@"instagram"])
     {
         featureDescription = feature.description;
         if ([featureDescription length])
@@ -48,7 +48,7 @@
         // the reason is feature.description is the instagram description in this mapped scenario
         if ([featureDescription length])
         {
-            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:@"Instagram" andUser:feature.user];
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:@"instagram" andUser:feature.user];
         }
         
         NSString *mapper_description = feature.mapper_description;
@@ -141,7 +141,7 @@
 +(NSString*)createHTMLUserString:(ELUser*)user withSourceType:(NSString*)source_type
 {
     NSString *userHTML;
-    if ([source_type isEqualToString:@"overlay"])
+    if ([source_type isEqualToString:@"mappa"])
     {
         /*
          <a href="http://www.yahoo.com"><font color="FF00CC">here</font></a>
@@ -150,7 +150,7 @@
 
         //userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=fb://profile/",feature.user.idd,">",feature.user.full_name,"</a>"];
     }
-    else if([source_type isEqualToString:@"Instagram"] || [source_type isEqualToString:@"mapped_instagram"])
+    else if([source_type isEqualToString:@"instagram"] || [source_type isEqualToString:@"mapped_instagram"])
     {
         userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",user.username,">",user.full_name,"</a>"];
 
@@ -163,7 +163,7 @@
 +(NSString*)createHTMLUserStringForDescriptionText:(ELFeature*)feature
 {
     NSString *userHTML;
-    if ([feature.source_type isEqualToString:@"overlay"])
+    if ([feature.source_type isEqualToString:@"mappa"])
     {
         /*
          <a href="http://www.yahoo.com"><font color="FF00CC">here</font></a>

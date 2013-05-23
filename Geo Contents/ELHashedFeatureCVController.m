@@ -116,13 +116,13 @@
         
         cell.feature = feature;
         NSURL *profileURL;
-        if ([feature.source_type isEqualToString:@"Instagram"]) {
+        if ([feature.source_type isEqualToString:@"instagram"]) {
             cell.sourceTypeImageView.image = [UIImage imageNamed:@"instagram.png"];
             profileURL = [NSURL URLWithString:feature.user.profile_picture];
         }
         else
         {
-            cell.sourceTypeImageView.image = [UIImage imageNamed:@"overlay.png"];
+            cell.sourceTypeImageView.image = [UIImage imageNamed:@"mappa.png"];
             profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
         }
         cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
