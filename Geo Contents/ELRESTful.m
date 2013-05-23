@@ -256,11 +256,20 @@
 +(NSDictionary *)getJSONResponsetWithURL:(NSString*)url
 {
     
-    //
+    // Try downloading
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    
-    NSError *error;
+    // Keep track of errors
+    NSError *error = nil;
+    // No data? Nothing to return.
+    if(!data) {
+        return nil;
+    }
+    // Try forming json
     NSDictionary *json = (NSDictionary*)[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    // Error while decoding json? Nothing to return.
+    if(error) {
+        return nil;
+    }
     
     return  json;
 }
