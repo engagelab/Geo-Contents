@@ -54,7 +54,7 @@
     if ([self.feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
         UIActionSheet *sheet = sheet = [[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View in map",@"Direct me here", @"Map this!", nil];
         
-        [sheet showFromRect:[self.actionButton frame] inView:self animated:YES];
+        [sheet showFromRect:[self.actionButton frame] inView:[UIApplication sharedApplication].keyWindow animated:YES];
     }
     else
     {
