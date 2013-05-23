@@ -12,7 +12,7 @@
 #import "ELTweetGenerator.h"
 #import "NSDate+Helper.h"
 #import "JMImageCache.h"
-
+#import "ELConstants.h"
 
 
 
@@ -144,7 +144,7 @@
         
         cell.feature = feature;
         NSURL *profileURL;
-        if ([feature.source_type isEqualToString:@"instagram"]) {
+        if ([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
             cell.sourceTypeImageView.image = [UIImage imageNamed:@"instagram.png"];
             profileURL = [NSURL URLWithString:feature.user.profile_picture];
         }

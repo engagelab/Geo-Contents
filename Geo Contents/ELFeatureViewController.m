@@ -46,13 +46,13 @@
     if (self.feature != nil) {
        
         NSURL *profileURL;
-        if ([self.feature.source_type isEqualToString:@"instagram"]) {
+        if ([self.feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
             self.sourceTypeImageView.image = [UIImage imageNamed:@"instagram.png"];
              profileURL = [NSURL URLWithString:self.feature.user.profile_picture];
         }
         else
         {
-            self.sourceTypeImageView.image = [UIImage imageNamed:@"mappa.png"];
+            self.sourceTypeImageView.image = [UIImage imageNamed:FEATURE_TYPE_MAPPA];
              profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",self.feature.user.idd,@"/picture"]];
         }
         self.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];

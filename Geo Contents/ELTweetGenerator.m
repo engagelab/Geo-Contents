@@ -91,7 +91,7 @@
         NSString* hashtag = [tweet substringWithRange:wordRange];
         NSLog(@"Found tag %@", hashtag);
         NSString *html;
-        if ([sourceType isEqualToString:@"overlay"] || [sourceType isEqualToString:@"mapped_instagram"] ) {
+        if ([sourceType isEqualToString:FEATURE_TYPE_MAPPA] || [sourceType isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM] ) {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://tag?name=",hashtag,">",hashtag,"</a>"];
         }
         else if([sourceType isEqualToString:FEATURE_TYPE_INSTAGRAM])
@@ -164,7 +164,7 @@
 +(NSString*)createHTMLUserStringForDescriptionText:(ELFeature*)feature
 {
     NSString *userHTML;
-    if ([feature.source_type isEqualToString:@"mappa"])
+    if ([feature.source_type isEqualToString:FEATURE_TYPE_MAPPA])
     {
         /*
          <a href="http://www.yahoo.com"><font color="FF00CC">here</font></a>

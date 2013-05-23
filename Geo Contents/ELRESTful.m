@@ -141,10 +141,10 @@
 {
     NSString *path;
     
-    if ([source isEqualToString:@"mappa"]) {
+    if ([source isEqualToString:FEATURE_TYPE_MAPPA]) {
         path = @"/geo/";
     }
-    else if ([source isEqualToString:@"instagram"])
+    else if ([source isEqualToString:FEATURE_TYPE_INSTAGRAM])
     {
         path = @"/instagram/";
 
@@ -228,7 +228,7 @@
     feature.user = user;
     
     // if source type is mapped then store addition meta info
-    if ([feature.source_type isEqualToString:@"mapped_instagram"])
+    if ([feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
     {
         
         if ([properties valueForKey:@"mapper_description"] == [NSNull null])
