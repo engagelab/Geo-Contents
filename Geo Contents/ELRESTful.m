@@ -141,10 +141,10 @@
 {
     NSString *path;
     
-    if ([source isEqualToString:@"overlay"]) {
+    if ([source isEqualToString:@"mappa"]) {
         path = @"/geo/";
     }
-    else if ([source isEqualToString:@"Instagram"])
+    else if ([source isEqualToString:@"instagram"])
     {
         path = @"/instagram/";
 
