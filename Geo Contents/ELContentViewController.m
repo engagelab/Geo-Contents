@@ -60,6 +60,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     if (self) {
         // Custom initialization
         //self.tabBarItem.image = [UIImage imageNamed:@"first"];
+        gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
+        [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
+        [gpsButton sizeToFit];
     }
     return self;
 }
@@ -107,11 +111,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
 //    //add goto my current location button
 //    //[self gotoMyLocationButton];
-//    gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    gpsButton.frame = CGRectMake(250.0, 20.0, 48.0, 30.0);
-//    [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
-//    [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:gpsButton];
     
     // intialize the thumbnails que
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
@@ -171,7 +170,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [self stopUpdatingContentViewtoMylocation];
 }
 
-
+-(UIButton*)gpsButton {
+    return gpsButton;
+}
 
 -(void) gpsButtonpressed
 {
