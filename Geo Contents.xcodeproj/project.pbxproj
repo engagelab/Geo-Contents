@@ -20,6 +20,8 @@
 		3004717416AD68AA00DB4A81 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717216AD68AA00DB4A81 /* CustomCellBackground.m */; };
 		3029729B16D37144004943D0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3029729A16D37144004943D0 /* NSDate+Helper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		303AF98317439DD100B1DF88 /* gpsFake1.png in Resources */ = {isa = PBXBuildFile; fileRef = 303AF98217439DD100B1DF88 /* gpsFake1.png */; };
+		303BC4FA174E2A3100A3B52B /* ELInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 303BC4F8174E2A3100A3B52B /* ELInfoViewController.m */; };
+		303BC4FB174E2A3100A3B52B /* ELInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 303BC4F9174E2A3100A3B52B /* ELInfoViewController.xib */; };
 		304496E116D4B76400CAD52D /* JMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 304496DE16D4B76400CAD52D /* JMImageCache.m */; };
 		304496E216D4B76400CAD52D /* UIImageView+JMImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 304496E016D4B76400CAD52D /* UIImageView+JMImageCache.m */; };
 		304496E616D4CD1400CAD52D /* gps_activex30.png in Resources */ = {isa = PBXBuildFile; fileRef = 304496E416D4CD1400CAD52D /* gps_activex30.png */; };
@@ -88,6 +90,9 @@
 		3029729916D37144004943D0 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		3029729A16D37144004943D0 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		303AF98217439DD100B1DF88 /* gpsFake1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gpsFake1.png; sourceTree = "<group>"; };
+		303BC4F7174E2A3100A3B52B /* ELInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELInfoViewController.h; sourceTree = "<group>"; };
+		303BC4F8174E2A3100A3B52B /* ELInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELInfoViewController.m; sourceTree = "<group>"; };
+		303BC4F9174E2A3100A3B52B /* ELInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELInfoViewController.xib; sourceTree = "<group>"; };
 		304496DD16D4B76400CAD52D /* JMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMImageCache.h; sourceTree = "<group>"; };
 		304496DE16D4B76400CAD52D /* JMImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMImageCache.m; sourceTree = "<group>"; };
 		304496DF16D4B76400CAD52D /* UIImageView+JMImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+JMImageCache.h"; sourceTree = "<group>"; };
@@ -240,6 +245,9 @@
 				3058AC0C16B2968700F1E959 /* revisions.txt */,
 				30B59935169D571900565438 /* ELAppDelegate.h */,
 				30B59936169D571900565438 /* ELAppDelegate.m */,
+				303BC4F7174E2A3100A3B52B /* ELInfoViewController.h */,
+				303BC4F8174E2A3100A3B52B /* ELInfoViewController.m */,
+				303BC4F9174E2A3100A3B52B /* ELInfoViewController.xib */,
 				3058AC0416B1D28F00F1E959 /* ELHomeScreenViewController.h */,
 				3058AC0516B1D28F00F1E959 /* ELHomeScreenViewController.m */,
 				3058AC0616B1D28F00F1E959 /* ELHomeScreenViewController.xib */,
@@ -430,6 +438,7 @@
 				30F2904716E8BF65006E1112 /* Default-568h@2x.png in Resources */,
 				30F2904C16E8C4AE006E1112 /* ELHashedFeatureCVController.xib in Resources */,
 				303AF98317439DD100B1DF88 /* gpsFake1.png in Resources */,
+				303BC4FB174E2A3100A3B52B /* ELInfoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +476,7 @@
 				304496E216D4B76400CAD52D /* UIImageView+JMImageCache.m in Sources */,
 				30F2904416E8B89E006E1112 /* ELUserFeaturesCVController.m in Sources */,
 				30F2904B16E8C4AE006E1112 /* ELHashedFeatureCVController.m in Sources */,
+				303BC4FA174E2A3100A3B52B /* ELInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
