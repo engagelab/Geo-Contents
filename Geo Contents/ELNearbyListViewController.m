@@ -344,7 +344,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             NSLog(@"%@",@"Your have a HashTag");
             
             self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
-            [self.hashedFeatureCVController setTitle:[dict valueForKey:@"name"]];
+            [self.hashedFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
             self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
             [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
         }
@@ -353,7 +353,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             NSLog(@"%@",@"Your have a user");
             
             self.userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
-            [self.userFeatureCVController setTitle:[dict valueForKey:@"name"]];
+            [self.userFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
             self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
             [self.navigationController pushViewController:self.userFeatureCVController animated:YES];
         }

@@ -26,8 +26,6 @@
 +(NSMutableArray*) fetchPOIsByUserName:(NSString *)userName;
 
 
-
-
-
+@property (nonatomic, strong) NSMutableDictionary *requestCode;
 
 @end
