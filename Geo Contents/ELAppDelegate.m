@@ -14,6 +14,7 @@
 #import "ELRecentListViewController.h"
 #import "ELFeatureViewController.h"
 #import "ELRESTful.h"
+#import "ELInfoViewController.h"
 
 
 
@@ -26,9 +27,16 @@
     
     
     //Create Latest View Controller and give it a tittle
-    ELHomeScreenViewController *homeView =
-    [[ELHomeScreenViewController alloc] initWithNibName:@"ELHomeScreenViewController" bundle:nil];
-    [homeView setTitle:@"Goe Content"];
+//    ELHomeScreenViewController *homeView =
+//    [[ELHomeScreenViewController alloc] initWithNibName:@"ELHomeScreenViewController" bundle:nil];
+//    [homeView setTitle:@"Goe Content"];
+    
+    
+    //Create Latest View Controller and give it a tittle
+    ELInfoViewController *infoView =
+    [[ELInfoViewController alloc] initWithNibName:@"ELInfoViewController" bundle:nil];
+    [infoView setTitle:@"Info"];
+    
     
     
     //Create Latest View Controller and give it a tittle
@@ -67,7 +75,7 @@
     
         
 	// Make an array containing our plain view controller and our navigation controller
-	NSArray *viewArray = [NSArray arrayWithObjects:homeView,self.contentNavController,self.searchNavController,self.nearbyNavController,self.recentNavController,nil];
+	NSArray *viewArray = [NSArray arrayWithObjects:infoView,self.contentNavController,self.searchNavController,self.nearbyNavController,self.recentNavController,nil];
     
     // Create our tab bar controller
     self.tabBarController = [[UITabBarController alloc] init];
