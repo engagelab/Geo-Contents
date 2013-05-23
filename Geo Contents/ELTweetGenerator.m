@@ -26,7 +26,7 @@
 
     if([feature.source_type isEqualToString:@"overlay"])
     {
-        featureDescription = feature.description;
+        featureDescription = [NSString stringWithFormat:@"%@%@ %@",@"@",feature.user.username,feature.description];
         if ([featureDescription length]) {
             htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type andUser:feature.user];
         }
@@ -127,11 +127,11 @@
     }
     
     
-    NSString *userLink = [ELTweetGenerator createHTMLUserString:user withSourceType:sourceType];
+    //NSString *userLink = [ELTweetGenerator createHTMLUserString:user withSourceType:sourceType];
     
-    NSString *descriptionHTML = [userLink stringByAppendingString:htmlTweet];
+    //NSString *descriptionHTML = [userLink stringByAppendingString:htmlTweet];
 
-    return descriptionHTML;
+    return htmlTweet;
 }
 
 

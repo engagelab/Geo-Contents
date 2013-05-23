@@ -10,10 +10,16 @@
 #import "ELContentViewController.h"
 #import "ELTweetGenerator.h"
 #import "JMImageCache.h"
+#import "ELHashedFeatureCVController.h"
+#import "ELRESTful.h"
+
 
 @interface ELFeatureViewController ()
+@property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
 
 @end
+
+
 
 @implementation ELFeatureViewController
 
@@ -100,16 +106,39 @@
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
-    
-    
-    
+    NSLog(@"%@",url);
     NSURL *urlp = [NSURL URLWithString:url];
-    if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
-        [[UIApplication sharedApplication] openURL:urlp];
+    NSDictionary *dict = [ELRESTful parseQueryString:[urlp query]];
+    
+    if ([url hasPrefix:@"instagram"]) {
+        if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
+            [[UIApplication sharedApplication] openURL:urlp];
+        }
     }
     
-    
-    
+    if ([url hasPrefix:@"geocontent"]) {
+        
+        NSLog(@"%@",@"send to content view");
+        
+        if ([[urlp host] isEqualToString:@"tag"])
+        {
+            NSLog(@"%@",@"Your have a user");
+            
+            self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            [self.hashedFeatureCVController setTitle:[dict valueForKey:@"name"]];
+            self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
+        }
+        
+    }
+    if ([url hasPrefix:@"fb"]) {
+        
+        NSLog(@"%@",@"facebook");
+        if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
+            [[UIApplication sharedApplication] openURL:urlp];
+        }
+        
+    }
 }
 
 

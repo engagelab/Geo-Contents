@@ -32,7 +32,7 @@
 
 
 @implementation ELUserFeaturesCVController
-@synthesize userId;
+@synthesize userName;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -66,7 +66,7 @@
     [self.collectionView setCollectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
-    [self showFeatureForUser:userId];
+    [self showFeatureForUser:self.userName];
 
 }
 
@@ -218,12 +218,12 @@
     
 }
 
-- (void)showFeatureForUser:(NSString*)userId {
+- (void)showFeatureForUser:(NSString*)userName {
     [nFeatures removeAllObjects];
     [self.collectionView reloadData];
     // Fetch the content on a worker thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsByUserID:userId] mutableCopy];
+        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsByUserName:userName] mutableCopy];
         // Register the content on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             // Move all features to nFeatures

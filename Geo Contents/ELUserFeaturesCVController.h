@@ -12,7 +12,7 @@
 
 @interface ELUserFeaturesCVController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource, RTLabelDelegate>
 
-@property (strong, nonatomic) NSString *userId;
+@property (strong, nonatomic) NSString *userName;
 
 
 @end

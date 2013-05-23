@@ -191,6 +191,7 @@
             NSLog(@"%@",@"Your have a user");
             
             ELHashedFeatureCVController *child = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            [child setTitle:[dict valueForKey:@"name"]];
             child.hashTag = [dict valueForKey:@"name"];
             [self.navigationController pushViewController:child animated:YES];
         }

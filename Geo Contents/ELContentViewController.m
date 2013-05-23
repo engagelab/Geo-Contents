@@ -97,16 +97,21 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     // Toggle button to switch between content mode and Map mode
     UIBarButtonItem *gotoMapViewButton = [[UIBarButtonItem alloc] initWithTitle:@"Mapview" style:UIBarButtonItemStylePlain target:self action:@selector(openMapview)];
-    self.navigationItem.rightBarButtonItem = gotoMapViewButton;
+    self.navigationItem.leftBarButtonItem = gotoMapViewButton;
     
+    // Refresh button to update list
+    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
+                                      initWithTitle:@"GPS" style:UIBarButtonItemStylePlain target:self action:@selector(gpsButtonpressed)];
+
+    self.navigationItem.rightBarButtonItem = refreshButton;
     
-    //add goto my current location button
-    //[self gotoMyLocationButton];
-    gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    gpsButton.frame = CGRectMake(250.0, 20.0, 48.0, 30.0);
-    [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
-    [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:gpsButton];
+//    //add goto my current location button
+//    //[self gotoMyLocationButton];
+//    gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    gpsButton.frame = CGRectMake(250.0, 20.0, 48.0, 30.0);
+//    [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
+//    [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:gpsButton];
     
     // intialize the thumbnails que
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
@@ -166,6 +171,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [self stopUpdatingContentViewtoMylocation];
 }
 
+
+
 -(void) gpsButtonpressed
 {
     
@@ -191,7 +198,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [self fetchPOIsAtLocation:nLocation.coordinate];
     
     
-    //TODO: Optimize to run on secondary thread
+    //TODO: Need to be Optimized to run on secondary thread
     autoTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self
                                         selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
 }

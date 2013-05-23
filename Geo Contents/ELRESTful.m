@@ -109,7 +109,7 @@
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
 
     
-    NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, userID];
+    NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, [userID substringFromIndex:1]];
     
     NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
     
@@ -117,6 +117,24 @@
     
     return [self jsonToFeatureArray:features];
 }
+
++(NSMutableArray*) fetchPOIsByUserName:(NSString *)userName
+{
+    
+    NSString *path = @"/user/";
+    NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
+    
+    
+    NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, [userName substringFromIndex:1]];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    
+    NSArray *features = [json objectForKey:@"features"];
+    
+    return [self jsonToFeatureArray:features];
+}
+
+
 
 
 +(ELFeature*) fetchPOIsByID:(NSString *)featureId withSource:(NSString *)source

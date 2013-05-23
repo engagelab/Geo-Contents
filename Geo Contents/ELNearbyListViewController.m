@@ -13,6 +13,7 @@
 #import "ELTweetGenerator.h"
 #import "JMImageCache.h"
 #import "ELHashedFeatureCVController.h"
+#import "ELUserFeaturesCVController.h"
 
 
 NSString *kCellID = @"cvCell";                          // UICollectionViewCell storyboard id
@@ -28,6 +29,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 @property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 @property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
+@property (nonatomic, strong) ELUserFeaturesCVController *userFeatureCVController;
 
 
 @end
@@ -339,11 +341,21 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         
         if ([[urlp host] isEqualToString:@"tag"])
         {
-            NSLog(@"%@",@"Your have a user");
+            NSLog(@"%@",@"Your have a HashTag");
             
             self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            [self.hashedFeatureCVController setTitle:[dict valueForKey:@"name"]];
             self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
             [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
+        }
+        if ([[urlp host] isEqualToString:@"user"])
+        {
+            NSLog(@"%@",@"Your have a user");
+            
+            self.userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
+            [self.userFeatureCVController setTitle:[dict valueForKey:@"name"]];
+            self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:self.userFeatureCVController animated:YES];
         }
                 
     }

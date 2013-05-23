@@ -23,6 +23,7 @@
 +(ELFeature*) fetchPOIsByID:(NSString *)featureId withSource:(NSString*)source;
 +(NSMutableArray*) fetchFeaturesWithHashtag:(NSString*)hashTag;
 + (NSDictionary *)parseQueryString:(NSString *)query ;
++(NSMutableArray*) fetchPOIsByUserName:(NSString *)userName;
 
 
 

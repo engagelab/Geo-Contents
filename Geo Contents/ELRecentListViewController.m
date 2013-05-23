@@ -13,6 +13,7 @@
 #import "NSDate+Helper.h"
 #import "JMImageCache.h"
 #import "ELHashedFeatureCVController.h"
+#import "ELUserFeaturesCVController.h"
 
 
 
@@ -27,6 +28,7 @@
 }
 @property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 @property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
+@property (nonatomic, strong) ELUserFeaturesCVController *userFeatureCVController;
 
 
 @end
@@ -313,21 +315,23 @@
     
     if ([url hasPrefix:@"geocontent"]) {
         
-        NSLog(@"%@",@"send to content view");
-        
         if ([[urlp host] isEqualToString:@"tag"])
         {
-            NSLog(@"%@",@"Your have a user");
-            
             self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            [self.hashedFeatureCVController setTitle:[dict valueForKey:@"name"]];
             self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
             [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
+        }
+        else if ([[urlp host] isEqualToString:@"user"])
+        {
+            self.userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
+            [self.userFeatureCVController setTitle:[dict valueForKey:@"username"]];
+            self.userFeatureCVController.userName = [dict valueForKey:@"username"];
+            [self.navigationController pushViewController:self.userFeatureCVController animated:YES];
         }
         
     }
     if ([url hasPrefix:@"fb"]) {
-        
-        NSLog(@"%@",@"facebook");
         if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
             [[UIApplication sharedApplication] openURL:urlp];
         }
