@@ -18,5 +18,7 @@
 
 #define FEATURE_TYPE_MAPPED_INSTAGRAM @"mapped_instagram"
 
+#define INFO_PAGE_URL @"http://mappa.uio.im"
+
 
 #endif
