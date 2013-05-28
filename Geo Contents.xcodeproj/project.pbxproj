@@ -58,6 +58,7 @@
 		30B59962169D77D400565438 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B59961169D77D400565438 /* CoreLocation.framework */; };
 		30B59972169EAC7000565438 /* default_user_icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 30B59971169EAC7000565438 /* default_user_icon.jpg */; };
 		30B5999B16A0121D00565438 /* menubar.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B5999A16A0121D00565438 /* menubar.png */; };
+		30ECB62F17554B6600A1FA50 /* AMAttributedHighlightLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30ECB62E17554B6600A1FA50 /* AMAttributedHighlightLabel.m */; };
 		30F2904416E8B89E006E1112 /* ELUserFeaturesCVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F2904216E8B89E006E1112 /* ELUserFeaturesCVController.m */; };
 		30F2904516E8B89E006E1112 /* ELUserFeaturesCVController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30F2904316E8B89E006E1112 /* ELUserFeaturesCVController.xib */; };
 		30F2904716E8BF65006E1112 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30F2904616E8BF65006E1112 /* Default-568h@2x.png */; };
@@ -148,6 +149,8 @@
 		30B59961169D77D400565438 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		30B59971169EAC7000565438 /* default_user_icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = default_user_icon.jpg; sourceTree = "<group>"; };
 		30B5999A16A0121D00565438 /* menubar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menubar.png; sourceTree = "<group>"; };
+		30ECB62D17554B6600A1FA50 /* AMAttributedHighlightLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMAttributedHighlightLabel.h; sourceTree = "<group>"; };
+		30ECB62E17554B6600A1FA50 /* AMAttributedHighlightLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMAttributedHighlightLabel.m; sourceTree = "<group>"; };
 		30F2904116E8B89E006E1112 /* ELUserFeaturesCVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELUserFeaturesCVController.h; sourceTree = "<group>"; };
 		30F2904216E8B89E006E1112 /* ELUserFeaturesCVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELUserFeaturesCVController.m; sourceTree = "<group>"; };
 		30F2904316E8B89E006E1112 /* ELUserFeaturesCVController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELUserFeaturesCVController.xib; sourceTree = "<group>"; };
@@ -337,6 +340,7 @@
 		30B599A416A02DE600565438 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				30ECB62C17554B5400A1FA50 /* hashfinder */,
 				304496DC16D4B6C200CAD52D /* JMImageCache */,
 				3002AAA716C997FA00CBC428 /* RCLabel.h */,
 				3002AAA816C997FA00CBC428 /* RCLabel.m */,
@@ -360,6 +364,15 @@
 				3029729A16D37144004943D0 /* NSDate+Helper.m */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		30ECB62C17554B5400A1FA50 /* hashfinder */ = {
+			isa = PBXGroup;
+			children = (
+				30ECB62D17554B6600A1FA50 /* AMAttributedHighlightLabel.h */,
+				30ECB62E17554B6600A1FA50 /* AMAttributedHighlightLabel.m */,
+			);
+			name = hashfinder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -477,6 +490,7 @@
 				30F2904416E8B89E006E1112 /* ELUserFeaturesCVController.m in Sources */,
 				30F2904B16E8C4AE006E1112 /* ELHashedFeatureCVController.m in Sources */,
 				303BC4FA174E2A3100A3B52B /* ELInfoViewController.m in Sources */,
+				30ECB62F17554B6600A1FA50 /* AMAttributedHighlightLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
