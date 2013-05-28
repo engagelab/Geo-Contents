@@ -13,8 +13,14 @@
 #import "ELHashedFeatureCVController.h"
 #import "ELRESTful.h"
 #import "ELConstants.h"
+#import "ELUserFeaturesCVController.h"
 
 @interface ELFeatureViewController ()
+{
+    ELUserFeaturesCVController *userFeatureCVController;
+    ELHashedFeatureCVController *hashedFeatureCVController;
+
+}
 @property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
 
 @end
@@ -104,6 +110,11 @@
 }
 
 
+
+
+
+
+
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
     NSLog(@"%@",url);
@@ -122,12 +133,26 @@
         
         if ([[urlp host] isEqualToString:@"tag"])
         {
+            NSLog(@"%@",@"Your have a HashTag");
+            
+            if (hashedFeatureCVController == nil)
+            {
+                hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            }
+            [hashedFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
+            hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:hashedFeatureCVController animated:YES];
+        }
+        if ([[urlp host] isEqualToString:@"user"])
+        {
             NSLog(@"%@",@"Your have a user");
             
-            self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
-            [self.hashedFeatureCVController setTitle:[dict valueForKey:@"name"]];
-            self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
-            [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
+            if (userFeatureCVController == nil) {
+                userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
+            }
+            [userFeatureCVController setTitle:[dict valueForKey:@"username"]];
+            userFeatureCVController.userName = [dict valueForKey:@"username"];
+            [self.navigationController pushViewController:userFeatureCVController animated:YES];
         }
         
     }

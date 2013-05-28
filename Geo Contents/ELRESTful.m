@@ -101,7 +101,6 @@
 
 
 
-
 +(NSMutableArray*) fetchPOIsByUserID:(NSString *)userID
 {
     
@@ -118,17 +117,21 @@
     return [self jsonToFeatureArray:features];
 }
 
+
+
+
 +(NSMutableArray*) fetchPOIsByUserName:(NSString *)userName
 {
     
-    NSString *path = @"/user/";
+    NSString *path = @"/user/username/";
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
-    
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, [userName substringFromIndex:1]];
     
     NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
     
+    
+    //Expecting an array of features
     NSArray *features = [json objectForKey:@"features"];
     
     return [self jsonToFeatureArray:features];
@@ -245,6 +248,12 @@
         mapper.idd = [mapperD valueForKey:@"id"];
         mapper.full_name = [mapperD valueForKey:@"full_name"];
         mapper.profile_picture = [mapperD valueForKey:@"profile_picture"];
+        
+        if (!([mapperD valueForKey:@"username"] == [NSNull null]))
+        {
+            mapper.username = [mapperD valueForKey:@"username"];
+        }
+        
         feature.mapper = mapper;
     }
     

@@ -27,14 +27,14 @@
 
     if([feature.source_type isEqualToString:FEATURE_TYPE_MAPPA])
     {
-        featureDescription = [NSString stringWithFormat:@"%@%@ %@",@"@",feature.user.username,feature.description];
+        featureDescription = [NSString stringWithFormat:@"@%@ %@",feature.user.username,feature.description];
         if ([featureDescription length]) {
             htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type andUser:feature.user];
         }
     }
     else if ([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM])
     {
-        featureDescription = feature.description;
+        featureDescription = [NSString stringWithFormat:@"@%@ %@",feature.user.username,feature.description];
         if ([featureDescription length])
         {
             htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:feature.source_type andUser:feature.user];
@@ -44,19 +44,19 @@
     
     else if([feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
     {
-        featureDescription = feature.description;
+        featureDescription = [NSString stringWithFormat:@"@%@ %@",feature.user.username,feature.description];
         //FixME: hard coded check, please remove it as soon as possible with a good logic
         // the reason is feature.description is the instagram description in this mapped scenario
         if ([featureDescription length])
         {
-            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:FEATURE_TYPE_INSTAGRAM andUser:feature.user];
+            htmlTweet = [ELTweetGenerator getHTML:featureDescription withSourceType:FEATURE_TYPE_INSTAGRAM andUser:feature.mapper];
         }
         
-        NSString *mapper_description = feature.mapper_description;
+        NSString *mapper_description = [NSString stringWithFormat:@"@%@ %@",feature.mapper.username,feature.mapper_description];;
         // if mapper_description is not empty
         if ([mapper_description length]) {
             htmlTweet = [htmlTweet stringByAppendingFormat:@"\r\r%@\r%@",
-                         @"\t\t---------- Mapper ----------",
+                         @"\t",
                          [ELTweetGenerator getHTML:mapper_description withSourceType:feature.source_type andUser:feature.mapper]];
         }
         
@@ -91,7 +91,8 @@
         NSString* hashtag = [tweet substringWithRange:wordRange];
         NSLog(@"Found tag %@", hashtag);
         NSString *html;
-        if ([sourceType isEqualToString:FEATURE_TYPE_MAPPA] || [sourceType isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM] ) {
+        if ([sourceType isEqualToString:FEATURE_TYPE_MAPPA] || [sourceType isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM] )
+        {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://tag?name=",hashtag,">",hashtag,"</a>"];
         }
         else if([sourceType isEqualToString:FEATURE_TYPE_INSTAGRAM])
@@ -117,6 +118,7 @@
         if ([sourceType isEqualToString:FEATURE_TYPE_MAPPA] || [sourceType isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM] ) {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://user?username=",username,">",username,"</a>"];
         }
+        
         else if([sourceType isEqualToString:FEATURE_TYPE_INSTAGRAM])
         {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",[username substringFromIndex:1],">",username,"</a>"];
@@ -144,20 +146,22 @@
     NSString *userHTML;
     if ([source_type isEqualToString:FEATURE_TYPE_MAPPA])
     {
-        /*
-         <a href="http://www.yahoo.com"><font color="FF00CC">here</font></a>
-         */
         userHTML = [NSString stringWithFormat:@"%@%@%s%s%@%s",@"<a href=fb://profile/",user.idd,">","<font color=\"B8D336\">",user.full_name,"</font></a>"];
 
-        //userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=fb://profile/",feature.user.idd,">",feature.user.full_name,"</a>"];
     }
     else if([source_type isEqualToString:FEATURE_TYPE_INSTAGRAM] || [source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
     {
-        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",user.username,">",user.full_name,"</a>"];
-
+            userHTML = [NSString stringWithFormat:@"<a href=instagram://user?username=%@>%@</a>",user.username,user.full_name];
     }
     return userHTML;
 }
+
+
+
+
+
+
+
 
 
 
@@ -175,7 +179,7 @@
     }
     else if([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM] || [feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
     {
-        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",feature.user.username,">",feature.user.full_name,"</a>"];
+        userHTML = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=instagram://user?username=",feature.mapper.username,">",feature.mapper.full_name,"</a>"];
         
     }
     

@@ -13,6 +13,7 @@
 #import "NSDate+Helper.h"
 #import "JMImageCache.h"
 #import "ELConstants.h"
+#import "ELHashedFeatureCVController.h"
 
 
 
@@ -21,7 +22,10 @@
     NSMutableArray  *nFeatures;
     ELRESTful *restfull;
     UIImage *loadingImage;
-    NSString *kCellID; 
+    NSString *kCellID;
+    
+    ELUserFeaturesCVController *userFeatureCVController;
+    ELHashedFeatureCVController *hashedFeatureCVController;
 }
 
 @end
@@ -96,7 +100,6 @@
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     //return self.albums.count;
-    
     return 1;
 }
 
@@ -105,6 +108,7 @@
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
     NSInteger size = nFeatures.count;
+    [self setTitle:[NSString stringWithFormat:@"%@ (%d)",self.userName,size]];
     return size;
 }
 
@@ -197,14 +201,41 @@
 {
     NSLog(@"%@",url);
     NSURL *urlp = [NSURL URLWithString:url];
+    NSDictionary *dict = [ELRESTful parseQueryString:[urlp query]];
+    
     if ([url hasPrefix:@"instagram"]) {
         if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
             [[UIApplication sharedApplication] openURL:urlp];
         }
     }
-    if ([url hasPrefix:@"content"]) {
+    
+    if ([url hasPrefix:@"geocontent"]) {
         
         NSLog(@"%@",@"send to content view");
+        
+        if ([[urlp host] isEqualToString:@"tag"])
+        {
+            NSLog(@"%@",@"Your have a HashTag");
+            
+            if (hashedFeatureCVController == nil)
+            {
+                hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            }
+            [hashedFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
+            hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:hashedFeatureCVController animated:YES];
+        }
+        if ([[urlp host] isEqualToString:@"user"])
+        {
+            NSLog(@"%@",@"Your have a user");
+            
+            if (userFeatureCVController == nil) {
+                userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
+            }
+            [userFeatureCVController setTitle:[dict valueForKey:@"username"]];
+            userFeatureCVController.userName = [dict valueForKey:@"username"];
+            [self.navigationController pushViewController:userFeatureCVController animated:YES];
+        }
         
     }
     if ([url hasPrefix:@"fb"]) {

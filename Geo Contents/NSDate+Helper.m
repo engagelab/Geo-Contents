@@ -109,6 +109,7 @@
 	 * else display as Nov 11, 2008
 	 */
     NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
     NSDateFormatter *displayFormatter = [[NSDateFormatter alloc] init];
     
 	NSDate *today = [NSDate date];
@@ -174,7 +175,35 @@
     
     [displayFormatter release];
     
-	return displayString;
+	return [self englishDayFromNorskDay:displayString];
+}
+
+
++(NSString*)englishDayFromNorskDay:(NSString*)norskday
+{
+    if ([norskday isEqualToString:@"mandag"]) {
+        return @"monday";
+    }
+    if ([norskday isEqualToString:@"tirsdag"]) {
+        return @"tuesday";
+    }
+    if ([norskday isEqualToString:@"onsdag"]) {
+        return @"wednesday";
+    }
+    if ([norskday isEqualToString:@"torsdag"]) {
+        return @"thursday";
+    }
+    if ([norskday isEqualToString:@"fredag"]) {
+        return @"friday";
+    }
+    if ([norskday isEqualToString:@"lørdag"]) {
+        return @"staurday";
+    }
+    if ([norskday isEqualToString:@"sondag"]) {
+        return @"sunday";
+    }
+    return norskday;
+    
 }
 
 + (NSString *)stringForDisplayFromDate:(NSDate *)date prefixed:(BOOL)prefixed {

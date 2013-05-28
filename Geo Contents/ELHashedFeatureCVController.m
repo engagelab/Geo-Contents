@@ -14,6 +14,7 @@
 #import "JMImageCache.h"
 #import "ELContentViewController.h"
 #import "ELConstants.h"
+#import "ELUserFeaturesCVController.h"
 
 @interface ELHashedFeatureCVController ()
 {
@@ -21,6 +22,10 @@
     ELRESTful *restfull;
     UIImage *loadingImage;
     NSString *kCellID;
+    
+    ELUserFeaturesCVController *userFeatureCVController;
+    ELHashedFeatureCVController *hashedFeatureCVController;
+
 }
 
 @end
@@ -82,6 +87,7 @@
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
     NSInteger size = nFeatures.count;
+    [self setTitle:[NSString stringWithFormat:@"#%@ (%d)",self.hashTag,size]];
     return size;
 }
 
@@ -105,14 +111,12 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    //    if (self.nLocation == nil) {
-    //        [self.collectionView reloadData];
-    //    }
-    // we're going to use a custom UICollectionViewCell, which will hold an image and its label
     ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
     
     static NSString *cellIdentifier = @"cvCell";
     Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    
     if (feature != nil) {
         
         cell.feature = feature;
@@ -127,32 +131,26 @@
             profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
         }
         cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
-        //[cell.userprofileImageView setFrame:CGRectMake(271, 295, 35, 35)];
-        
         
         //clickable user label
         RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
         cell.usernameLabel.componentsAndPlainText = componentsDS;
-        //        [cell.usernameLabel setTextColor:[UIColor redColor]];
-        //        UIColor *test = cell.usernameLabel.textColor;
         cell.usernameLabel.delegate = self;
         
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
-        [formatter setMaximumFractionDigits:0];
+        //: formate time using Utitlity category NSDATE+Helper
+        NSTimeInterval timeInterval = (double)([feature.time unsignedLongLongValue]);
+        NSDate *theDate = [[NSDate alloc]initWithTimeIntervalSince1970: timeInterval];
+        NSString *displayString = [NSDate stringForDisplayFromDate:theDate];
         
+        cell.timeDistance.text = displayString;
         
-        
-        cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"m"];
-        
-        //cell.descriptionLabel.text = feature.description;
         if (feature.description !=NULL) {
             
             NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
             
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
             //find the height of RTLabel
-            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(304, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
             
             [cell.descriptionLabel setFrame:CGRectMake(6,355,304,suggestedSize.height)];
             
@@ -161,8 +159,8 @@
             cell.descriptionLabel.delegate = self;
             
         }
-        [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"placeholder"]];
         
+        [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"placeholder"]];
     }
     
     return cell;
@@ -189,12 +187,26 @@
         
         if ([[urlp host] isEqualToString:@"tag"])
         {
+            NSLog(@"%@",@"Your have a HashTag");
+            
+            if (hashedFeatureCVController == nil)
+            {
+                hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            }
+            [hashedFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
+            hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:hashedFeatureCVController animated:YES];
+        }
+        if ([[urlp host] isEqualToString:@"user"])
+        {
             NSLog(@"%@",@"Your have a user");
             
-            ELHashedFeatureCVController *child = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
-            [child setTitle:[dict valueForKey:@"name"]];
-            child.hashTag = [dict valueForKey:@"name"];
-            [self.navigationController pushViewController:child animated:YES];
+            if (userFeatureCVController == nil) {
+                userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
+            }
+            [userFeatureCVController setTitle:[dict valueForKey:@"username"]];
+            userFeatureCVController.userName = [dict valueForKey:@"username"];
+            [self.navigationController pushViewController:userFeatureCVController animated:YES];
         }
         
     }

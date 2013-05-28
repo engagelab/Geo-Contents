@@ -138,6 +138,9 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
     NSInteger size = nFeatures.count;
+    
+    //[self setTitle:[NSString stringWithFormat:@"%@ (%d)",@"Nearby",size]];
+    
     return size;
 }
 
@@ -353,8 +356,8 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             NSLog(@"%@",@"Your have a user");
             
             self.userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
-            [self.userFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
-            self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.userFeatureCVController setTitle:[dict valueForKey:@"username"]];
+            self.userFeatureCVController.userName = [dict valueForKey:@"username"];
             [self.navigationController pushViewController:self.userFeatureCVController animated:YES];
         }
                 

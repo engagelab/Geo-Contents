@@ -60,10 +60,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     if (self) {
         // Custom initialization
         //self.tabBarItem.image = [UIImage imageNamed:@"first"];
-        gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
-        [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
-        [gpsButton sizeToFit];
+//        gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
+//        [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
+//        [gpsButton sizeToFit];
     }
     return self;
 }
@@ -332,7 +332,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
     
     //load images using JMImageCache liberary. Awesome :)
-    [photoCell.imageView setImageWithURL:feature.images.thumbnail];
+    [photoCell.imageView setImageWithURL:feature.images.thumbnail placeholder:[UIImage imageNamed:@"placeholder"]];
     
     // differentiate external POIs with 60% alpha
     if ([feature.source_type isEqualToString:FEATURE_TYPE_MAPPA] || [feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
