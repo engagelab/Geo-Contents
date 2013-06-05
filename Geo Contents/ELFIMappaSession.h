@@ -12,6 +12,6 @@
 
 +(NSURL*)urlByAddingCurrentSessionToURL:(NSURL*)url;
 
-+(NSDictionary*)currentSessionJson;
++(NSArray*)currentSessionJson;
 
 @end

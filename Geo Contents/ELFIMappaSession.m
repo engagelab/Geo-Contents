@@ -39,7 +39,7 @@
     return [NSURL URLWithString:modified];
 }
 
-+(NSDictionary*)currentSessionJson {
++(NSArray*)currentSessionJson {
     // Get the shared groups
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *groups = [defaults objectForKey:SHARED_DICT_FB_SESSION_ID_LIST_KEY];
@@ -59,7 +59,7 @@
         [dictForGroupAtI setObject:adminValue forKey:@"administrator"];
         [sessions addObject:dictForGroupAtI];
     }
-    return [NSDictionary dictionaryWithObject:sessions forKey:@"sessions"];
+    return sessions;
 }
     
 @end
