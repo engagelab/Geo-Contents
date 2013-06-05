@@ -264,11 +264,11 @@
 
 
 
-+(NSDictionary *)getJSONResponsetWithURL:(NSURL*)url
++(NSDictionary *)getJSONResponsetWithURL:(NSString*)stringURL
 {
-    
+    NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURL:[NSURL URLWithString:stringURL]];
     // Try downloading
-    NSData *data = [NSData dataWithContentsOfURL:url];
+    NSData *data = [NSData dataWithContentsOfURL:requestURL];
     // Keep track of errors
     NSError *error = nil;
     // No data? Nothing to return.
@@ -281,7 +281,6 @@
     if(error) {
         return nil;
     }
-    
     
     return  json;
 }

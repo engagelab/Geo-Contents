@@ -15,6 +15,7 @@
 #import "ELFeatureViewController.h"
 #import "ELRESTful.h"
 #import "ELInfoViewController.h"
+#import "ELConstants.h"
 
 
 
@@ -108,17 +109,18 @@
 
 -(void)setuserdefaults
 {
-    NSDictionary *sampleGroup = @{@"administrator" : @1,
-                                  @"bookmark_order": @1,
-                                  @"id" : @245718548833281,
+    NSDictionary *sampleGroup = @{@"administrator" : @"1",
+                                  @"bookmark_order": @"1",
+                                  @"id" : @"245718548833281",
                                   @"name" : @"MAPPA",
-                                  @"unread" : @8,
-                                  @"version" : @1};
+                                  @"unread" : @"8",
+                                  @"version" : @"1"};
     
     NSArray *groupArray = [NSArray arrayWithObject:sampleGroup];
    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:groupArray forKey:@"groups"];
+    [defaults setObject:groupArray forKey:SHARED_DICT_FB_SESSION_ID_LIST_KEY];
+    [defaults synchronize];
     
 }
 
