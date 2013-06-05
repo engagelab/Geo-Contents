@@ -99,18 +99,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveNotif:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveNotif:) name:UIApplicationWillResignActiveNotification object:nil];
     
-    // Toggle button to switch between content mode and Map mode
-//    UIBarButtonItem *gotoMapViewButton = [[UIBarButtonItem alloc] initWithTitle:@"Mapview" style:UIBarButtonItemStylePlain target:self action:@selector(openMapview)];
-//    self.navigationItem.leftBarButtonItem = gotoMapViewButton;
-//    
-//    // Refresh button to update list
-//    UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
-//                                      initWithTitle:@"GPS" style:UIBarButtonItemStylePlain target:self action:@selector(gpsButtonpressed)];
-//
-//    self.navigationItem.rightBarButtonItem = refreshButton;
-    
-//    //add goto my current location button
-//    //[self gotoMyLocationButton];
+
     
     // intialize the thumbnails que
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
@@ -119,7 +108,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     
     //TODO: create default UIColleciotnView Background
-
+    // Add background image to collection view
+    self.collectionView.backgroundView =[[UIView alloc]initWithFrame:self.collectionView.bounds];
+    UIImageView *background_image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mosaic_bg3x107"]];
+    [self.collectionView.backgroundView addSubview:background_image];
 }
 
 
