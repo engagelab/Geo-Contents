@@ -48,7 +48,7 @@
         return nil;
     // Create an nsdictionary containing json-formatted data for all valid groups (invalid groups will never be in the shared user defaults)
     NSMutableArray *sessions = [NSMutableArray arrayWithCapacity:groups.count];
-    for(int i=0;i<groups.count - 1;i++) {
+    for(int i=0;i<groups.count;i++) {
         NSDictionary *groupAtI = [groups objectAtIndex:i];
         NSString *groupIdAtI = [groupAtI objectForKey:@"id"];
         NSString *name = [groupAtI objectForKey:@"name"];
