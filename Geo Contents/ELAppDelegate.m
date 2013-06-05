@@ -98,12 +98,33 @@
 //        alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"This app was launched without any boundingBox. Open this app using the Overlay app to send text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 //        [alertView show];
 //    }
-    
+    [self setuserdefaults];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
 }
+
+
+-(void)setuserdefaults
+{
+    NSDictionary *sampleGroup = @{@"administrator" : @1,
+                                  @"bookmark_order": @1,
+                                  @"id" : @245718548833281,
+                                  @"name" : @"MAPPA",
+                                  @"unread" : @8,
+                                  @"version" : @1};
+    
+    NSArray *groupArray = [NSArray arrayWithObject:sampleGroup];
+   
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:groupArray forKey:@"groups"];
+    
+}
+
+
+
+
 
 /*
  

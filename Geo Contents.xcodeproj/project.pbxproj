@@ -19,6 +19,7 @@
 		3004717316AD68AA00DB4A81 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717016AD68AA00DB4A81 /* Cell.m */; };
 		3004717416AD68AA00DB4A81 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717216AD68AA00DB4A81 /* CustomCellBackground.m */; };
 		30141DBA175F61740083F4D4 /* option_iPhonex35.png in Resources */ = {isa = PBXBuildFile; fileRef = 30141DB9175F61740083F4D4 /* option_iPhonex35.png */; };
+		30141DBD175F696A0083F4D4 /* ELFIMappaSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 30141DBC175F696A0083F4D4 /* ELFIMappaSession.m */; };
 		3029729B16D37144004943D0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3029729A16D37144004943D0 /* NSDate+Helper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		303AF98317439DD100B1DF88 /* gpsFake1.png in Resources */ = {isa = PBXBuildFile; fileRef = 303AF98217439DD100B1DF88 /* gpsFake1.png */; };
 		303BC4FA174E2A3100A3B52B /* ELInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 303BC4F8174E2A3100A3B52B /* ELInfoViewController.m */; };
@@ -90,6 +91,8 @@
 		3004717116AD68AA00DB4A81 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
 		3004717216AD68AA00DB4A81 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
 		30141DB9175F61740083F4D4 /* option_iPhonex35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = option_iPhonex35.png; path = images/option_iPhonex35.png; sourceTree = SOURCE_ROOT; };
+		30141DBB175F696A0083F4D4 /* ELFIMappaSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELFIMappaSession.h; sourceTree = "<group>"; };
+		30141DBC175F696A0083F4D4 /* ELFIMappaSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELFIMappaSession.m; sourceTree = "<group>"; };
 		3029729916D37144004943D0 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		3029729A16D37144004943D0 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		303AF98217439DD100B1DF88 /* gpsFake1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gpsFake1.png; sourceTree = "<group>"; };
@@ -351,6 +354,8 @@
 		30B599A416A02DE600565438 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				30141DBB175F696A0083F4D4 /* ELFIMappaSession.h */,
+				30141DBC175F696A0083F4D4 /* ELFIMappaSession.m */,
 				30ECB62C17554B5400A1FA50 /* hashfinder */,
 				304496DC16D4B6C200CAD52D /* JMImageCache */,
 				3002AAA716C997FA00CBC428 /* RCLabel.h */,
@@ -503,6 +508,7 @@
 				30F2904B16E8C4AE006E1112 /* ELHashedFeatureCVController.m in Sources */,
 				303BC4FA174E2A3100A3B52B /* ELInfoViewController.m in Sources */,
 				30ECB62F17554B6600A1FA50 /* AMAttributedHighlightLabel.m in Sources */,
+				30141DBD175F696A0083F4D4 /* ELFIMappaSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

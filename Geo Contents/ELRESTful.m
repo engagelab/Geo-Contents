@@ -11,6 +11,7 @@
 #import "ELConstants.h"
 #import "ELImages.h"
 #import "ELContentViewController.h"
+#import "ELFIMappaSession.h"
 
 @implementation ELRESTful
 
@@ -22,6 +23,7 @@
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
     
     NSString *stringURL =  [NSString stringWithFormat:@"%@%@", requestUrl, hashTag];
+    
     
     NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
     NSArray *featuresNode = [json objectForKey:@"features"];
@@ -262,11 +264,11 @@
 
 
 
-+(NSDictionary *)getJSONResponsetWithURL:(NSString*)url
++(NSDictionary *)getJSONResponsetWithURL:(NSURL*)url
 {
     
     // Try downloading
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    NSData *data = [NSData dataWithContentsOfURL:url];
     // Keep track of errors
     NSError *error = nil;
     // No data? Nothing to return.
@@ -283,14 +285,6 @@
     
     return  json;
 }
-
-
-+(NSDictionary *)returnRequestCode
-{
-    
-    
-}
-
 
 
 
