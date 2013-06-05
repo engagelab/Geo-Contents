@@ -22,4 +22,8 @@
 
 #define SHARED_DICT_FB_SESSION_ID_LIST_KEY @"FBSessionIDList"
 
+#define ARGB_LIGHT_GREEN 0xffA4C422
+
+#define ARGB_DARK_GREEN 0xff8BBD25
+
 #endif
