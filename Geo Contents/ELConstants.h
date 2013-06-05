@@ -20,5 +20,6 @@
 
 #define INFO_PAGE_URL @"http://mappa.uio.im/resources/html/index.html"
 
+#define SHARED_DICT_FB_SESSION_ID_LIST_KEY @"FBSessionIDList"
 
 #endif
