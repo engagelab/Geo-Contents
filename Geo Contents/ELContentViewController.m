@@ -116,6 +116,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     self.thumbnailQueue = [[NSOperationQueue alloc] init];
     self.thumbnailQueue.maxConcurrentOperationCount = 3;
     
+    
+    
+    //TODO: create default UIColleciotnView Background
+
 }
 
 
