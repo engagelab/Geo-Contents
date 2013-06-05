@@ -147,6 +147,12 @@
         [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
         [formatter setMaximumFractionDigits:0];
         
+        if (feature.distance >[NSNumber numberWithInt:999])
+        {
+            NSNumber *kmDistance = feature.distance;
+            cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"km"];
+        }
+        
         cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"m"];
         
         if (feature.description !=NULL) {
