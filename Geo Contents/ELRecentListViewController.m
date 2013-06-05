@@ -15,7 +15,6 @@
 #import "ELHashedFeatureCVController.h"
 #import "ELUserFeaturesCVController.h"
 #import "ELConstants.h"
-#import "AMAttributedHighlightLabel.h"
 
 
 
@@ -160,6 +159,84 @@
 
 
 
+//- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+//{
+//    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+//    
+//    static NSString *cellIdentifier = @"cvCell";
+//    Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+//        
+//    // load photo images in the background
+//    __weak ELRecentListViewController *weakSelf = self;
+//    __block UIImage *image = nil;
+//    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+//        image = [UIImage imageWithData:[NSData dataWithContentsOfURL:feature.images.standard_resolution]];
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            // then set them via the main queue if the cell is still visible.
+//            if ([weakSelf.collectionView.indexPathsForVisibleItems containsObject:indexPath]) {
+//                Cell *cell =
+//                (Cell *)[weakSelf.collectionView cellForItemAtIndexPath:indexPath];
+//                
+//                
+//                if (feature != nil) {
+//                    
+//                    cell.feature = feature;
+//                    NSURL *profileURL;
+//                    if ([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
+//                        cell.sourceTypeImageView.image = [UIImage imageNamed:@"instagram.png"];
+//                        profileURL = [NSURL URLWithString:feature.user.profile_picture];
+//                    }
+//                    else
+//                    {
+//                        cell.sourceTypeImageView.image = [UIImage imageNamed:@"overlay.png"];
+//                        profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
+//                    }
+//                    cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
+//
+//                    //clickable user label
+//                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature]];
+//                    cell.usernameLabel.componentsAndPlainText = componentsDS;
+//                    cell.usernameLabel.delegate = self;
+//                    
+//                    //: formate time using Utitlity category NSDATE+Helper
+//                    NSString *timeStamp = feature.time;
+//                    NSTimeInterval timeInterval = (double)([feature.time unsignedLongLongValue]);
+//                    NSDate *theDate = [[NSDate alloc]initWithTimeIntervalSince1970: timeInterval];
+//                    NSString *displayString = [NSDate stringForDisplayFromDate:theDate];
+//                    
+//                    cell.timeDistance.text = displayString;
+//                
+//                    if (feature.description !=NULL) {
+//                        
+//                        NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
+//                        
+//                        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+//                        //find the height of RTLabel
+//                        CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+//                        
+//                        [cell.descriptionLabel setFrame:CGRectMake(6,355,300,suggestedSize.height)];
+//                        
+//                        cell.descriptionLabel.componentsAndPlainText = componentsDS;
+//                        
+//                        cell.descriptionLabel.delegate = self;
+//                        
+//                    }
+//
+//                    cell.standardResolutionImageview.image = image;
+//                }
+//                
+//                
+//            }
+//        });
+//    }];
+//    
+//    [self.thumbnailQueue addOperation:operation];
+//        
+//    
+//    return cell;
+//    
+//}
 
 
 
@@ -187,9 +264,9 @@
                     cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
                     
                     //clickable user label
-//                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
-//                    cell.usernameLabel.componentsAndPlainText = componentsDS;
-//                    cell.usernameLabel.delegate = self;
+                    RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
+                    cell.usernameLabel.componentsAndPlainText = componentsDS;
+                    cell.usernameLabel.delegate = self;
                     
                     //: formate time using Utitlity category NSDATE+Helper
                     NSTimeInterval timeInterval = (double)([feature.time unsignedLongLongValue]);
@@ -202,17 +279,15 @@
                         
                         NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
                         
-//                        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
-//                        //find the height of RTLabel
-//                        CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
-//                        
-//                        [cell.descriptionLabel setFrame:CGRectMake(6,355,304,suggestedSize.height)];
-//                        
-//                        cell.descriptionLabel.componentsAndPlainText = componentsDS;
-//                        
-//                        cell.descriptionLabel.delegate = self;
-                        [self performRegxOperations:cell.ownerDescriptionLabel];
-                        cell.ownerDescriptionLabel.delegate = self;
+                        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+                        //find the height of RTLabel
+                        CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+                        
+                        [cell.descriptionLabel setFrame:CGRectMake(6,355,304,suggestedSize.height)];
+                        
+                        cell.descriptionLabel.componentsAndPlainText = componentsDS;
+                        
+                        cell.descriptionLabel.delegate = self;
                         
                     }
                     
@@ -221,48 +296,6 @@
     
     return cell;
     
-}
-
--(AMAttributedHighlightLabel*)performRegxOperations:(AMAttributedHighlightLabel*)label
-{
-    
-    label.lineBreakMode = NSLineBreakByWordWrapping;
-    [label setString:@"This #is a @test for my #@new http://AMAttributedHighlightLabel.class"];
-    [label setFrame:CGRectMake(6, 355, 304, 30)];
-    label.userInteractionEnabled = YES;
-    //cell.descriptionLabel.delegate =self;
-    
-    label.numberOfLines = 4;
-    label.textColor = [UIColor lightGrayColor];
-    label.mentionTextColor = [UIColor darkGrayColor];
-    label.hashtagTextColor = [UIColor darkGrayColor];
-    label.linkTextColor = [UIColor colorWithRed:129.0/255.0 green:171.0/255.0 blue:193.0/255.0 alpha:1.0];
-    label.selectedMentionTextColor = [UIColor blackColor];
-    label.selectedHashtagTextColor = [UIColor blackColor];
-    label.selectedLinkTextColor = UIColorFromRGB(0x4099FF);
-    [label setFont:[UIFont systemFontOfSize:12]];
-    NSError *error;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"((@|#)([A-Z0-9a-z(é|ë|ê|è|à|â|ä|á|ù|ü|û|ú|ì|ï|î|í)_]+))|(http(s)?://([A-Z0-9a-z._-]*(/)?)*)" options:NSRegularExpressionCaseInsensitive error:&error];
-    
-    label.regex = regex;
-
-}
-
-
-
-
-
--(void)selectedMention:(NSString *)string
-{
-      NSLog(@"%@",string);
-}
--(void)selectedHashtag:(NSString *)string
-{
-    NSLog(@"%@",string);
-}
--(void)selectedLink:(NSString *)string
-{
-      NSLog(@"%@",string);
 }
 
 

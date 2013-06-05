@@ -24,15 +24,13 @@
         self.actionButton.enabled=YES;
         
         
-        self.usernameLabel = [[AMAttributedHighlightLabel alloc] initWithFrame:CGRectMake(94,12,165,21)];
+        self.usernameLabel = [[RCLabel alloc] initWithFrame:CGRectMake(94,12,165,21)];
         [self addSubview:self.usernameLabel];
 
         
-        self.ownerDescriptionLabel = [[AMAttributedHighlightLabel alloc]init];
-        [self addSubview:self.ownerDescriptionLabel];
-        
-        self.adopterDescriptionLabel = [[AMAttributedHighlightLabel alloc]init];
-        [self addSubview:self.adopterDescriptionLabel];
+        self.descriptionLabel = [[RCLabel alloc]initWithFrame:CGRectMake(6,355,308,100)];
+        //self.descriptionLabel.delegate = self;
+        [self addSubview:self.descriptionLabel];
         
     }
     return self;

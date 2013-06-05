@@ -6,7 +6,6 @@
 #import <UIKit/UIKit.h>
 #import "ELFeature.h"
 #import "RCLabel.h"
-#import "AMAttributedHighlightLabel.h"
 
 @interface Cell : UICollectionViewCell<UIActionSheetDelegate, CLLocationManagerDelegate,RTLabelDelegate>
 {
@@ -14,13 +13,10 @@
 }
 
 @property (strong, nonatomic) IBOutlet UIImageView *userprofileImageView;
-@property (strong, nonatomic) IBOutlet AMAttributedHighlightLabel *usernameLabel;
+@property (strong, nonatomic) IBOutlet RCLabel *usernameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *timeDistance;
 @property (strong, nonatomic) IBOutlet UIImageView *standardResolutionImageview;
-@property (retain, nonatomic) IBOutlet AMAttributedHighlightLabel *ownerDescriptionLabel;
-@property (retain, nonatomic) IBOutlet AMAttributedHighlightLabel *adopterDescriptionLabel;
-
-
+@property (retain, nonatomic) IBOutlet RCLabel *descriptionLabel;
 @property (strong, nonatomic) IBOutlet UIImageView *sourceTypeImageView;
 
 

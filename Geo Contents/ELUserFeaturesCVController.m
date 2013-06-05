@@ -160,10 +160,10 @@
         cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
         
         //clickable user label
-//        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
-//        cell.usernameLabel.componentsAndPlainText = componentsDS;
-//        cell.usernameLabel.delegate = self;
-//        
+        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
+        cell.usernameLabel.componentsAndPlainText = componentsDS;
+        cell.usernameLabel.delegate = self;
+        
         //: formate time using Utitlity category NSDATE+Helper
         NSTimeInterval timeInterval = (double)([feature.time unsignedLongLongValue]);
         NSDate *theDate = [[NSDate alloc]initWithTimeIntervalSince1970: timeInterval];
@@ -175,16 +175,16 @@
             
             NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
             
-//            RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
-//            //find the height of RTLabel
-//            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
-//            
-//            [cell.descriptionLabel setFrame:CGRectMake(6,355,300,suggestedSize.height)];
-//            
-//            cell.descriptionLabel.componentsAndPlainText = componentsDS;
-//            
-//            cell.descriptionLabel.delegate = self;
-//            
+            RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
+            //find the height of RTLabel
+            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+            
+            [cell.descriptionLabel setFrame:CGRectMake(6,355,300,suggestedSize.height)];
+            
+            cell.descriptionLabel.componentsAndPlainText = componentsDS;
+            
+            cell.descriptionLabel.delegate = self;
+            
         }
         
         [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"placeholder"]];
