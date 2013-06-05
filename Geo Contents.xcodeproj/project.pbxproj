@@ -18,6 +18,7 @@
 		3004716A16AD3D9100DB4A81 /* ELRESTful.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004716916AD3D9100DB4A81 /* ELRESTful.m */; };
 		3004717316AD68AA00DB4A81 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717016AD68AA00DB4A81 /* Cell.m */; };
 		3004717416AD68AA00DB4A81 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717216AD68AA00DB4A81 /* CustomCellBackground.m */; };
+		30141DBA175F61740083F4D4 /* option_iPhonex35.png in Resources */ = {isa = PBXBuildFile; fileRef = 30141DB9175F61740083F4D4 /* option_iPhonex35.png */; };
 		3029729B16D37144004943D0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3029729A16D37144004943D0 /* NSDate+Helper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		303AF98317439DD100B1DF88 /* gpsFake1.png in Resources */ = {isa = PBXBuildFile; fileRef = 303AF98217439DD100B1DF88 /* gpsFake1.png */; };
 		303BC4FA174E2A3100A3B52B /* ELInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 303BC4F8174E2A3100A3B52B /* ELInfoViewController.m */; };
@@ -88,6 +89,7 @@
 		3004717016AD68AA00DB4A81 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		3004717116AD68AA00DB4A81 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
 		3004717216AD68AA00DB4A81 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
+		30141DB9175F61740083F4D4 /* option_iPhonex35.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = option_iPhonex35.png; path = images/option_iPhonex35.png; sourceTree = SOURCE_ROOT; };
 		3029729916D37144004943D0 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		3029729A16D37144004943D0 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		303AF98217439DD100B1DF88 /* gpsFake1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gpsFake1.png; sourceTree = "<group>"; };
@@ -181,6 +183,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30141DB8175F613F0083F4D4 /* UI Elements */ = {
+			isa = PBXGroup;
+			children = (
+				30141DB9175F61740083F4D4 /* option_iPhonex35.png */,
+			);
+			name = "UI Elements";
+			sourceTree = "<group>";
+		};
 		304496DC16D4B6C200CAD52D /* JMImageCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +297,7 @@
 		30B5992D169D571900565438 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				30141DB8175F613F0083F4D4 /* UI Elements */,
 				304496E816D4D0C100CAD52D /* splash screen */,
 				304496E316D4CCC800CAD52D /* GPS Icons */,
 				3058AC0E16B298BA00F1E959 /* instagram.png */,
@@ -452,6 +463,7 @@
 				30F2904C16E8C4AE006E1112 /* ELHashedFeatureCVController.xib in Resources */,
 				303AF98317439DD100B1DF88 /* gpsFake1.png in Resources */,
 				303BC4FB174E2A3100A3B52B /* ELInfoViewController.xib in Resources */,
+				30141DBA175F61740083F4D4 /* option_iPhonex35.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

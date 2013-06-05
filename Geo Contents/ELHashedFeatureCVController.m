@@ -138,11 +138,16 @@
         cell.usernameLabel.delegate = self;
         
         //: formate time using Utitlity category NSDATE+Helper
-        NSTimeInterval timeInterval = (double)([feature.time unsignedLongLongValue]);
-        NSDate *theDate = [[NSDate alloc]initWithTimeIntervalSince1970: timeInterval];
-        NSString *displayString = [NSDate stringForDisplayFromDate:theDate];
+//        NSTimeInterval timeInterval = (double)([feature.time unsignedLongLongValue]);
+//        NSDate *theDate = [[NSDate alloc]initWithTimeIntervalSince1970: timeInterval];
+//        NSString *displayString = [NSDate stringForDisplayFromDate:theDate];
         
-        cell.timeDistance.text = displayString;
+        
+        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+        [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
+        [formatter setMaximumFractionDigits:0];
+        
+        cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"m"];
         
         if (feature.description !=NULL) {
             
