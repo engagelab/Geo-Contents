@@ -313,7 +313,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             cell.descriptionLabel.delegate = self;
             
         }
-        [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"placeholder"]];
+        [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"listloading304px"]];
         
     }
     

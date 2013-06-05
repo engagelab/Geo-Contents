@@ -60,18 +60,15 @@
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="852265175"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
-								<object class="NSColor" key="IBUIBackgroundColor" id="811470021">
+								<object class="NSColor" key="IBUIBackgroundColor" id="339030729">
 									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+									<bytes key="NSWhite">MQA</bytes>
 								</object>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<object class="NSColor" key="IBUIHighlightedTitleColor" id="339030729">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-								</object>
+								<reference key="IBUIHighlightedTitleColor" ref="339030729"/>
 								<reference key="IBUINormalTitleColor" ref="339030729"/>
 								<object class="NSColor" key="IBUINormalTitleShadowColor">
 									<int key="NSColorSpace">3</int>
@@ -79,7 +76,7 @@
 								</object>
 								<object class="NSCustomResource" key="IBUINormalImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">option_iPhonex35.png</string>
+									<string key="NSResourceName">optionPOI35.png</string>
 								</object>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">2</int>
@@ -101,6 +98,10 @@
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">empty304px.png</string>
+								</object>
 							</object>
 							<object class="IBUILabel" id="722684001">
 								<reference key="NSNextResponder" ref="757084126"/>
@@ -116,7 +117,10 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText"/>
-								<reference key="IBUITextColor" ref="811470021"/>
+								<object class="NSColor" key="IBUITextColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC4zMzMzMzMzMzMzAA</bytes>
+								</object>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<int key="IBUITextAlignment">2</int>
@@ -134,7 +138,7 @@
 							<object class="IBUIImageView" id="820856077">
 								<reference key="NSNextResponder" ref="757084126"/>
 								<int key="NSvFlags">1280</int>
-								<string key="NSFrame">{{271, 309}, {35, 35}}</string>
+								<string key="NSFrame">{{271, 301}, {35, 41}}</string>
 								<reference key="NSSuperview" ref="757084126"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
@@ -254,10 +258,10 @@
 						<reference key="object" ref="371919175"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="852265175"/>
-							<reference ref="301657876"/>
 							<reference ref="649768770"/>
 							<reference ref="722684001"/>
 							<reference ref="820856077"/>
+							<reference ref="301657876"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -414,10 +418,10 @@
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">option_iPhonex35.png</string>
-			<string key="NS.object.0">{35, 35}</string>
-		</object>
+		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="empty304px.png">{304, 304}</string>
+			<string key="optionPOI35.png">{30, 35}</string>
+		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>
