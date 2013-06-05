@@ -278,11 +278,11 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         
         
         //clickable user label
-        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
-        cell.usernameLabel.componentsAndPlainText = componentsDS;
-//        [cell.usernameLabel setTextColor:[UIColor redColor]];
-//        UIColor *test = cell.usernameLabel.textColor;
-        cell.usernameLabel.delegate = self;
+//        RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
+//        cell.usernameLabel.componentsAndPlainText = componentsDS;
+////        [cell.usernameLabel setTextColor:[UIColor redColor]];
+////        UIColor *test = cell.usernameLabel.textColor;
+//        cell.usernameLabel.delegate = self;
         
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
         [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
@@ -304,13 +304,13 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 //            CGSize expectedLabelSize = [yourString sizeWithFont:yourLabel.font constrainedToSize:maximumLabelSize lineBreakMode:yourLabel.lineBreakMode];
 //
             
-            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
-            
-            [cell.descriptionLabel setFrame:CGRectMake(6,355,304,suggestedSize.height)];
-            
-            cell.descriptionLabel.componentsAndPlainText = componentsDS;
-            
-            cell.descriptionLabel.delegate = self;
+//            CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
+//            
+//            [cell.descriptionLabel setFrame:CGRectMake(6,355,304,suggestedSize.height)];
+//            
+//            cell.descriptionLabel.componentsAndPlainText = componentsDS;
+//            
+//            cell.descriptionLabel.delegate = self;
             
         }
         [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"placeholder"]];

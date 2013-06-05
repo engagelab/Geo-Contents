@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "RCLabel.h"
+#import "AMAttributedHighlightLabel.h"
 
 
-@interface ELRecentListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource, RTLabelDelegate>
+@interface ELRecentListViewController : UICollectionViewController<UICollectionViewDelegate, UICollectionViewDataSource, RTLabelDelegate, AMAttributedHighlightLabelDelegate>
 
 @end
