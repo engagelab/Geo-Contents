@@ -260,7 +260,7 @@
                     }
                     else if ([feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
                     {
-                        cell.sourceTypeImageView.image = [UIImage imageNamed:@"mapped_instagram1"];
+                        cell.sourceTypeImageView.image = [UIImage imageNamed:@"mapped_instagram"];
                         profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
                     }
 
