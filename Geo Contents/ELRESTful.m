@@ -25,7 +25,9 @@
     NSString *stringURL =  [NSString stringWithFormat:@"%@%@", requestUrl, hashTag];
     
     
-    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
     NSArray *featuresNode = [json objectForKey:@"features"];
     
     CLLocationManager *manager = [CLLocationManager new];
@@ -59,7 +61,10 @@
     
     NSString *stringURL =  [NSString stringWithFormat:@"%@%@%@%@", requestUrl, lng, @"/",lat];
     
-    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    
+    NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
     
     NSArray *features = [json objectForKey:@"features"];
     
@@ -77,7 +82,9 @@
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@%@%@%@%@", requestUrl, lng, @"/",lat,@"/",distanceInMeters];
     
-    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
     
     NSArray *features = [json objectForKey:@"features"];
     
@@ -92,9 +99,17 @@
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
     NSString *stringURL = [ELRESTful addQueryStringToUrlString:requestUrl withDictionary:bbox];
     
-    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    
+    NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURL:[NSURL URLWithString:stringURL]];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
     
     NSArray *features = [json objectForKey:@"features"];
+    
+    if (features.count == 0) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Instagram Busy !" message:@"Please try again!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+    }
     
     return [ELRESTful jsonToFeatureArray:features];
 }
@@ -112,7 +127,9 @@
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, [userID substringFromIndex:1]];
     
-    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
     
     NSArray *features = [json objectForKey:@"features"];
     
@@ -130,7 +147,11 @@
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, [userName substringFromIndex:1]];
     
-    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    
+        NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
+    
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
     
     
     //Expecting an array of features
@@ -158,7 +179,8 @@
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, featureId];
     
-    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:stringURL];
+    
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:[NSURL URLWithString:stringURL]];
     
     return [self featureForDic:json];
 }
@@ -264,9 +286,9 @@
 
 
 
-+(NSDictionary *)getJSONResponsetWithURL:(NSString*)stringURL
++(NSDictionary *)getJSONResponsetWithURL:(NSURL*)requestURL
 {
-    NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURL:[NSURL URLWithString:stringURL]];
+
     // Try downloading
     NSData *data = [NSData dataWithContentsOfURL:requestURL];
     // Keep track of errors

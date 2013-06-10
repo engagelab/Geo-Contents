@@ -11,6 +11,8 @@
 @interface ELFIMappaSession : NSObject
 
 +(NSURL*)urlByAddingCurrentSessionToURL:(NSURL*)url;
++(NSURL*)urlByAddingCurrentSessionToURLAsRoute:(NSURL*)url;
+
 
 +(NSArray*)currentSessionJson;
 

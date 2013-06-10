@@ -14,16 +14,16 @@
 
 @interface ELRESTful : NSObject
 
-+(NSMutableArray*) fetchRecentlyAddedFeatures:(CLLocationCoordinate2D)coordinate2D;
-+(NSMutableArray*) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D;
-+(NSMutableArray*) fetchPOIsInBoundingBox:(NSDictionary*)bbox;
-+(ELFeature*)featureForDic:(NSDictionary*)featureDic;
-+(NSDictionary *)getJSONResponsetWithURL:(NSString*)url;
-+(NSMutableArray*) fetchPOIsByUserID:(NSString *)userID;
-+(ELFeature*) fetchPOIsByID:(NSString *)featureId withSource:(NSString*)source;
-+(NSMutableArray*) fetchFeaturesWithHashtag:(NSString*)hashTag;
-+ (NSDictionary *)parseQueryString:(NSString *)query ;
-+(NSMutableArray*) fetchPOIsByUserName:(NSString *)userName;
++(NSMutableArray*)  fetchRecentlyAddedFeatures:(CLLocationCoordinate2D)coordinate2D;
++(NSMutableArray*)  fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D;
++(NSMutableArray*)  fetchPOIsInBoundingBox:(NSDictionary*)bbox;
++(ELFeature*)       featureForDic:(NSDictionary*)featureDic;
++(NSDictionary *)   getJSONResponsetWithURL:(NSURL*)requestURL;
++(NSMutableArray*)  fetchPOIsByUserID:(NSString *)userID;
++(ELFeature*)       fetchPOIsByID:(NSString *)featureId withSource:(NSString*)source;
++(NSMutableArray*)  fetchFeaturesWithHashtag:(NSString*)hashTag;
++ (NSDictionary *)  parseQueryString:(NSString *)query ;
++(NSMutableArray*)  fetchPOIsByUserName:(NSString *)userName;
 
 
 

@@ -39,6 +39,35 @@
     return [NSURL URLWithString:modified];
 }
 
+
+
++(NSURL*)urlByAddingCurrentSessionToURLAsRoute:(NSURL*)url {
+    // Get the shared groups
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *groups = [defaults objectForKey:SHARED_DICT_FB_SESSION_ID_LIST_KEY];
+    // If no groups, don't modify the url
+    if(groups.count < 1)
+        return url;
+    // Start by adding all ids except the last one (avoid issues with the comma separator)
+    NSString *groupIds = @"";
+    for(int i=0;i<groups.count - 1;i++) {
+        NSDictionary *groupAtI = [groups objectAtIndex:i];
+        NSString *groupIdAtI = [groupAtI objectForKey:@"id"];
+        groupIds = [groupIds stringByAppendingFormat:@"%@,", groupIdAtI];
+    }
+    // Add the last group id
+    NSDictionary *lastGroup = [groups objectAtIndex:groups.count - 1];
+    NSString *groupIdAtI = [lastGroup objectForKey:@"id"];
+    groupIds = [groupIds stringByAppendingString:groupIdAtI];
+    // Form a new url by adding the group ids
+    NSString *modified = url.absoluteString;
+    // Add the sessions to route and return
+    modified = [modified stringByAppendingFormat:@"/%@", groupIds];
+    return [NSURL URLWithString:modified];
+}
+
+
+
 +(NSArray*)currentSessionJson {
     // Get the shared groups
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
