@@ -146,12 +146,10 @@
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@", requestUrl, [userName substringFromIndex:1]];
+
     
     
-        NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
-    
-    
-    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
+    NSDictionary *json = [ELRESTful getJSONResponsetWithURL:[NSURL URLWithString :stringURL]];
     
     
     //Expecting an array of features

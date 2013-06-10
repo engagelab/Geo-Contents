@@ -52,15 +52,26 @@
     if (self.feature != nil) {
        
         NSURL *profileURL;
-        if ([self.feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
-            self.sourceTypeImageView.image = [UIImage imageNamed:@"instagram.png"];
-             profileURL = [NSURL URLWithString:self.feature.user.profile_picture];
+        
+        
+        if ([_feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM])
+        {
+            self.sourceTypeImageView.image = [UIImage imageNamed:@"instagram"];
+            profileURL = [NSURL URLWithString:_feature.user.profile_picture];
         }
+        else if ([_feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
+        {
+            self.sourceTypeImageView.image = [UIImage imageNamed:@"mapped_instagram"];
+            profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",_feature.user.idd,@"/picture"]];
+        }
+        
         else
         {
-            self.sourceTypeImageView.image = [UIImage imageNamed:FEATURE_TYPE_MAPPA];
-             profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",self.feature.user.idd,@"/picture"]];
+            self.sourceTypeImageView.image = [UIImage imageNamed:@"mappa"];
+            profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",_feature.user.idd,@"/picture"]];
         }
+
+        
         self.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
         
         //clickable user label

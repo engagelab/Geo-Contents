@@ -121,15 +121,26 @@
         
         cell.feature = feature;
         NSURL *profileURL;
-        if ([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM]) {
-            cell.sourceTypeImageView.image = [UIImage imageNamed:@"instagram.png"];
+        
+        if ([feature.source_type isEqualToString:FEATURE_TYPE_INSTAGRAM])
+        {
+            cell.sourceTypeImageView.image = [UIImage imageNamed:@"instagram"];
             profileURL = [NSURL URLWithString:feature.user.profile_picture];
         }
-        else
+        else if ([feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
         {
-            cell.sourceTypeImageView.image = [UIImage imageNamed:@"mappa.png"];
+            cell.sourceTypeImageView.image = [UIImage imageNamed:@"mapped_instagram"];
             profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
         }
+        
+        else
+        {
+            cell.sourceTypeImageView.image = [UIImage imageNamed:@"mappa"];
+            profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
+        }
+
+        
+        
         cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
         
         //clickable user label
@@ -149,7 +160,6 @@
         
         if (feature.distance >[NSNumber numberWithInt:999])
         {
-            NSNumber *kmDistance = feature.distance;
             cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"km"];
         }
         
