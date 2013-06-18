@@ -119,6 +119,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     distanceCoveredLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 300, 60, 20)];
 
+    // Download Features in the BoundingBox Set by Mappa in NSUserdefaults dictionary
+    [self getAndShowFeaturesInBoundingBox];
 }
 
 
@@ -132,7 +134,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     //TODO: update only when you are coming from MapView but not from List Views
     //if (nFeatures.count < 1)
     {
-        [self getAndShowFeaturesInBoundingBox];
+        
     }
 }
 
@@ -460,7 +462,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         // find the time passed since last location update
         NSTimeInterval timeElepsed = [oLocation.timestamp timeIntervalSinceNow];
         
-        if ([distanceCovered intValue] >= 10 && abs(timeElepsed) > 10.0)
+        if ([distanceCovered intValue] >= 10 || abs(timeElepsed) > 20.0)
         {
             NSLog(@"You covered: %@ m", distanceCovered);
             oLocation = nLocation;
