@@ -19,6 +19,5 @@
 
 +(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2;
 
-@property (readonly) UIButton *gpsButton;
 
 @end

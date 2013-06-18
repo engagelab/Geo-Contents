@@ -42,7 +42,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     CLLocation *nLocation;
     NSMutableArray  *nFeatures;
     NSMutableArray *cashedImages;
+    UILabel *distanceCoveredLabel;
+
 }
+
 @property (nonatomic, weak) IBOutlet IMPhotoAlbumLayout *photoAlbumLayout;
 @property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 @property (nonatomic,strong) NSMutableArray *photos;
@@ -112,6 +115,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     self.collectionView.backgroundView =[[UIView alloc]initWithFrame:self.collectionView.bounds];
     UIImageView *background_image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mosaic_bg3x107"]];
     [self.collectionView.backgroundView addSubview:background_image];
+    
+    
+    distanceCoveredLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 300, 60, 20)];
+
 }
 
 
@@ -163,48 +170,14 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 -(void) viewDidDisappear:(BOOL)animated
 {
-    [self stopUpdatingContentViewtoMylocation];
-}
-
--(UIButton*)gpsButton {
-    return gpsButton;
-}
-
--(void) gpsButtonpressed
-{
-    
-    if (gpsButtonCurrentStatus == NO)
-    {
-        gpsButtonCurrentStatus = YES;
-        [gpsButton setImage: [UIImage imageNamed:@"gpsloc"] forState:UIControlStateNormal];
-        [self startUpdatingContentViewtoMylocation];
-    }
-    else
-    {
-        gpsButtonCurrentStatus = NO;
-        [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
-        [self stopUpdatingContentViewtoMylocation];
-    }
-    
+    //
+    //[self stopUpdatingContentViewtoMylocation];
 }
 
 
--(void)startUpdatingContentViewtoMylocation
-{
-    
-    [self fetchPOIsAtLocation:nLocation.coordinate];
-    
-    
-    //TODO: Need to be Optimized to run on secondary thread
-    autoTimer = [NSTimer scheduledTimerWithTimeInterval:20 target:self
-                                        selector:@selector(setOldLocationTo:) userInfo:nLocation repeats:YES];
-}
 
--(void)stopUpdatingContentViewtoMylocation
-{
-    [autoTimer invalidate];
-    autoTimer = nil;
-}
+
+
 
 
 
@@ -251,18 +224,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     return [NSArray arrayWithArray:temp];
 }
-
-
--(void) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D
-{
-    nFeatures = [ELRESTful fetchPOIsAtLocation:coordinate2D];
-    [self.collectionView reloadData];
-
-}
-
-
-
-
 
 
 -(void)openMapview
@@ -392,9 +353,14 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     if(_locationManager==nil){
         //Instantiate _locationManager
         _locationManager = [[CLLocationManager alloc] init];
+        
         //set the accuracy for the signals
         _locationManager.desiredAccuracy=kCLLocationAccuracyNearestTenMeters;
-        _locationManager.distanceFilter=1;
+        
+        //The distanceFilter property defines the minimum distance a device has to move horizontally
+        // before an update event is produced.
+        _locationManager.distanceFilter = 10;
+        
         _locationManager.delegate=self;
     }
     //Start updating location
@@ -441,10 +407,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-
-
-
-
 /*
  var R = 6371; // km
  var dLat = (lat2-lat1).toRad();
@@ -474,47 +436,76 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
--(void)setOldLocationTo:(NSTimer*)theTimer
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    
-    int distance = [[ELContentViewController getDistanceBetweenPoint1:nLocation Point2:oLocation] integerValue];
-    //Check if user walked 100meter then reload the content view
-    if (distance > 10) {
-        [self fetchPOIsAtLocation:nLocation.coordinate];
-        oLocation = nLocation;
-    }
-    
-    if (oLocation == nil) {
-        oLocation = [[CLLocation alloc]init];
-        oLocation = nLocation;
-    }
-    
-    
-}
-
-
-
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
-    
-    nLocation = [locations lastObject];
-    //Check to make sure this is a recent location event
-    NSDate *eventDate=nLocation.timestamp;
-    NSTimeInterval eventInterval=[eventDate timeIntervalSinceNow];
-    if(abs(eventInterval)<30.0){
-        //Check to make sure the event is accurate
-        
-        if(nLocation.horizontalAccuracy>=0 && nLocation.horizontalAccuracy<20)
-        {
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    // refuses events older than 5 seconds:
+    if (abs(howRecent) < 15.0)
+    {
+        //set old loacation to
+        if (oLocation == nil) {
+            oLocation = [locations lastObject];
             
+            nFeatures=  [ELRESTful fetchPOIsAtLocation:location.coordinate];
+            
+            [self.collectionView reloadData];
             
         }
-        //[self notifictationForNewLocation:newLocation];
-        //[self fetchPOIsAtLocation:newLocation.coordinate];
+        // find the distance covered since last location update
+        NSNumber *distanceCovered = [self distanceBetweenPoint1:oLocation Point2:location];
+        
+        // find the time passed since last location update
+        NSTimeInterval timeElepsed = [oLocation.timestamp timeIntervalSinceNow];
+        
+        if ([distanceCovered intValue] >= 10 && abs(timeElepsed) > 10.0)
+        {
+            NSLog(@"You covered: %@ m", distanceCovered);
+            oLocation = nLocation;
+            nLocation = location;
+            
+            //Refresh view with new Features at this position
+            [self refreshView:nLocation];
+            
+            // Placed label for testing purpose only
+            distanceCoveredLabel.text = [distanceCovered stringValue];
+            [self.collectionView addSubview:distanceCoveredLabel];
+            
+            [self refreshView:nLocation];
+        }
     }
 }
 
 
+
+-(void)refreshView:(CLLocation*)newLocation
+{
+    NSMutableArray *newFeatures = [ELRESTful fetchPOIsAtLocation:newLocation.coordinate];
+    
+    //Compare the restults are diffirent
+    if ([self foundNewEntriesIn:newFeatures withOldResults:nFeatures])
+    {
+            nFeatures = newFeatures;
+            [self.collectionView reloadData];
+    }
+
+}
+
+
+-(BOOL)foundNewEntriesIn:(NSMutableArray*)newArray withOldResults:(NSMutableArray*)oldArray
+{
+    
+    NSMutableSet *newSet = [NSMutableSet setWithArray: newArray];
+    NSSet *oldSet = [NSSet setWithArray: oldArray];
+    [newSet minusSet: oldSet];
+    if (newSet.count > 0) {
+        return YES;
+    }
+    
+    return NO;
+}
 
 
 
