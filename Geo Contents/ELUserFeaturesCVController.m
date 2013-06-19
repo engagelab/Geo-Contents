@@ -260,12 +260,12 @@
     
 }
 
-- (void)showFeatureForUser:(NSString*)userName {
+- (void)showFeatureForUser:(NSString*)username {
     [nFeatures removeAllObjects];
     [self.collectionView reloadData];
     // Fetch the content on a worker thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsByUserName:userName] mutableCopy];
+        NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsByUserName:username] mutableCopy];
         // Register the content on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             // Move all features to nFeatures

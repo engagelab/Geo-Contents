@@ -28,6 +28,7 @@
 
 
 @implementation ELFeatureViewController
+@synthesize hashedFeatureCVController;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

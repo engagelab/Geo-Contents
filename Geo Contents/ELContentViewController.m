@@ -92,8 +92,32 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [self getAndShowFeaturesInBoundingBox];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    
+}
+
+-(void) viewDidDisappear:(BOOL)animated
+{
+    //
+    //[self stopUpdatingContentViewtoMylocation];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    //app.features = [features mutableCopy];
+    
+}
 
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma Collection view methods
 - (void)prepareCollectionView
 {
     [self.collectionView registerClass:[IMAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
@@ -107,14 +131,15 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
-
-
--(void)viewDidAppear:(BOOL)animated
+-(void)appDidBecomeActiveNotif:(NSNotification*)notif
 {
-
+    [self startLocationServices];
 }
 
-
+-(void)appWillResignActiveNotif:(NSNotification*)notif
+{
+    [self stopLocationServices];
+}
 
 
 -(void)getAndShowFeaturesInBoundingBox
@@ -148,19 +173,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
--(void) viewDidDisappear:(BOOL)animated
-{
-    //
-    //[self stopUpdatingContentViewtoMylocation];
-}
-
-
-
-
-
-
-
-
 -(void) loadFeaturesInBoundingBox:(NSDictionary*)bbox
 {
     //Randomize instagram and overlay pois
@@ -178,66 +190,12 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 }
 
 
--(NSNumber*)distanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
-{
-    
-    double meters1 = [point1 distanceFromLocation:point2];
-    
-    double meters2 = [point2 distanceFromLocation:point1];
-    
-    double meters = (meters1 + meters2)/2;
-    
-    NSNumber *distance = [NSNumber numberWithDouble:meters];
-    
-    return distance;
-}
-
-
-- (NSArray*)shuffleArray:(NSArray*)array {
-    
-    NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:array];
-    
-    for(NSUInteger i = [array count]; i > 1; i--) {
-        NSUInteger j = arc4random_uniform(i);
-        [temp exchangeObjectAtIndex:i-1 withObjectAtIndex:j];
-    }
-    
-    return [NSArray arrayWithArray:temp];
-}
-
-
--(void)openMapview
-{
-    [ELBridgingApp openMapView];
-    
-    NSLog(@"goto map view");
-}
-
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    //app.features = [features mutableCopy];
-    
-}
 
 
 
 
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
-
-
-
-#pragma mark - UICollectionViewDataSource
-
+#pragma mark - UICollectionView delegate methods
 
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -248,16 +206,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-
-
-
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 
     return 1;
 }
-
-
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -278,20 +231,24 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     }
     else
         photoCell.imageView.alpha = 0.6;
+    
     return photoCell;
     
 }
 
 
 
-
-
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
+    if (self.secondView == nil)
+    {
+        self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
+    }
+    
     ELFeature *feature = [features objectAtIndex:indexPath.section];
+    
     feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
+    
     self.secondView.feature = feature;
         
 	[self.navigationController pushViewController:self.secondView animated:YES];
@@ -300,33 +257,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-
-
-
 #pragma mark - Location Services
 
-
--(void)appDidBecomeActiveNotif:(NSNotification*)notif
-{
-    [self startLocationServices];
-}
-
--(void)appWillResignActiveNotif:(NSNotification*)notif
-{
-    [self stopLocationServices];
-}
-
-
-
-
-/*
- kCLLocationAccuracyBestForNavigation
- kCLLocationAccuracyBest
- kCLLocationAccuracyNearestTenMeters
- kCLLocationAccuracyHundredMeters
- kCLLocationAccuracyKilometer
- kCLLocationAccuracyThreeKilometers
- */
 -(void) startLocationServices
 {
     
@@ -359,61 +291,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 #pragma mark - Location Services : delegate
 
-
-
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     if(error.code == kCLErrorDenied){
         [manager stopUpdatingLocation];
     }
 }
-
-
-
-
-
-
-- (void)notifictationForNewLocation:(CLLocation *)newLocation
-{
-    UILocalNotification *locationNotification = [[UILocalNotification alloc]
-                                                 init];
-    locationNotification.alertBody=[NSString stringWithFormat:@"New Location:%.3f, %.3f", newLocation.coordinate.latitude, newLocation.coordinate.longitude];
-    locationNotification.alertAction=@"Ok";
-    locationNotification.soundName = UILocalNotificationDefaultSoundName;
-    //Increment the applicationIconBadgeNumber
-    locationNotification.applicationIconBadgeNumber=[[UIApplication sharedApplication] applicationIconBadgeNumber]+1;
-    //[[UIApplication sharedApplication] presentLocalNotificationNow:locationNotification];
-    [[UIApplication sharedApplication] scheduleLocalNotification:locationNotification];
-}
-
-
-
-/*
- var R = 6371; // km
- var dLat = (lat2-lat1).toRad();
- var dLon = (lon2-lon1).toRad();
- var lat1 = lat1.toRad();
- var lat2 = lat2.toRad();
- 
- var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
- Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2);
- var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
- var d = R * c;
- */
-+(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
-{
-    
-    double meters1 = [point1 distanceFromLocation:point2];
-    
-    double meters2 = [point2 distanceFromLocation:point1];
-    
-    double meters = (meters1 + meters2)/2;
-    
-    NSNumber *distance = [NSNumber numberWithDouble:meters];
-    
-    return distance;
-}
-
-
 
 
 
@@ -460,19 +342,65 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
--(void)refreshView:(CLLocation*)newLocation
+-(void)refreshView:(CLLocation*)location
 {
-    NSMutableArray *newFeatures = [ELRESTful fetchPOIsAtLocation:newLocation.coordinate];
+    NSMutableArray *newFeatures = [ELRESTful fetchPOIsAtLocation:location.coordinate];
     
-    //Compare the restults are diffirent
+    //Compare if restults are diffirent
     if ([self foundNewEntriesIn:newFeatures withOldResults:features])
     {
+        //assign new resluts to features
             features = newFeatures;
+        //refresh view with new features
             [self.collectionView reloadData];
     }
 
 }
 
+
+#pragma utility methods
+
+-(NSNumber*)distanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
+{
+    
+    double meters1 = [point1 distanceFromLocation:point2];
+    
+    double meters2 = [point2 distanceFromLocation:point1];
+    
+    double meters = (meters1 + meters2)/2;
+    
+    NSNumber *distance = [NSNumber numberWithDouble:meters];
+    
+    return distance;
+}
+
+
+- (NSArray*)shuffleArray:(NSArray*)array {
+    
+    NSMutableArray *temp = [[NSMutableArray alloc] initWithArray:array];
+    
+    for(NSUInteger i = [array count]; i > 1; i--) {
+        NSUInteger j = arc4random_uniform(i);
+        [temp exchangeObjectAtIndex:i-1 withObjectAtIndex:j];
+    }
+    
+    return [NSArray arrayWithArray:temp];
+}
+
+
++(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
+{
+    
+    double meters1 = [point1 distanceFromLocation:point2];
+    
+    double meters2 = [point2 distanceFromLocation:point1];
+    
+    double meters = (meters1 + meters2)/2;
+    
+    NSNumber *distance = [NSNumber numberWithDouble:meters];
+    
+    return distance;
+}
 
 -(BOOL)foundNewEntriesIn:(NSMutableArray*)newArray withOldResults:(NSMutableArray*)oldArray
 {
@@ -491,21 +419,3 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 @end
 
-
-
-//- (void)gotoMyLocationButton{    // Method for creating button, with background image and other properties
-//    
-//    UIButton *playButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    playButton.frame = CGRectMake(110.0, 360.0, 100.0, 30.0);
-//    [playButton setTitle:@"Play" forState:UIControlStateNormal];
-//    playButton.backgroundColor = [UIColor clearColor];
-//    [playButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal ];
-//    UIImage *buttonImageNormal = [UIImage imageNamed:@"blueButton.png"];
-//    UIImage *strechableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
-//    [playButton setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
-//    UIImage *buttonImagePressed = [UIImage imageNamed:@"whiteButton.png"];
-//    UIImage *strechableButtonImagePressed = [buttonImagePressed stretchableImageWithLeftCapWidth:12 topCapHeight:0];
-//    [playButton setBackgroundImage:strechableButtonImagePressed forState:UIControlStateHighlighted];
-//    [playButton addTarget:self action:@selector(playAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:playButton];
-//}
