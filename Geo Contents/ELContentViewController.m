@@ -34,66 +34,46 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-
-
 @interface ELContentViewController ()
 {
-    CLLocation *oLocation;
-    CLLocation *nLocation;
-    NSMutableArray  *nFeatures;
-    NSMutableArray *cashedImages;
+    CLLocation *previousLocation;
+    CLLocation *newLocation;
+    NSMutableArray  *features;
     UILabel *distanceCoveredLabel;
 
 }
-
 @property (nonatomic, weak) IBOutlet IMPhotoAlbumLayout *photoAlbumLayout;
-@property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
-@property (nonatomic,strong) NSMutableArray *photos;
 @property (nonatomic, strong) ELFeatureViewController *secondView;    
+
 @end
 
+
+
+
+
 @implementation ELContentViewController
-
-
-
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:@"ELContentViewController" bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        //self.tabBarItem.image = [UIImage imageNamed:@"first"];
-//        gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        [gpsButton setImage:[UIImage imageNamed:@"gpsnone"] forState:UIControlStateNormal];
-//        [gpsButton addTarget:self  action:@selector(gpsButtonpressed) forControlEvents:UIControlEventTouchUpInside];
-//        [gpsButton sizeToFit];
     }
     return self;
 }
 
 
 
-
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    // Start location services
     [ self startLocationServices];
+        
+    // initialze
+    features = [@[] mutableCopy];
     
-    [self.collectionView registerClass:[IMAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
-    
-    cashedImages = [[NSMutableArray alloc]init];
-    
-    self.photos = [@[] mutableCopy];
-    
-    //
-    nFeatures = [@[] mutableCopy];
-    
-    //self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-
     
     /*  Location service
      Stop CLLOcationManager when you receive notification that your app is resigning active,
@@ -102,21 +82,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveNotif:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveNotif:) name:UIApplicationWillResignActiveNotification object:nil];
     
-
+    // prepare collectionview to load features
+    [self prepareCollectionView];
     
-    // intialize the thumbnails que
-    self.thumbnailQueue = [[NSOperationQueue alloc] init];
-    self.thumbnailQueue.maxConcurrentOperationCount = 3;
-    
-    
-    
-    //TODO: create default UIColleciotnView Background
-    // Add background image to collection view
-    self.collectionView.backgroundView =[[UIView alloc]initWithFrame:self.collectionView.bounds];
-    UIImageView *background_image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mosaic_bg3x107"]];
-    [self.collectionView.backgroundView addSubview:background_image];
-    
-    
+    //for test purpose only display distance covered in 10 sec by a user
     distanceCoveredLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 300, 60, 20)];
 
     // Download Features in the BoundingBox Set by Mappa in NSUserdefaults dictionary
@@ -125,20 +94,25 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-
+- (void)prepareCollectionView
+{
+    [self.collectionView registerClass:[IMAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
+    
+    // Add background image to collection view
+    self.collectionView.backgroundView =[[UIView alloc]initWithFrame:self.collectionView.bounds];
+    UIImageView *background_image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mosaic_bg3x107"]];
+    [self.collectionView.backgroundView addSubview:background_image];
+    
+    //self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+}
 
 
 
 -(void)viewDidAppear:(BOOL)animated
 {
-    //TODO: update only when you are coming from MapView but not from List Views
-    //if (nFeatures.count < 1)
-    {
-        
-    }
+
 }
-
-
 
 
 
@@ -147,22 +121,26 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 {
     
     // dafualt boounding box in case GPS does not work
-    NSDictionary *bboxt = [[NSDictionary alloc] initWithObjectsAndKeys:
+    NSDictionary *defaultBBox = [[NSDictionary alloc] initWithObjectsAndKeys:
                            @"59.927999267f",@"lat1",
                            @"10.759999771f",@"lng1",
                            @"59.928999267f",@"lat2",
                            @"10.761999771f",@"lng2",
                            nil];
-    
+    // fetch the bounding box dictionary from the NSUserDefaults being sent by Mappa
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *bbox = [defaults objectForKey:@"bbox"];
+    
+    //if bbox found then refresh the view by loading the feautres in it
     if (bbox != nil) {
         [self loadFeaturesInBoundingBox:bbox];
         [self.collectionView reloadData];
     }
+    
+    //if bbox was not found then refresh the view by using default BBox
     else if (bbox == nil)
     {
-        [self loadFeaturesInBoundingBox:bboxt];
+        [self loadFeaturesInBoundingBox:defaultBBox];
         [self.collectionView reloadData];
     }
 
@@ -191,11 +169,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     for (ELFeature *feature in results) {
         
-        feature.distance = [self distanceBetweenPoint1:nLocation Point2:feature.fLocation];
-        [nFeatures addObject:feature];
+        feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
+        [features addObject:feature];
     }
 
-    nFeatures = [[self shuffleArray:results] mutableCopy];
+    features = [[self shuffleArray:results] mutableCopy];
     //cach images here?
 }
 
@@ -238,7 +216,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    //app.features = [nFeatures mutableCopy];
+    //app.features = [features mutableCopy];
     
 }
 
@@ -265,7 +243,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     
-    return nFeatures.count;
+    return features.count;
 }
 
 
@@ -288,7 +266,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier
                                               forIndexPath:indexPath];
     
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
+    ELFeature *feature = [features objectAtIndex:indexPath.section];
     
     //load images using JMImageCache liberary. Awesome :)
     [photoCell.imageView setImageWithURL:feature.images.thumbnail placeholder:[UIImage imageNamed:@"placeholder"]];
@@ -312,8 +290,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.section];
-    feature.distance = [self distanceBetweenPoint1:nLocation Point2:feature.fLocation];
+    ELFeature *feature = [features objectAtIndex:indexPath.section];
+    feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
     self.secondView.feature = feature;
         
 	[self.navigationController pushViewController:self.secondView animated:YES];
@@ -448,34 +426,34 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     if (abs(howRecent) < 15.0)
     {
         //set old loacation to
-        if (oLocation == nil) {
-            oLocation = [locations lastObject];
+        if (previousLocation == nil) {
+            previousLocation = [locations lastObject];
             
-            nFeatures=  [ELRESTful fetchPOIsAtLocation:location.coordinate];
+            features=  [ELRESTful fetchPOIsAtLocation:location.coordinate];
             
             [self.collectionView reloadData];
             
         }
         // find the distance covered since last location update
-        NSNumber *distanceCovered = [self distanceBetweenPoint1:oLocation Point2:location];
+        NSNumber *distanceCovered = [self distanceBetweenPoint1:previousLocation Point2:location];
         
         // find the time passed since last location update
-        NSTimeInterval timeElepsed = [oLocation.timestamp timeIntervalSinceNow];
+        NSTimeInterval timeElepsed = [previousLocation.timestamp timeIntervalSinceNow];
         
         if ([distanceCovered intValue] >= 10 || abs(timeElepsed) > 20.0)
         {
             NSLog(@"You covered: %@ m", distanceCovered);
-            oLocation = nLocation;
-            nLocation = location;
+            previousLocation = newLocation;
+            newLocation = location;
             
             //Refresh view with new Features at this position
-            [self refreshView:nLocation];
+            [self refreshView:newLocation];
             
             // Placed label for testing purpose only
             distanceCoveredLabel.text = [distanceCovered stringValue];
             [self.collectionView addSubview:distanceCoveredLabel];
             
-            [self refreshView:nLocation];
+            [self refreshView:newLocation];
         }
     }
 }
@@ -487,9 +465,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     NSMutableArray *newFeatures = [ELRESTful fetchPOIsAtLocation:newLocation.coordinate];
     
     //Compare the restults are diffirent
-    if ([self foundNewEntriesIn:newFeatures withOldResults:nFeatures])
+    if ([self foundNewEntriesIn:newFeatures withOldResults:features])
     {
-            nFeatures = newFeatures;
+            features = newFeatures;
             [self.collectionView reloadData];
     }
 
