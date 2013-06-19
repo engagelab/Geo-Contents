@@ -220,7 +220,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    
+    NSLog(@"features found %d", features.count);
     return features.count;
 }
 
@@ -260,17 +260,12 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.secondView == nil)
-    {
-        self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
-    }
-    
     ELFeature *feature = [features objectAtIndex:indexPath.section];
     
     feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
-    
+
+    self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
     self.secondView.feature = feature;
-        
 	[self.navigationController pushViewController:self.secondView animated:YES];
 }
 

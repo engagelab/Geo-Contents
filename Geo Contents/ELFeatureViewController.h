@@ -12,15 +12,7 @@
 
 
 @interface ELFeatureViewController : UIViewController<UIActionSheetDelegate, CLLocationManagerDelegate, RTLabelDelegate,RTLabelSizeDelegate>
-{
-    
-//    UIImageView *userprofileImageView;
-//    UILabel *usernameLabel;
-//    UILabel *creationTime;
-//    UIImageView *standardResolutionImageview;
-//    UILabel *descriptionLabel;
 
-}
 
 //@property (nonatomic, strong) CLLocationManager *locationManager;
 
@@ -39,8 +31,6 @@
 
 @property (strong, nonatomic) ELFeature *feature;
 
-
-//@property (strong, nonatomic) CLLocation *nLocation;
 
 
 

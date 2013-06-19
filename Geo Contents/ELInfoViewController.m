@@ -29,13 +29,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //Create a URL object.
-    NSURL *url = [NSURL URLWithString:INFO_PAGE_URL];
+    //NSURL *url = [NSURL URLWithString:INFO_PAGE_URL];
     
     //URL Requst Object
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    //NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     
     //Load the request in the UIWebView.
-    [self.infoWebView loadRequest:requestObj];
+    //[self.infoWebView loadRequest:requestObj];
 
     
 }

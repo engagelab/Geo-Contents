@@ -16,18 +16,16 @@
 #import "ELUserFeaturesCVController.h"
 #import "ELConstants.h"
 
-NSString *kCellID = @"cvCell";                          // UICollectionViewCell storyboard id
+NSString *kCellID = @"cvCell";                          // UICollectionViewCell xib id
 
 @interface ELNearbyListViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
     NSMutableArray  *nFeatures;
-    ELRESTful *restfull;
     UIImage *loadingImage;
     NSMutableArray *images;
     
 }
 
-@property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 @property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
 @property (nonatomic, strong) ELUserFeaturesCVController *userFeatureCVController;
 
@@ -46,6 +44,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -53,18 +52,17 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     // Ensure nFeatures is instantiated before it is used
     nFeatures = [@[] mutableCopy];
     
-    //Start Location Services
-    if ([CLLocationManager locationServicesEnabled]){
-        CLLocationManager *locationManager = [CLLocationManager new];
-        [self showItemsAtLocation:locationManager.location];
-    } else {
-        /* Location services are not enabled.
-         Take appropriate action: for instance, prompt the
-         user to enable location services */
-        NSLog(@"Location services are not enabled");
-    }
+    [self prepareCollectionView];
     
+    [self refreshCollectionView];
     
+    [self addRefreshViewButton];
+    
+
+}
+
+- (void)prepareCollectionView
+{
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];
     //[self.collectionView registerClass:[Cell class] forCellWithReuseIdentifier:kCellID];
@@ -76,20 +74,20 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
     [self.collectionView setCollectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+}
 
-    self.thumbnailQueue = [[NSOperationQueue alloc] init];
-    self.thumbnailQueue.maxConcurrentOperationCount = 3;
-    
+- (void)addRefreshViewButton
+{
     // Refresh button to update list
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                       target:self
                                       action:@selector(refresh)];
     self.navigationItem.rightBarButtonItem = refreshButton;
-    
 }
 
--(void)refresh
+
+-(void)refreshCollectionView
 {
     if ([CLLocationManager locationServicesEnabled]){
         CLLocationManager *locationManager = [CLLocationManager new];
@@ -109,7 +107,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self refresh];
+
 }
 
 
@@ -196,18 +194,13 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             cell.sourceTypeImageView.image = [UIImage imageNamed:@"mappa"];
             profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
         }
-
-        
         
         cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
         //[cell.userprofileImageView setFrame:CGRectMake(271, 295, 35, 35)];
         
-        
         //clickable user label
         RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:[ELTweetGenerator createHTMLUserString:feature.user withSourceType:feature.source_type]];
         cell.usernameLabel.componentsAndPlainText = componentsDS;
-//        [cell.usernameLabel setTextColor:[UIColor redColor]];
-//        UIColor *test = cell.usernameLabel.textColor;
         cell.usernameLabel.delegate = self;
         
         NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
@@ -222,13 +215,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
             
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
-            //find the height of RTLabel
-            //Calculate the expected size based on the font and linebreak mode of your label
-            // FLT_MAX here simply means no constraint in height
-//            CGSize maximumLabelSize = CGSizeMake(296, FLT_MAX);
-//            
-//            CGSize expectedLabelSize = [yourString sizeWithFont:yourLabel.font constrainedToSize:maximumLabelSize lineBreakMode:yourLabel.lineBreakMode];
-//
             
             CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:16] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
             
@@ -239,6 +225,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             cell.descriptionLabel.delegate = self;
             
         }
+        
         [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"listloading304px"]];
         
     }

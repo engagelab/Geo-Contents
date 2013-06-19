@@ -49,9 +49,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self refreshView];
+    
+}
+
+
+-(void)refreshView
+{
     
     if (self.feature != nil) {
-       
+        
         NSURL *profileURL;
         
         
@@ -71,7 +78,7 @@
             self.sourceTypeImageView.image = [UIImage imageNamed:@"mappa"];
             profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",_feature.user.idd,@"/picture"]];
         }
-
+        
         
         self.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
         
@@ -98,7 +105,7 @@
         if (self.feature.description !=NULL) {
             
             NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:self.feature];
-    
+            
             RTLabelComponentsStructure *componentsDS = [RCLabel extractTextStyle:htmlTweet];
             //find the height of RTLabel
             CGSize suggestedSize = [componentsDS.plainTextData sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(306, FLT_MAX) lineBreakMode:NSLineBreakByCharWrapping];
@@ -112,7 +119,9 @@
         }
         
     }
+    
 }
+
 
 
 
