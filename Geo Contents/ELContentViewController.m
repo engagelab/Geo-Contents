@@ -9,6 +9,7 @@
 #import "ELContentViewController.h"
 #import "IMPhotoAlbumLayout.h"
 #import "IMAlbumPhotoCell.h"
+#import "ELMosiacCell.h"
 
 #import "ELFeature.h"
 
@@ -118,6 +119,25 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 #pragma Collection view methods
+
+-(void)prepareCollectionView2
+{
+    UINib *cellNib = [UINib nibWithNibName:@"ELMosiacCell" bundle:nil];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"ELMosiacCell"];
+    //[self.collectionView registerClass:[Cell class] forCellWithReuseIdentifier:kCellID];
+    [self.collectionView registerClass:[ELMosiacCell class] forCellWithReuseIdentifier:@"ELMosiacCell"];
+
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setItemSize:CGSizeMake(107, 107)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    
+    [self.collectionView setCollectionViewLayout:flowLayout];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+}
+
+
+
 - (void)prepareCollectionView
 {
     [self.collectionView registerClass:[IMAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
@@ -147,10 +167,10 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     // dafualt boounding box in case GPS does not work
     NSDictionary *defaultBBox = [[NSDictionary alloc] initWithObjectsAndKeys:
-                           @"59.927999267f",@"lat1",
-                           @"10.759999771f",@"lng1",
-                           @"59.928999267f",@"lat2",
-                           @"10.761999771f",@"lng2",
+                           @"59.942916f",@"lat1",
+                           @"10.715141f",@"lng1",
+                           @"59.941154f",@"lat2",
+                           @"10.717490f",@"lng2",
                            nil];
     // fetch the bounding box dictionary from the NSUserDefaults being sent by Mappa
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -215,24 +235,24 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    IMAlbumPhotoCell *photoCell =
+    IMAlbumPhotoCell *mosiacCell =
     [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier
                                               forIndexPath:indexPath];
     
     ELFeature *feature = [features objectAtIndex:indexPath.section];
     
     //load images using JMImageCache liberary. Awesome :)
-    [photoCell.imageView setImageWithURL:feature.images.thumbnail placeholder:[UIImage imageNamed:@"placeholder"]];
+    [mosiacCell.imageView setImageWithURL:feature.images.thumbnail placeholder:[UIImage imageNamed:@"placeholder"]];
     
     // differentiate external POIs with 60% alpha
     if ([feature.source_type isEqualToString:FEATURE_TYPE_MAPPA] || [feature.source_type isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM])
     {
-        photoCell.imageView.alpha = 1.0;
+        mosiacCell.imageView.alpha = 1.0;
     }
     else
-        photoCell.imageView.alpha = 0.6;
+        mosiacCell.imageView.alpha = 0.6;
     
-    return photoCell;
+    return mosiacCell;
     
 }
 

@@ -165,7 +165,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //    if (self.nLocation == nil) {
     //        [self.collectionView reloadData];
@@ -174,7 +174,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
     
     static NSString *cellIdentifier = @"cvCell";
-    Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     if (feature != nil) {
         
         cell.feature = feature;

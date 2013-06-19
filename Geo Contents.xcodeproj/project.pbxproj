@@ -38,6 +38,8 @@
 		3058AC0816B1D28F00F1E959 /* ELHomeScreenViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3058AC0616B1D28F00F1E959 /* ELHomeScreenViewController.xib */; };
 		3058AC0D16B2968800F1E959 /* revisions.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3058AC0C16B2968700F1E959 /* revisions.txt */; };
 		3058AC1316B298BD00F1E959 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 3058AC1016B298BC00F1E959 /* user.png */; };
+		306A792A1771A9E000219C35 /* ELMosiacCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 306A79291771A9E000219C35 /* ELMosiacCell.m */; };
+		306A792C1771A9FD00219C35 /* ELMosiacCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 306A792B1771A9FD00219C35 /* ELMosiacCell.xib */; };
 		309ECBA016A580610064E88A /* ELFeature.m in Sources */ = {isa = PBXBuildFile; fileRef = 309ECB9F16A580610064E88A /* ELFeature.m */; };
 		309ECBA416A5831C0064E88A /* ELUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 309ECBA316A5831C0064E88A /* ELUser.m */; };
 		309ECBC016A7F0540064E88A /* TTTTimeIntervalFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 309ECBBF16A7F0540064E88A /* TTTTimeIntervalFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -122,6 +124,9 @@
 		3058AC0C16B2968700F1E959 /* revisions.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = revisions.txt; sourceTree = "<group>"; };
 		3058AC1016B298BC00F1E959 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		3058AC1816B2BC5000F1E959 /* ELConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELConstants.h; sourceTree = "<group>"; };
+		306A79281771A9E000219C35 /* ELMosiacCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELMosiacCell.h; sourceTree = "<group>"; };
+		306A79291771A9E000219C35 /* ELMosiacCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELMosiacCell.m; sourceTree = "<group>"; };
+		306A792B1771A9FD00219C35 /* ELMosiacCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELMosiacCell.xib; sourceTree = "<group>"; };
 		309ECB9E16A580610064E88A /* ELFeature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELFeature.h; sourceTree = "<group>"; };
 		309ECB9F16A580610064E88A /* ELFeature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELFeature.m; sourceTree = "<group>"; };
 		309ECBA216A5831C0064E88A /* ELUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELUser.h; sourceTree = "<group>"; };
@@ -330,6 +335,9 @@
 				3004715E16AD329A00DB4A81 /* Cell.xib */,
 				30B59956169D5DAD00565438 /* IMAlbumPhotoCell.h */,
 				30B59957169D5DAD00565438 /* IMAlbumPhotoCell.m */,
+				306A79281771A9E000219C35 /* ELMosiacCell.h */,
+				306A79291771A9E000219C35 /* ELMosiacCell.m */,
+				306A792B1771A9FD00219C35 /* ELMosiacCell.xib */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -461,6 +469,7 @@
 				30E8A5EC175F84EE005FFAE0 /* optionPOI35.png in Resources */,
 				30E8A5EE175F8842005FFAE0 /* empty304px.png in Resources */,
 				30E8A5F2175F8BE0005FFAE0 /* mosaic_bg3x107.png in Resources */,
+				306A792C1771A9FD00219C35 /* ELMosiacCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,6 +510,7 @@
 				303BC4FA174E2A3100A3B52B /* ELInfoViewController.m in Sources */,
 				30ECB62F17554B6600A1FA50 /* AMAttributedHighlightLabel.m in Sources */,
 				30141DBD175F696A0083F4D4 /* ELFIMappaSession.m in Sources */,
+				306A792A1771A9E000219C35 /* ELMosiacCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
