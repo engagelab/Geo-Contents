@@ -82,8 +82,8 @@
     
     NSString *stringURL = [NSString stringWithFormat:@"%@%@%@%@%@%@", requestUrl, lng, @"/",lat,@"/",distanceInMeters];
     
-    //NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
-    NSURL *requestURL = [NSURL URLWithString:[stringURL stringByAppendingString:@"/201969126621175"]];
+    NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
+    //NSURL *requestURL = [NSURL URLWithString:[stringURL stringByAppendingString:@"/201969126621175"]];
     
     NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
     

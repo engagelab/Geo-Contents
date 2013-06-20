@@ -82,7 +82,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                       target:self
-                                      action:@selector(refresh)];
+                                      action:@selector(refreshCollectionView)];
     self.navigationItem.rightBarButtonItem = refreshButton;
 }
 
@@ -297,19 +297,19 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     // Fetch the content on a worker thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsAtLocation:newLocation.coordinate] mutableCopy];
+        // Calculate the distance for each feature
+        for (ELFeature *feature in unsortedArrayWithoutDisctanceProperty) {
+            feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
+            [temp addObject:feature];
+        }
+        // Sort all features by distance
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
+        [temp sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+        // Ensure the new data is used in the collection view
+        [nFeatures removeAllObjects];
+        [nFeatures addObjectsFromArray:temp];
         // Register the content on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            // Calculate the distance for each feature
-            for (ELFeature *feature in unsortedArrayWithoutDisctanceProperty) {
-                feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
-                [temp addObject:feature];
-            }
-            // Sort all features by distance
-            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
-            [temp sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-            // Ensure the new data is used in the collection view
-            [nFeatures removeAllObjects];
-            [nFeatures addObjectsFromArray:temp];
             [self.collectionView reloadData];
         });
     });

@@ -111,8 +111,8 @@
 {
     NSDictionary *sampleGroup = @{@"administrator" : @"1",
                                   @"bookmark_order": @"1",
-                                  @"id" : @"245718548833281",
-                                  @"name" : @"MAPPA",
+                                  @"id" : @"201969126621175",
+                                  @"name" : @"MAPPA2",
                                   @"unread" : @"8",
                                   @"version" : @"1"};
     
