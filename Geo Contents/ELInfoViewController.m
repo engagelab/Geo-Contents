@@ -14,7 +14,8 @@
 @end
 
 @implementation ELInfoViewController
-@synthesize infoWebView;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -23,6 +24,8 @@
     }
     return self;
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -40,10 +43,20 @@
     
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    }
+}
+
+
+- (IBAction)openWeblink:(id)sender
+{
+    
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: @"http://yourban.no"]];
+}
+
+
 
 @end

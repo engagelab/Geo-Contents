@@ -13,6 +13,6 @@
 
 }
 
-@property (strong, nonatomic) IBOutlet UIWebView *infoWebView;
+- (IBAction)openWeblink:(id)sender;
 
 @end
