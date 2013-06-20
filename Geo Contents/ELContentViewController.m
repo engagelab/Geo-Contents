@@ -148,7 +148,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     UIImageView *background_image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mosaic_bg3x107"]];
     [self.collectionView.backgroundView addSubview:background_image];
     
-    //self.collectionView.backgroundColor = [UIColor colorWithWhite:0.25f alpha:1.0f];
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
@@ -166,6 +165,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 -(void)getAndShowFeaturesInBoundingBox
 {
     
+    // Create a new private queue
+    dispatch_queue_t myBackgroundQueue;
+    myBackgroundQueue = dispatch_queue_create("com.company.subsystem.task", NULL);
+ 
+    
     // dafualt boounding box in case GPS does not work
     NSDictionary *defaultBBox = [[NSDictionary alloc] initWithObjectsAndKeys:
                            @"59.942916f",@"lat1",
@@ -179,15 +183,41 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     //if bbox found then refresh the view by loading the feautres in it
     if (bbox != nil) {
-        [self loadFeaturesInBoundingBox:bbox];
-        [self.collectionView reloadData];
+        
+        dispatch_async(myBackgroundQueue, ^(void) {
+            
+            // do some time consuming things here
+                    [self loadFeaturesInBoundingBox:bbox];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                // do some things here in the main queue
+                // for example: update UI controls, etc.
+                 [self.collectionView reloadData];
+            });
+        });
+        
+       
     }
     
     //if bbox was not found then refresh the view by using default BBox
     else if (bbox == nil)
     {
-        [self loadFeaturesInBoundingBox:defaultBBox];
-        [self.collectionView reloadData];
+        
+        dispatch_async(myBackgroundQueue, ^(void) {
+            
+            // do some time consuming things here
+            [self loadFeaturesInBoundingBox:defaultBBox];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                // do some things here in the main queue
+                // for example: update UI controls, etc.
+                [self.collectionView reloadData];
+            });
+        });
+
+        
     }
 
 }
@@ -197,6 +227,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 -(void) loadFeaturesInBoundingBox:(NSDictionary*)bbox
 {
     //Randomize instagram and overlay pois
+    
     NSArray *results = [ELRESTful fetchPOIsInBoundingBox:bbox];
     
     
