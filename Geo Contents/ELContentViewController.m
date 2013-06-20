@@ -167,7 +167,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     // Create a new private queue
     dispatch_queue_t myBackgroundQueue;
-    myBackgroundQueue = dispatch_queue_create("com.company.subsystem.task", NULL);
+    myBackgroundQueue = dispatch_queue_create("engagelab.task1", NULL);
  
     
     // dafualt boounding box in case GPS does not work
@@ -348,6 +348,13 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    
+    
+    // Create a new private queue
+    dispatch_queue_t myBackgroundQueue;
+    myBackgroundQueue = dispatch_queue_create("engagelab.task2", NULL);
+    
+    
     CLLocation* location = [locations lastObject];
     NSDate* eventDate = location.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
@@ -355,12 +362,23 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     if (abs(howRecent) < 15.0)
     {
         //set old loacation to
-        if (previousLocation == nil) {
+        if (previousLocation == nil)
+        {
             previousLocation = [locations lastObject];
             
-            features=  [ELRESTful fetchPOIsAtLocation:location.coordinate];
             
-            [self.collectionView reloadData];
+            dispatch_async(myBackgroundQueue, ^(void) {
+                
+                // do some time consuming things here
+                features=  [ELRESTful fetchPOIsAtLocation:location.coordinate];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    // do some things here in the main queue
+                    // for example: update UI controls, etc.
+                    [self.collectionView reloadData];
+                });
+            });
             
         }
         // find the distance covered since last location update
