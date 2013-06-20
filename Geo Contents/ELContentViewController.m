@@ -85,6 +85,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     // prepare collectionview to load features
     [self prepareCollectionView];
+    [self.collectionView reloadData];
     
     //for test purpose only display distance covered in 10 sec by a user
     distanceCoveredLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 300, 60, 20)];
