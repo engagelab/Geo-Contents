@@ -51,7 +51,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     // Ensure features is instantiated before it is used
     features = [@[] mutableCopy];
     
-    [self prepareCollectionView];
+    [self configureCollectionView];
     
     [self refreshCollectionView];
     
@@ -60,7 +60,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 }
 
-- (void)prepareCollectionView
+- (void)configureCollectionView
 {
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];

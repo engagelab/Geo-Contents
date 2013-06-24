@@ -51,13 +51,13 @@
     // Ensure features is instantiated before it is used
     features = [@[] mutableCopy];
     
-    [self prepareCollectionView];
+    [self configureCollectionView];
     
     [self showFeaturesWithHashtag:hashTag];
 }
 
 
-- (void)prepareCollectionView
+- (void)configureCollectionView
 {
     kCellID = @"cvCell";
     

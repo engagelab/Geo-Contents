@@ -50,7 +50,7 @@
     features = [@[] mutableCopy];
     
     
-    [self prepareCollectionView];
+    [self configureCollectionView];
     
     [self refreshCollectionView];
     
@@ -59,7 +59,7 @@
 }
 
 
-- (void)prepareCollectionView
+- (void)configureCollectionView
 {
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];

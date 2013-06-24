@@ -23,14 +23,13 @@
     ELHashedFeatureCVController *hashedFeatureCVController;
 
 }
-@property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
+
 
 @end
 
 
 
 @implementation ELFeatureViewController
-@synthesize hashedFeatureCVController;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

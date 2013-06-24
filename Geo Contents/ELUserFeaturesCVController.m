@@ -50,14 +50,14 @@
     // Do any additional setup after loading the view from its nib.
     features = [@[] mutableCopy];
     
-    [self prepareCollectionView];
+    [self configureCollectionView];
     
     [self showFeatureForUser:self.userName];
 
 }
 
 
-- (void)prepareCollectionView
+- (void)configureCollectionView
 {
     kCellID = @"cvCell";
     
