@@ -81,7 +81,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveNotif:) name:UIApplicationWillResignActiveNotification object:nil];
     
     // prepare collectionview to load features
-    [self prepareCollectionView];
+    [self configureCollectionView];
     [self.collectionView reloadData];
     
     //for test purpose only display distance covered in 10 sec by a user
@@ -119,7 +119,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 #pragma Collection view methods
 
--(void)prepareCollectionView2
+-(void)configureCollectionView2
 {
     UINib *cellNib = [UINib nibWithNibName:@"ELMosiacCell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"ELMosiacCell"];
@@ -137,7 +137,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-- (void)prepareCollectionView
+- (void)configureCollectionView
 {
     [self.collectionView registerClass:[IMAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
     
