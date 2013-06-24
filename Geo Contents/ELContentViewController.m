@@ -268,8 +268,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     
-   
-    
     CLLocation* location = [locations lastObject];
     NSDate* eventDate = location.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
@@ -280,6 +278,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         //set old loacation to
         if (previousLocation == nil)
         {
+            
+            previousLocation = [locations lastObject];
+
             
             //updateview
             if ([CLLocation boundingBox:[self boundingBoxFromNSUserDefaults] ContainsCLLocation:[locations lastObject]] && isUserAtCurrentLocation == NO)
@@ -292,9 +293,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
                 // Create a new private queue
                 dispatch_queue_t myBackgroundQueue;
                 myBackgroundQueue = dispatch_queue_create("engagelab.task2", NULL);
-                
-                
-                previousLocation = [locations lastObject];
                 
                 dispatch_async(myBackgroundQueue, ^(void) {
                     
@@ -310,8 +308,15 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
                 });
                 
             }
+            
+            else
+            {
+                [self startViewWithBoundingBox:[self boundingBoxFromNSUserDefaults]];
+                [self stopLocationServices];
+            }
+            
         }
-        
+
         if (isUserAtCurrentLocation)
         {
             // find the distance covered since last location update
