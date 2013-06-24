@@ -19,14 +19,13 @@
 
 @interface ELHashedFeatureCVController ()
 {
-    NSMutableArray  *nFeatures;
-    ELRESTful *restfull;
-    UIImage *loadingImage;
+    NSMutableArray  *features;
+    
     NSString *kCellID;
     
     ELUserFeaturesCVController *userFeatureCVController;
     ELHashedFeatureCVController *hashedFeatureCVController;
-
+    
 }
 
 @end
@@ -39,17 +38,27 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        loadingImage = [UIImage imageNamed:@"loadingImage.png"];
     }
     return self;
 }
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    // Ensure nFeatures is instantiated before it is used
-    nFeatures = [@[] mutableCopy];
+    
+    // Ensure features is instantiated before it is used
+    features = [@[] mutableCopy];
+    
+    [self prepareCollectionView];
+    
+    [self showFeaturesWithHashtag:hashTag];
+}
+
+
+- (void)prepareCollectionView
+{
     kCellID = @"cvCell";
     
     
@@ -64,9 +73,8 @@
     
     [self.collectionView setCollectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
-    
-    [self showItemsAtLocation:@"testing"];
 }
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -87,7 +95,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    NSInteger size = nFeatures.count;
+    NSInteger size = features.count;
     [self setTitle:[NSString stringWithFormat:@"#%@ (%d)",self.hashTag,size]];
     return size;
 }
@@ -99,7 +107,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout  *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    ELFeature *feature = [features objectAtIndex:indexPath.item];
     CGSize suggestedSize;
     
     NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
@@ -113,7 +121,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 
 {
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    ELFeature *feature = [features objectAtIndex:indexPath.item];
     
     static NSString *cellIdentifier = @"cvCell";
     Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -140,7 +148,7 @@
             cell.sourceTypeImageView.image = [UIImage imageNamed:@"mappa"];
             profileURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@",@"https://graph.facebook.com/",feature.user.idd,@"/picture"]];
         }
-
+        
         
         
         cell.userprofileImageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:profileURL]];
@@ -150,13 +158,7 @@
         cell.usernameLabel.componentsAndPlainText = componentsDS;
         cell.usernameLabel.delegate = self;
         
-        //: formate time using Utitlity category NSDATE+Helper
-//        NSTimeInterval timeInterval = (double)([feature.time unsignedLongLongValue]);
-//        NSDate *theDate = [[NSDate alloc]initWithTimeIntervalSince1970: timeInterval];
-//        NSString *displayString = [NSDate stringForDisplayFromDate:theDate];
-        
-        
-            cell.timeDistance.text = [NSString stringyfyDistance:feature.distance];
+        cell.timeDistance.text = [NSString stringyfyDistance:feature.distance];
         
         if (feature.description !=NULL) {
             
@@ -237,24 +239,24 @@
 
 
 
-- (void)showItemsAtLocation:(NSString*)hashTAG
+- (void)showFeaturesWithHashtag:(NSString*)hashTAG
 {
     //FIXME: remove the need to duplicate the hashTag value
     hashTAG = hashTag;
     
     //Empty the view
-    [nFeatures removeAllObjects];
+    [features removeAllObjects];
     [self.collectionView reloadData];
     
     // Fetch the content on a worker thread
-        
-        nFeatures = [[ELRESTful fetchFeaturesWithHashtag:hashTAG] mutableCopy];
-        // Sort all features by distance
-            NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
-            [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-            // Ensure the new data is used in the collection view
-            [self.collectionView reloadData];
-
+    
+    features = [[ELRESTful fetchFeaturesWithHashtag:hashTAG] mutableCopy];
+    // Sort all features by distance
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
+    [features sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    // Ensure the new data is used in the collection view
+    [self.collectionView reloadData];
+    
 }
 
 
