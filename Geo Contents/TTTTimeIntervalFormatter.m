@@ -91,6 +91,11 @@ static inline NSCalendarUnit NSCalendarUnitFromString(NSString *string) {
     return self;
 }
 
+-(void)setLocale:(NSLocale *)locale
+{
+    locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en"];
+}
+
 - (void)dealloc {
     [_locale release];
     [_pastDeicticExpression release];
