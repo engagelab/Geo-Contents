@@ -19,9 +19,7 @@
 
 @interface ELUserFeaturesCVController ()
 {
-    NSMutableArray  *nFeatures;
-    ELRESTful *restfull;
-    UIImage *loadingImage;
+    NSMutableArray  *features;
     NSString *kCellID;
     
     ELUserFeaturesCVController *userFeatureCVController;
@@ -32,35 +30,39 @@
 
 
 
-
-
-
 @implementation ELUserFeaturesCVController
-@synthesize userName;
+
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        loadingImage = [UIImage imageNamed:@"loadingImage.png"];
     }
     return self;
 }
-
-
-
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    nFeatures = [@[] mutableCopy];
-    kCellID = @"cvCell"; 
+    features = [@[] mutableCopy];
+    
+    [self prepareCollectionView];
+    
+    [self showFeatureForUser:self.userName];
+
+}
+
+
+- (void)prepareCollectionView
+{
+    kCellID = @"cvCell";
     
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];
-    //[self.collectionView registerClass:[Cell class] forCellWithReuseIdentifier:kCellID];
     
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -69,9 +71,6 @@
     
     [self.collectionView setCollectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
-    
-    [self showFeatureForUser:self.userName];
-
 }
 
 
@@ -107,7 +106,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    NSInteger size = nFeatures.count;
+    NSInteger size = features.count;
     [self setTitle:[NSString stringWithFormat:@"%@ (%d)",self.userName,size]];
     return size;
 }
@@ -117,7 +116,7 @@
 //recalculate the size of the CELL runtime to fit the content in it
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout  *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    ELFeature *feature = [features objectAtIndex:indexPath.item];
     CGSize suggestedSize;
     
     NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
@@ -131,14 +130,9 @@
 
 
 
-
-
-
-
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    ELFeature *feature = [features objectAtIndex:indexPath.item];
     
     static NSString *cellIdentifier = @"cvCell";
     Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -261,19 +255,19 @@
 }
 
 - (void)showFeatureForUser:(NSString*)username {
-    [nFeatures removeAllObjects];
+    [features removeAllObjects];
     [self.collectionView reloadData];
     // Fetch the content on a worker thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSMutableArray *unsortedArrayWithoutDisctanceProperty = [[ELRESTful fetchPOIsByUserName:username] mutableCopy];
         // Register the content on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
-            // Move all features to nFeatures
-            [nFeatures removeAllObjects];
-            [nFeatures addObjectsFromArray:unsortedArrayWithoutDisctanceProperty];
+            // Move all features to features
+            [features removeAllObjects];
+            [features addObjectsFromArray:unsortedArrayWithoutDisctanceProperty];
             // Sort all features by distance
             NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO];
-            [nFeatures sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+            [features sortUsingDescriptors:[NSArray arrayWithObject:sort]];
             // Ensure the new data is used in the collection view
             [self.collectionView reloadData];
         });
