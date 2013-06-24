@@ -99,7 +99,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         NSLog(@"Location services are not enabled");
     }
 
-    NSLog(@"%@",@"Collection view refreshed");
 }
 
 
@@ -220,7 +219,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
-    NSLog(@"%@",url);
     NSURL *urlp = [NSURL URLWithString:url];
     NSDictionary *dict = [ELRESTful parseQueryString:[urlp query]];
     
@@ -232,11 +230,9 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
     if ([url hasPrefix:@"geocontent"]) {
         
-        NSLog(@"%@",@"send to content view");
         
         if ([[urlp host] isEqualToString:@"tag"])
         {
-            NSLog(@"%@",@"Your have a HashTag");
             
             self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
             [self.hashedFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
@@ -245,7 +241,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         }
         if ([[urlp host] isEqualToString:@"user"])
         {
-            NSLog(@"%@",@"Your have a user");
             
             self.userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
             [self.userFeatureCVController setTitle:[dict valueForKey:@"username"]];
@@ -256,7 +251,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     }
     if ([url hasPrefix:@"fb"]) {
         
-        NSLog(@"%@",@"facebook");
         if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
             [[UIApplication sharedApplication] openURL:urlp];
         }

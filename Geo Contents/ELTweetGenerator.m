@@ -89,7 +89,6 @@
     for (NSTextCheckingResult *match in matches) {
         NSRange wordRange = [match rangeAtIndex:1];
         NSString* hashtag = [tweet substringWithRange:wordRange];
-        NSLog(@"Found tag %@", hashtag);
         NSString *html;
         if ([sourceType isEqualToString:FEATURE_TYPE_MAPPA] || [sourceType isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM] )
         {
@@ -113,7 +112,6 @@
     for (NSTextCheckingResult *match in matches) {
         NSRange wordRange = [match rangeAtIndex:1];
         NSString* username = [tweet substringWithRange:wordRange];
-        NSLog(@"Found tag %@", username);
         NSString *html;
         if ([sourceType isEqualToString:FEATURE_TYPE_MAPPA] || [sourceType isEqualToString:FEATURE_TYPE_MAPPED_INSTAGRAM] ) {
             html = [NSString stringWithFormat:@"%@%@%s%@%s",@"<a href=geocontent://user?username=",username,">",username,"</a>"];

@@ -40,7 +40,7 @@
     for (ELFeature *feature in featureArrayWithoutDistance)
     {
         CLLocation *featureLoc = feature.fLocation;
-        NSNumber *distance = [ELContentViewController getDistanceBetweenPoint1:userLoc Point2:featureLoc];
+        NSNumber *distance = [ELRESTful getDistanceBetweenPoint1:userLoc Point2:featureLoc];
         feature.distance = distance;
         [featureArrayWithDistance addObject:feature];
     }
@@ -381,6 +381,22 @@
         [dict setObject:val forKey:key];
     }
     return dict;
+}
+
+
+
++(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
+{
+    
+    double meters1 = [point1 distanceFromLocation:point2];
+    
+    double meters2 = [point2 distanceFromLocation:point1];
+    
+    double meters = (meters1 + meters2)/2;
+    
+    NSNumber *distance = [NSNumber numberWithDouble:meters];
+    
+    return distance;
 }
 
 @end

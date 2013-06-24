@@ -96,7 +96,7 @@
         CLLocation *userLoc = manager.location;
         CLLocation *featureLoc = self.feature.fLocation;
         
-        NSNumber *distance = [ELContentViewController getDistanceBetweenPoint1:userLoc Point2:featureLoc];
+        NSNumber *distance = [ELRESTful getDistanceBetweenPoint1:userLoc Point2:featureLoc];
         
         self.timeDistance.text = [NSString stringyfyDistance:distance];
         
@@ -127,7 +127,7 @@
 
 - (void)rtLabel:(id)rtLabel didChangedSize:(CGSize)size
 {
-    NSLog(@"%@",@"string");
+    //NSLog(@"%@",@"string");
 }
 
 
@@ -138,7 +138,6 @@
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
-    NSLog(@"%@",url);
     NSURL *urlp = [NSURL URLWithString:url];
     NSDictionary *dict = [ELRESTful parseQueryString:[urlp query]];
     
@@ -150,12 +149,9 @@
     
     if ([url hasPrefix:@"geocontent"]) {
         
-        NSLog(@"%@",@"send to content view");
         
         if ([[urlp host] isEqualToString:@"tag"])
         {
-            NSLog(@"%@",@"Your have a HashTag");
-            
             if (hashedFeatureCVController == nil)
             {
                 hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
@@ -166,7 +162,6 @@
         }
         if ([[urlp host] isEqualToString:@"user"])
         {
-            NSLog(@"%@",@"Your have a user");
             
             if (userFeatureCVController == nil) {
                 userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
@@ -179,7 +174,6 @@
     }
     if ([url hasPrefix:@"fb"]) {
         
-        NSLog(@"%@",@"facebook");
         if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
             [[UIApplication sharedApplication] openURL:urlp];
         }
@@ -244,7 +238,6 @@
 
 -(void)deleteClicked
 {
-    NSLog(@"deleteClicked");
     UIApplication *app = [UIApplication sharedApplication];
     
     NSString *urlPath = [NSString stringWithFormat:@"overlay://delete/entry?id=%@",self.feature.idd];
@@ -264,7 +257,6 @@
 
 -(void)editClicked
 {
-    NSLog(@"editClicked");
     UIApplication *app = [UIApplication sharedApplication];
     
     NSString *urlPath = [NSString stringWithFormat:@"overlay://edit/entry?id=%@",self.feature.idd];
@@ -283,7 +275,6 @@
 
 -(void)viewInMapClicked
 {
-    NSLog(@"viewInMapClicked");
     
     UIApplication *app = [UIApplication sharedApplication];
 
@@ -307,7 +298,6 @@
 
 -(void)directMeHereClicked
 {
-    NSLog(@"directMeHereClicked");
     
     UIApplication *app = [UIApplication sharedApplication];
     
@@ -331,7 +321,6 @@
 
 -(void)mapThisClicked
 {
-    NSLog(@"mapThisClicked");
     
     UIApplication *app = [UIApplication sharedApplication];
     
@@ -354,20 +343,6 @@
 }
 
 
-//
-//- (void)locationManager:(CLLocationManager *)manager
-//    didUpdateToLocation:(CLLocation *)newLocation
-//           fromLocation:(CLLocation *)oldLocation{
-//    /* We received the new location */
-//    //NSLog(@"Latitude = %f", newLocation.coordinate.latitude);
-//    //NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
-//}
-//
-//
-//- (void)locationManager:(CLLocationManager *)manager
-//       didFailWithError:(NSError *)error{
-//    /* Failed to receive user's location */
-//}
 
 
 

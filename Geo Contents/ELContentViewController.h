@@ -14,7 +14,6 @@
     CLLocationManager *_locationManager;
 }
 
-+(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2;
 -(void) startLocationServices;
 
 

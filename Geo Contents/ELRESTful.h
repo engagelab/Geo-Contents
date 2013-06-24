@@ -24,7 +24,7 @@
 +(NSMutableArray*)  fetchFeaturesWithHashtag:(NSString*)hashTag;
 + (NSDictionary *)  parseQueryString:(NSString *)query ;
 +(NSMutableArray*)  fetchPOIsByUserName:(NSString *)userName;
-
++(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2;
 
 
 

@@ -509,7 +509,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
             }
             linkComponentString = [self.componentsAndPlainText.plainTextData substringWithRange:NSMakeRange(linkComponent.position, rangeLength)];
         }
-        NSLog(@"%@",linkComponentString);
+        //NSLog(@"%@",linkComponentString);
        
         
         
@@ -765,7 +765,7 @@ CGFloat MyGetWidthCallback( void* refCon ){
                 if (self.sizeDelegate && [self.sizeDelegate respondsToSelector:@selector(rtLabel:didChangedSize:)]) {
                     [self.sizeDelegate rtLabel:self didChangedSize:sizeAfterRender];
                 }
-                NSLog(@"size changed!!");
+                //NSLog(@"size changed!!");
 
             }
         }

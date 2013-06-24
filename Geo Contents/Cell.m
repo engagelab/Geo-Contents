@@ -40,7 +40,7 @@
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
-    NSLog(@"%@",url);
+    //NSLog(@"%@",url);
     
 }
 
@@ -86,7 +86,7 @@
 
 -(void)deleteClicked
 {
-    NSLog(@"deleteClicked");
+    //NSLog(@"deleteClicked");
     UIApplication *app = [UIApplication sharedApplication];
     
     NSString *urlPath = [NSString stringWithFormat:@"overlay://delete/entry?id=%@",self.feature.idd];
@@ -110,7 +110,7 @@
 
 -(void)editClicked
 {
-    NSLog(@"editClicked");
+    //NSLog(@"editClicked");
     UIApplication *app = [UIApplication sharedApplication];
     
     NSString *urlPath = [NSString stringWithFormat:@"overlay://edit/entry?id=%@",self.feature.idd];
@@ -132,7 +132,7 @@
 
 -(void)viewInMapClicked
 {
-    NSLog(@"viewInMapClicked");
+    //NSLog(@"viewInMapClicked");
     
     UIApplication *app = [UIApplication sharedApplication];
     
@@ -159,7 +159,7 @@
 
 -(void)directMeHereClicked
 {
-    NSLog(@"directMeHereClicked");
+    //NSLog(@"directMeHereClicked");
     
     UIApplication *app = [UIApplication sharedApplication];
     
@@ -185,8 +185,7 @@
 
 -(void)mapThisClicked
 {
-    NSLog(@"mapThisClicked");
-    
+
     UIApplication *app = [UIApplication sharedApplication];
     
     NSString *feature_id = self.feature.idd;

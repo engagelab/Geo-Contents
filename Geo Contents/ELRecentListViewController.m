@@ -97,7 +97,6 @@
         NSLog(@"Location services are not enabled");
     }
     
-    NSLog(@"%@",@"Recent view is updated");
 }
 
 
@@ -220,7 +219,6 @@
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
-    NSLog(@"%@",url);
     NSURL *urlp = [NSURL URLWithString:url];
     NSDictionary *dict = [ELRESTful parseQueryString:[urlp query]];
     

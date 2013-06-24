@@ -167,7 +167,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    NSLog(@"features found %d", features.count);
+    //NSLog(@"features found %d", features.count);
     return features.count;
 }
 
@@ -323,7 +323,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
             
             if ([distanceCovered intValue] >= 10 || abs(timeElepsed) > 20.0)
             {
-                NSLog(@"You covered: %@ m", distanceCovered);
                 previousLocation = newLocation;
                 newLocation = location;
                 
@@ -457,19 +456,7 @@ return defaultBBox;
 }
 
 
-+(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
-{
-    
-    double meters1 = [point1 distanceFromLocation:point2];
-    
-    double meters2 = [point2 distanceFromLocation:point1];
-    
-    double meters = (meters1 + meters2)/2;
-    
-    NSNumber *distance = [NSNumber numberWithDouble:meters];
-    
-    return distance;
-}
+
 
 -(BOOL)foundNewEntriesIn:(NSMutableArray*)newArray withOldResults:(NSMutableArray*)oldArray
 {

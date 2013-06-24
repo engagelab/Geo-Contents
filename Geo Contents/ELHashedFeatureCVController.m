@@ -187,7 +187,6 @@
 
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
-    NSLog(@"%@",url);
     NSURL *urlp = [NSURL URLWithString:url];
     NSDictionary *dict = [ELRESTful parseQueryString:[urlp query]];
     
@@ -199,11 +198,9 @@
     
     if ([url hasPrefix:@"geocontent"]) {
         
-        NSLog(@"%@",@"send to content view");
         
         if ([[urlp host] isEqualToString:@"tag"])
         {
-            NSLog(@"%@",@"Your have a HashTag");
             
             if (hashedFeatureCVController == nil)
             {
@@ -215,7 +212,6 @@
         }
         if ([[urlp host] isEqualToString:@"user"])
         {
-            NSLog(@"%@",@"Your have a user");
             
             if (userFeatureCVController == nil) {
                 userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
@@ -228,7 +224,6 @@
     }
     if ([url hasPrefix:@"fb"]) {
         
-        NSLog(@"%@",@"facebook");
         if ([[UIApplication sharedApplication] canOpenURL:urlp]) {
             [[UIApplication sharedApplication] openURL:urlp];
         }
