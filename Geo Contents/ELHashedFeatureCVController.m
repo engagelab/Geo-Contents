@@ -240,10 +240,7 @@
 
 
 - (void)showFeaturesWithHashtag:(NSString*)hashTAG
-{
-    //FIXME: remove the need to duplicate the hashTag value
-    hashTAG = hashTag;
-    
+{    
     //Empty the view
     [features removeAllObjects];
     [self.collectionView reloadData];

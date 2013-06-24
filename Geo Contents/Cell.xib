@@ -100,13 +100,13 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">empty304px.png</string>
+									<string key="NSResourceName">empty.png</string>
 								</object>
 							</object>
 							<object class="IBUILabel" id="722684001">
 								<reference key="NSNextResponder" ref="757084126"/>
 								<int key="NSvFlags">1316</int>
-								<string key="NSFrame">{{247, 12}, {65, 21}}</string>
+								<string key="NSFrame">{{232, 12}, {80, 21}}</string>
 								<reference key="NSSuperview" ref="757084126"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="649768770"/>
@@ -141,6 +141,7 @@
 								<string key="NSFrame">{{271, 301}, {35, 41}}</string>
 								<reference key="NSSuperview" ref="757084126"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -418,7 +419,7 @@
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="empty304px.png">{304, 304}</string>
+			<string key="empty.png">{304, 304}</string>
 			<string key="optionPOI35.png">{30, 35}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
