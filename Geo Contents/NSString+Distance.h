@@ -10,4 +10,6 @@
 
 @interface NSString (Distance)
 
++(NSString*)stringyfyDistance:(NSNumber*)distance;
+
 @end

@@ -16,6 +16,8 @@
 #import "ELUserFeaturesCVController.h"
 #import "ELConstants.h"
 
+#import "NSString+Distance.h"
+
 NSString *kCellID = @"cvCell";                          // UICollectionViewCell xib id
 
 @interface ELNearbyListViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -89,7 +91,8 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 -(void)refreshCollectionView
 {
-    if ([CLLocationManager locationServicesEnabled]){
+    if ([CLLocationManager locationServicesEnabled])
+    {
         CLLocationManager *locationManager = [CLLocationManager new];
         [self showItemsAtLocation:locationManager.location];
     } else {
@@ -203,11 +206,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         cell.usernameLabel.componentsAndPlainText = componentsDS;
         cell.usernameLabel.delegate = self;
         
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
-        [formatter setMaximumFractionDigits:0];
-        
-        cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"m"];
+        cell.timeDistance.text = [NSString stringyfyDistance:feature.distance];
         
         //cell.descriptionLabel.text = feature.description;
         if (feature.description !=NULL) {
@@ -226,15 +225,13 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
             
         }
         
-        [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"listloading304px"]];
+        [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"empty"]];
         
     }
     
     return cell;
     
 }
-
-
 
 
 

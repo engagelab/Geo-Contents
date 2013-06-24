@@ -15,6 +15,7 @@
 #import "ELContentViewController.h"
 #import "ELConstants.h"
 #import "ELUserFeaturesCVController.h"
+#import "NSString+Distance.h"
 
 @interface ELHashedFeatureCVController ()
 {
@@ -155,16 +156,7 @@
 //        NSString *displayString = [NSDate stringForDisplayFromDate:theDate];
         
         
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
-        [formatter setMaximumFractionDigits:0];
-        
-        if (feature.distance >[NSNumber numberWithInt:999])
-        {
-            cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"km"];
-        }
-        
-        cell.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:feature.distance],@"m"];
+            cell.timeDistance.text = [NSString stringyfyDistance:feature.distance];
         
         if (feature.description !=NULL) {
             
@@ -182,7 +174,7 @@
             
         }
         
-        [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"listloading304px"]];
+        [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"empty"]];
     }
     
     return cell;

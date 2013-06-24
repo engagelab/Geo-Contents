@@ -15,6 +15,8 @@
 #import "ELConstants.h"
 #import "ELUserFeaturesCVController.h"
 
+#import "NSString+Distance.h"
+
 @interface ELFeatureViewController ()
 {
     ELUserFeaturesCVController *userFeatureCVController;
@@ -90,17 +92,16 @@
         self.usernameLabel.delegate = self;
         [self.scroll addSubview:self.usernameLabel];
         
-        NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-        [formatter setRoundingMode:NSNumberFormatterRoundHalfUp];
-        [formatter setMaximumFractionDigits:0];
         
         CLLocationManager *manager = [CLLocationManager new];
         CLLocation *userLoc = manager.location;
         CLLocation *featureLoc = self.feature.fLocation;
-        NSNumber *distance = [ELContentViewController getDistanceBetweenPoint1:userLoc Point2:featureLoc];
-        self.timeDistance.text = [NSString stringWithFormat:@"%@%@",[formatter  stringFromNumber:distance],@"m"];
         
-        [self.standardResolutionImageview setImageWithURL:self.feature.images.standard_resolution  placeholder:[UIImage imageNamed:@"listloading304px"]];
+        NSNumber *distance = [ELContentViewController getDistanceBetweenPoint1:userLoc Point2:featureLoc];
+        
+        self.timeDistance.text = [NSString stringyfyDistance:distance];
+        
+        [self.standardResolutionImageview setImageWithURL:self.feature.images.standard_resolution  placeholder:[UIImage imageNamed:@"empty"]];
         
         if (self.feature.description !=NULL) {
             

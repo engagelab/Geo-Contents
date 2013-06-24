@@ -222,7 +222,7 @@
 //                    if (feature.images.standard_resolution) {
 //                        <#statements#>
 //                    }
-                    [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"listloading304px"]];
+                    [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"empty"]];
                 }
     
     return cell;
