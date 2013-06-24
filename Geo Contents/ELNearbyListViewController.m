@@ -22,9 +22,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 @interface ELNearbyListViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
-    NSMutableArray  *nFeatures;
-    UIImage *loadingImage;
-    NSMutableArray *images;
+    NSMutableArray  *features;
     
 }
 
@@ -41,7 +39,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        loadingImage = [UIImage imageNamed:@"loadingImage.png"];
     }
     return self;
 }
@@ -51,8 +48,8 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 {
     [super viewDidLoad];
     
-    // Ensure nFeatures is instantiated before it is used
-    nFeatures = [@[] mutableCopy];
+    // Ensure features is instantiated before it is used
+    features = [@[] mutableCopy];
     
     [self prepareCollectionView];
     
@@ -102,24 +99,10 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         NSLog(@"Location services are not enabled");
     }
 
-    NSLog(@"%@",@"refresh pressed");
+    NSLog(@"%@",@"Collection view refreshed");
 }
 
 
-
-
--(void)viewWillAppear:(BOOL)animated
-{
-
-}
-
-
-
--(void)viewDidAppear:(BOOL)animated
-{
-    //nFeatures = [NSMutableArray arrayWithArray:app.features];
-    //[self.collectionView reloadData];
-}
 
 
 - (void)didReceiveMemoryWarning
@@ -138,7 +121,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    NSInteger size = nFeatures.count;
+    NSInteger size = features.count;
     
     //[self setTitle:[NSString stringWithFormat:@"%@ (%d)",@"Nearby",size]];
     
@@ -152,7 +135,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout  *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    ELFeature *feature = [features objectAtIndex:indexPath.item];
     CGSize suggestedSize;
         
         NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
@@ -168,13 +151,12 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    //    if (self.nLocation == nil) {
-    //        [self.collectionView reloadData];
-    //    }
-    // we're going to use a custom UICollectionViewCell, which will hold an image and its label
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+
+    ELFeature *feature = [features objectAtIndex:indexPath.item];
     
     static NSString *cellIdentifier = @"cvCell";
+    
+    // we're going to use a custom UICollectionViewCell, which will hold an image and its label
     Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     if (feature != nil) {
         
@@ -287,7 +269,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 - (void)showItemsAtLocation:(CLLocation*)newLocation
 {
     //Empty the view
-    [nFeatures removeAllObjects];
+    [features removeAllObjects];
     [self.collectionView reloadData];
     
     NSMutableArray *temp = [[NSMutableArray alloc]init];
@@ -303,8 +285,8 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"distance" ascending:YES];
         [temp sortUsingDescriptors:[NSArray arrayWithObject:sort]];
         // Ensure the new data is used in the collection view
-        [nFeatures removeAllObjects];
-        [nFeatures addObjectsFromArray:temp];
+        [features removeAllObjects];
+        [features addObjectsFromArray:temp];
         // Register the content on the main thread
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.collectionView reloadData];

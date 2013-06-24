@@ -162,10 +162,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-
-
-
-
 #pragma mark - UICollectionView delegate methods
 
 

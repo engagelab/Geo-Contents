@@ -20,9 +20,6 @@
 		3004717416AD68AA00DB4A81 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 3004717216AD68AA00DB4A81 /* CustomCellBackground.m */; };
 		30141DBD175F696A0083F4D4 /* ELFIMappaSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 30141DBC175F696A0083F4D4 /* ELFIMappaSession.m */; };
 		30247C5C177871DC00005BD2 /* CLLocation+measuring.m in Sources */ = {isa = PBXBuildFile; fileRef = 30247C54177871DC00005BD2 /* CLLocation+measuring.m */; };
-		30247C5D177871DC00005BD2 /* CLLocation+routeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 30247C56177871DC00005BD2 /* CLLocation+routeInfo.m */; };
-		30247C5E177871DC00005BD2 /* CLLocationDeadReckoning.m in Sources */ = {isa = PBXBuildFile; fileRef = 30247C58177871DC00005BD2 /* CLLocationDeadReckoning.m */; };
-		30247C5F177871DC00005BD2 /* CLLocationDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 30247C5A177871DC00005BD2 /* CLLocationDispatch.m */; };
 		3029729B16D37144004943D0 /* NSDate+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3029729A16D37144004943D0 /* NSDate+Helper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		302AF6EA1778569200AE2198 /* NSString+Distance.m in Sources */ = {isa = PBXBuildFile; fileRef = 302AF6E91778569200AE2198 /* NSString+Distance.m */; };
 		302AF6ED1778598700AE2198 /* empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 302AF6EB1778598700AE2198 /* empty.png */; };
@@ -98,17 +95,11 @@
 		3004717016AD68AA00DB4A81 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
 		3004717116AD68AA00DB4A81 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
 		3004717216AD68AA00DB4A81 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
+		300588091778E1CA0041EEB1 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
 		30141DBB175F696A0083F4D4 /* ELFIMappaSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELFIMappaSession.h; sourceTree = "<group>"; };
 		30141DBC175F696A0083F4D4 /* ELFIMappaSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELFIMappaSession.m; sourceTree = "<group>"; };
 		30247C53177871DC00005BD2 /* CLLocation+measuring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+measuring.h"; sourceTree = "<group>"; };
 		30247C54177871DC00005BD2 /* CLLocation+measuring.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+measuring.m"; sourceTree = "<group>"; };
-		30247C55177871DC00005BD2 /* CLLocation+routeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+routeInfo.h"; sourceTree = "<group>"; };
-		30247C56177871DC00005BD2 /* CLLocation+routeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+routeInfo.m"; sourceTree = "<group>"; };
-		30247C57177871DC00005BD2 /* CLLocationDeadReckoning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationDeadReckoning.h; sourceTree = "<group>"; };
-		30247C58177871DC00005BD2 /* CLLocationDeadReckoning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDeadReckoning.m; sourceTree = "<group>"; };
-		30247C59177871DC00005BD2 /* CLLocationDispatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLocationDispatch.h; sourceTree = "<group>"; };
-		30247C5A177871DC00005BD2 /* CLLocationDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLocationDispatch.m; sourceTree = "<group>"; };
-		30247C5B177871DC00005BD2 /* CLUtilsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLUtilsDefines.h; sourceTree = "<group>"; };
 		3029729916D37144004943D0 /* NSDate+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helper.h"; sourceTree = "<group>"; };
 		3029729A16D37144004943D0 /* NSDate+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helper.m"; sourceTree = "<group>"; };
 		302AF6E81778569200AE2198 /* NSString+Distance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Distance.h"; sourceTree = "<group>"; };
@@ -227,15 +218,9 @@
 		30247C52177871DC00005BD2 /* CoreLocationUtils */ = {
 			isa = PBXGroup;
 			children = (
+				300588091778E1CA0041EEB1 /* CLUtilsDefines.h */,
 				30247C53177871DC00005BD2 /* CLLocation+measuring.h */,
 				30247C54177871DC00005BD2 /* CLLocation+measuring.m */,
-				30247C55177871DC00005BD2 /* CLLocation+routeInfo.h */,
-				30247C56177871DC00005BD2 /* CLLocation+routeInfo.m */,
-				30247C57177871DC00005BD2 /* CLLocationDeadReckoning.h */,
-				30247C58177871DC00005BD2 /* CLLocationDeadReckoning.m */,
-				30247C59177871DC00005BD2 /* CLLocationDispatch.h */,
-				30247C5A177871DC00005BD2 /* CLLocationDispatch.m */,
-				30247C5B177871DC00005BD2 /* CLUtilsDefines.h */,
 			);
 			path = CoreLocationUtils;
 			sourceTree = "<group>";
@@ -552,9 +537,6 @@
 				306A792A1771A9E000219C35 /* ELMosiacCell.m in Sources */,
 				302AF6EA1778569200AE2198 /* NSString+Distance.m in Sources */,
 				30247C5C177871DC00005BD2 /* CLLocation+measuring.m in Sources */,
-				30247C5D177871DC00005BD2 /* CLLocation+routeInfo.m in Sources */,
-				30247C5E177871DC00005BD2 /* CLLocationDeadReckoning.m in Sources */,
-				30247C5F177871DC00005BD2 /* CLLocationDispatch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

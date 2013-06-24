@@ -31,14 +31,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 
-//#pragma mark UITabBarControllerDelegate call-backs
-//- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-//    
-//    if(viewController.view == self.view) {
-//        [ELBridgingApp gotoMapView];
-//    } 
-//    return YES;
-//}
+
 
 
 

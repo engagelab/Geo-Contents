@@ -28,12 +28,6 @@
     
     
     //Create Latest View Controller and give it a tittle
-//    ELHomeScreenViewController *homeView =
-//    [[ELHomeScreenViewController alloc] initWithNibName:@"ELHomeScreenViewController" bundle:nil];
-//    [homeView setTitle:@"Goe Content"];
-    
-    
-    //Create Latest View Controller and give it a tittle
     ELInfoViewController *infoView =
     [[ELInfoViewController alloc] initWithNibName:@"ELInfoViewController" bundle:nil];
     [infoView setTitle:@"Info"];

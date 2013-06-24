@@ -44,7 +44,6 @@
         feature.distance = distance;
         [featureArrayWithDistance addObject:feature];
     }
-    
        
     return featureArrayWithDistance;
 }
@@ -57,10 +56,8 @@
     NSString *requestUrl = [NSString stringWithFormat:@"%@%@",SERVER_URL,path];
     NSString *lng = [NSString stringWithFormat:@"%f",coordinate2D.longitude];
     NSString *lat = [NSString stringWithFormat:@"%f",coordinate2D.latitude];
-
     
     NSString *stringURL =  [NSString stringWithFormat:@"%@%@%@%@", requestUrl, lng, @"/",lat];
-    
     
     NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
     
@@ -70,6 +67,9 @@
     
     return [ELRESTful jsonToFeatureArray:features];
 }
+
+
+
 
 
 +(NSMutableArray*) fetchPOIsAtLocation:(CLLocationCoordinate2D)coordinate2D
@@ -83,7 +83,6 @@
     NSString *stringURL = [NSString stringWithFormat:@"%@%@%@%@%@%@", requestUrl, lng, @"/",lat,@"/",distanceInMeters];
     
     NSURL *requestURL = [ELFIMappaSession urlByAddingCurrentSessionToURLAsRoute:[NSURL URLWithString:stringURL]];
-    //NSURL *requestURL = [NSURL URLWithString:[stringURL stringByAppendingString:@"/201969126621175"]];
     
     NSDictionary *json = [ELRESTful getJSONResponsetWithURL:requestURL];
     

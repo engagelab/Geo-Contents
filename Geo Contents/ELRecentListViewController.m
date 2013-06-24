@@ -20,13 +20,10 @@
 
 @interface ELRecentListViewController ()
 {
-    NSMutableArray  *nFeatures;
-    ELRESTful *restfull;
+    NSMutableArray  *features;
     NSString *kCellID;
-    UIImage *loadingImage;
     
 }
-@property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 @property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
 @property (nonatomic, strong) ELUserFeaturesCVController *userFeatureCVController;
 
@@ -41,7 +38,6 @@
     if (self) {
         // Custom initialization
         kCellID = @"cvCell";
-        loadingImage = [UIImage imageNamed:@"loadingImage.png"];
     }
     return self;
 }
@@ -51,20 +47,20 @@
     [super viewDidLoad];
     
     // Do any additional setup after loading the view from its nib.
-    nFeatures = [@[] mutableCopy];
-    
-    //Start Location Services
-    if ([CLLocationManager locationServicesEnabled]){
-        CLLocationManager *locationManager = [CLLocationManager new];
-        [self showItemsAtLocation:locationManager.location];
-    } else {
-        /* Location services are not enabled.
-         Take appropriate action: for instance, prompt the
-         user to enable location services */
-        NSLog(@"Location services are not enabled");
-    }
+    features = [@[] mutableCopy];
     
     
+    [self prepareCollectionView];
+    
+    [self refreshCollectionView];
+    
+    [self addRefreshViewButton];
+    
+}
+
+
+- (void)prepareCollectionView
+{
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];
     //[self.collectionView registerClass:[Cell class] forCellWithReuseIdentifier:kCellID];
@@ -76,22 +72,20 @@
     
     [self.collectionView setCollectionViewLayout:flowLayout];
     self.collectionView.backgroundColor = [UIColor whiteColor];
+}
 
-    
-    self.thumbnailQueue = [[NSOperationQueue alloc] init];
-    self.thumbnailQueue.maxConcurrentOperationCount = 3;
-    
+- (void)addRefreshViewButton
+{
     // Refresh button to update list
     UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc]
                                       initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                       target:self
-                                      action:@selector(refresh)];
+                                      action:@selector(refreshCollectionView)];
     self.navigationItem.rightBarButtonItem = refreshButton;
-    
-    
 }
 
--(void)refresh
+
+-(void)refreshCollectionView
 {
     if ([CLLocationManager locationServicesEnabled]){
         CLLocationManager *locationManager = [CLLocationManager new];        
@@ -103,7 +97,7 @@
         NSLog(@"Location services are not enabled");
     }
     
-    NSLog(@"%@",@"refresh pressed");
+    NSLog(@"%@",@"Recent view is updated");
 }
 
 
@@ -112,11 +106,6 @@
     return NO;
 }
 
--(void)viewDidAppear:(BOOL)animated
-{
-    //nFeatures = [NSMutableArray arrayWithArray:app.features];
-    //[self.collectionView reloadData];
-}
 
 
 - (void)didReceiveMemoryWarning
@@ -137,7 +126,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    NSInteger size = nFeatures.count;
+    NSInteger size = features.count;
     return size;
 }
 
@@ -146,7 +135,7 @@
 //recalculate the size of the CELL runtime to fit the content in it
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout  *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    ELFeature *feature = [features objectAtIndex:indexPath.item];
     CGSize suggestedSize;
     
     NSString *htmlTweet =[ELTweetGenerator createHTMLTWeet:feature];
@@ -164,7 +153,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    ELFeature *feature = [nFeatures objectAtIndex:indexPath.item];
+    ELFeature *feature = [features objectAtIndex:indexPath.item];
     
     static NSString *cellIdentifier = @"cvCell";
     Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
@@ -219,9 +208,6 @@
                         cell.descriptionLabel.delegate = self;
                         
                     }
-//                    if (feature.images.standard_resolution) {
-//                        <#statements#>
-//                    }
                     [cell.standardResolutionImageview setImageWithURL:feature.images.standard_resolution placeholder:[UIImage imageNamed:@"empty"]];
                 }
     
@@ -276,7 +262,7 @@
 
 
 - (void)showItemsAtLocation:(CLLocation*)newLocation {
-    [nFeatures removeAllObjects];
+    [features removeAllObjects];
     [self.collectionView reloadData];
     
     NSMutableArray *temp = [[NSMutableArray alloc]init];
@@ -288,8 +274,8 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"time" ascending:NO];
             [temp sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-            [nFeatures removeAllObjects];
-            [nFeatures addObjectsFromArray:temp];
+            [features removeAllObjects];
+            [features addObjectsFromArray:temp];
             // Ensure the new data is used in the collection view
             [self.collectionView reloadData];
         });
