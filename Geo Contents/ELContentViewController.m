@@ -22,11 +22,7 @@
 
 #import "JMImageCache.h"
 
-/** Degrees to Radian **/
-#define degreesToRadians( degrees ) ( ( degrees ) / 180.0 * M_PI )
-
-/** Radians to Degrees **/
-#define radiansToDegrees( radians ) ( ( radians ) * ( 180.0 / M_PI ) )
+#import "CoreLocationUtils/CLLocation+measuring.h"
 
 
 
@@ -41,6 +37,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     CLLocation *newLocation;
     NSMutableArray  *features;
     UILabel *distanceCoveredLabel;
+    BOOL isUserAtCurrentLocation;
 
 }
 @property (nonatomic, weak) IBOutlet IMPhotoAlbumLayout *photoAlbumLayout;
@@ -89,10 +86,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     //for test purpose only display distance covered in 10 sec by a user
     distanceCoveredLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 300, 60, 20)];
+    
 
-    // Download Features in the BoundingBox Set by Mappa in NSUserdefaults dictionary
-    [self getAndShowFeaturesInBoundingBox];
 }
+
+
 
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -161,85 +159,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [self stopLocationServices];
 }
 
-
--(void)getAndShowFeaturesInBoundingBox
-{
-    
-    // Create a new private queue
-    dispatch_queue_t myBackgroundQueue;
-    myBackgroundQueue = dispatch_queue_create("engagelab.task1", NULL);
- 
-    
-    // dafualt boounding box in case GPS does not work
-    NSDictionary *defaultBBox = [[NSDictionary alloc] initWithObjectsAndKeys:
-                           @"59.942916f",@"lat1",
-                           @"10.715141f",@"lng1",
-                           @"59.941154f",@"lat2",
-                           @"10.717490f",@"lng2",
-                           nil];
-    // fetch the bounding box dictionary from the NSUserDefaults being sent by Mappa
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *bbox = [defaults objectForKey:@"bbox"];
-    
-    //if bbox found then refresh the view by loading the feautres in it
-    if (bbox != nil) {
-        
-        dispatch_async(myBackgroundQueue, ^(void) {
-            
-            // do some time consuming things here
-                    [self loadFeaturesInBoundingBox:bbox];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                // do some things here in the main queue
-                // for example: update UI controls, etc.
-                 [self.collectionView reloadData];
-            });
-        });
-        
-       
-    }
-    
-    //if bbox was not found then refresh the view by using default BBox
-    else if (bbox == nil)
-    {
-        
-        dispatch_async(myBackgroundQueue, ^(void) {
-            
-            // do some time consuming things here
-            [self loadFeaturesInBoundingBox:defaultBBox];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                // do some things here in the main queue
-                // for example: update UI controls, etc.
-                [self.collectionView reloadData];
-            });
-        });
-
-        
-    }
-
-}
-
-
-
--(void) loadFeaturesInBoundingBox:(NSDictionary*)bbox
-{
-    //Randomize instagram and overlay pois
-    
-    NSArray *results = [ELRESTful fetchPOIsInBoundingBox:bbox];
-    
-    
-    for (ELFeature *feature in results) {
-        
-        feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
-        [features addObject:feature];
-    }
-
-    features = [[self shuffleArray:results] mutableCopy];
-    //cach images here?
-}
 
 
 
@@ -349,11 +268,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     
-    
-    // Create a new private queue
-    dispatch_queue_t myBackgroundQueue;
-    myBackgroundQueue = dispatch_queue_create("engagelab.task2", NULL);
-    
+   
     
     CLLocation* location = [locations lastObject];
     NSDate* eventDate = location.timestamp;
@@ -361,46 +276,65 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     // refuses events older than 5 seconds:
     if (abs(howRecent) < 15.0)
     {
+        
         //set old loacation to
         if (previousLocation == nil)
         {
-            previousLocation = [locations lastObject];
             
+            //updateview
+            if ([CLLocation boundingBox:[self boundingBoxFromNSUserDefaults] ContainsCLLocation:[locations lastObject]] && isUserAtCurrentLocation == NO)
+            {
+                isUserAtCurrentLocation = YES;
+            }
             
-            dispatch_async(myBackgroundQueue, ^(void) {
+            if (isUserAtCurrentLocation)
+            {
+                // Create a new private queue
+                dispatch_queue_t myBackgroundQueue;
+                myBackgroundQueue = dispatch_queue_create("engagelab.task2", NULL);
                 
-                // do some time consuming things here
-                features=  [ELRESTful fetchPOIsAtLocation:location.coordinate];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+                previousLocation = [locations lastObject];
+                
+                dispatch_async(myBackgroundQueue, ^(void) {
                     
-                    // do some things here in the main queue
-                    // for example: update UI controls, etc.
-                    [self.collectionView reloadData];
+                    // do some time consuming things here
+                    features=  [ELRESTful fetchPOIsAtLocation:location.coordinate];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        // do some things here in the main queue
+                        // for example: update UI controls, etc.
+                        [self.collectionView reloadData];
+                    });
                 });
-            });
-            
+                
+            }
         }
-        // find the distance covered since last location update
-        NSNumber *distanceCovered = [self distanceBetweenPoint1:previousLocation Point2:location];
         
-        // find the time passed since last location update
-        NSTimeInterval timeElepsed = [previousLocation.timestamp timeIntervalSinceNow];
-        
-        if ([distanceCovered intValue] >= 10 || abs(timeElepsed) > 20.0)
+        if (isUserAtCurrentLocation)
         {
-            NSLog(@"You covered: %@ m", distanceCovered);
-            previousLocation = newLocation;
-            newLocation = location;
+            // find the distance covered since last location update
+            NSNumber *distanceCovered = [self distanceBetweenPoint1:previousLocation Point2:location];
             
-            //Refresh view with new Features at this position
-            [self refreshView:newLocation];
+            // find the time passed since last location update
+            NSTimeInterval timeElepsed = [previousLocation.timestamp timeIntervalSinceNow];
             
-            // Placed label for testing purpose only
-            distanceCoveredLabel.text = [distanceCovered stringValue];
-            [self.collectionView addSubview:distanceCoveredLabel];
-            
-            [self refreshView:newLocation];
+            if ([distanceCovered intValue] >= 10 || abs(timeElepsed) > 20.0)
+            {
+                NSLog(@"You covered: %@ m", distanceCovered);
+                previousLocation = newLocation;
+                newLocation = location;
+                
+                //Refresh view with new Features at this position
+                [self refreshView:newLocation];
+                
+                // Placed label for testing purpose only
+                distanceCoveredLabel.text = [distanceCovered stringValue];
+                [self.collectionView addSubview:distanceCoveredLabel];
+                
+                [self refreshView:newLocation];
+            }
         }
     }
 }
@@ -421,6 +355,75 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     }
 
 }
+
+#pragma Collectionview 
+-(void)startViewWithBoundingBox:(NSDictionary*)bbox
+{
+    
+    // Create a new private queue
+    dispatch_queue_t myBackgroundQueue;
+    myBackgroundQueue = dispatch_queue_create("engagelab.task1", NULL);
+  
+        dispatch_async(myBackgroundQueue, ^(void) {
+            
+            // do some time consuming things here
+            [self loadFeaturesInBoundingBox:bbox];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                // do some things here in the main queue
+                // for example: update UI controls, etc.
+                [self.collectionView reloadData];
+            });
+        });
+        
+}
+
+-(NSDictionary*)boundingBoxFromNSUserDefaults
+{
+    // dafualt boounding box in case GPS does not work
+    NSDictionary *defaultBBox = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 @"59.943072f",@"lat1",
+                                 @"10.715114f",@"lng1",
+                                 @"59.941095f",@"lat2",
+                                 @"10.717839f",@"lng2",
+                                 nil];
+    // fetch the bounding box dictionary from the NSUserDefaults being sent by Mappa
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *bbox = [defaults objectForKey:@"bbox"];
+    
+    if (bbox != nil) {
+        return bbox;
+    }
+    
+return defaultBBox;
+}
+
+
+
+
+-(void) loadFeaturesInBoundingBox:(NSDictionary*)bbox
+{
+    //Randomize instagram and overlay pois
+    
+    NSArray *results = [ELRESTful fetchPOIsInBoundingBox:bbox];
+    
+    
+    for (ELFeature *feature in results) {
+        
+        feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
+        [features addObject:feature];
+    }
+    
+    features = [[self shuffleArray:results] mutableCopy];
+    //cach images here?
+}
+
+
+
+
+
+
 
 
 #pragma utility methods

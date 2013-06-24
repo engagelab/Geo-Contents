@@ -18,6 +18,7 @@
 }
 
 +(NSNumber*)getDistanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2;
++(BOOL)BBox:(NSDictionary*)bbox ContainsCLLocation:(CLLocation*)location;
 
 
 @end
