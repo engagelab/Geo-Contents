@@ -9,7 +9,6 @@
 #import "ELNearbyListViewController.h"
 
 
-NSString *cellIdentifier = @"cvCell";                          // UICollectionViewCell xib id
 
 @interface ELNearbyListViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
@@ -61,7 +60,7 @@ NSString *cellIdentifier = @"cvCell";                          // UICollectionVi
      * feature source type image
      */
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:cellIdentifier];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:LISTVIEW_CELL_IDENTIFIER];
     
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -148,7 +147,7 @@ NSString *cellIdentifier = @"cvCell";                          // UICollectionVi
 
     ELFeature *feature = [features objectAtIndex:indexPath.item];
 
-    Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:LISTVIEW_CELL_IDENTIFIER forIndexPath:indexPath];
     if (feature != nil) {
         //pass current feature refrence to cell 
         cell.feature = feature;

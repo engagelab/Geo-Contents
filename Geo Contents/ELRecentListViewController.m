@@ -9,7 +9,7 @@
 #import "ELRecentListViewController.h"
 
 
-NSString *cellIdentifier = @"cvCell";                          // UICollectionViewCell xib id
+
 
 
 @interface ELRecentListViewController ()
@@ -55,7 +55,7 @@ NSString *cellIdentifier = @"cvCell";                          // UICollectionVi
 - (void)configureCollectionView
 {
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:cellIdentifier];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:LISTVIEW_CELL_IDENTIFIER];
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setItemSize:CGSizeMake(320, 450)];
@@ -141,7 +141,7 @@ NSString *cellIdentifier = @"cvCell";                          // UICollectionVi
 {
     ELFeature *feature = [features objectAtIndex:indexPath.item];
     
-    Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:LISTVIEW_CELL_IDENTIFIER forIndexPath:indexPath];
     
     if (feature != nil) {
         

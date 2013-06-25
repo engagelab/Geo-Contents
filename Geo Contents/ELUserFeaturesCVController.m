@@ -10,9 +10,6 @@
 
 
 
-NSString *cellIdentifier = @"cvCell";                          // UICollectionViewCell xib id
-
-
 
 @interface ELUserFeaturesCVController ()
 {
@@ -56,7 +53,7 @@ NSString *cellIdentifier = @"cvCell";                          // UICollectionVi
 - (void)configureCollectionView
 {    
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:cellIdentifier];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:LISTVIEW_CELL_IDENTIFIER];
     
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -128,8 +125,7 @@ NSString *cellIdentifier = @"cvCell";                          // UICollectionVi
 {
     ELFeature *feature = [features objectAtIndex:indexPath.item];
     
-    static NSString *cellIdentifier = @"cvCell";
-    Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:LISTVIEW_CELL_IDENTIFIER forIndexPath:indexPath];
     
     
     if (feature != nil) {
