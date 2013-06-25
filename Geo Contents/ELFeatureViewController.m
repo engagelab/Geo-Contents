@@ -50,6 +50,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     [self refreshView];
     
 }
@@ -115,7 +116,6 @@
             self.descriptionLabel.delegate = self;
             
             [self.scroll addSubview:self.descriptionLabel];
-            //self.descriptionLabel.text = self.feature.description;
         }
         
     }
