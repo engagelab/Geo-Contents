@@ -86,13 +86,6 @@
     
     [self customizeiPhoneTheme];
     
-    
-    //Display error if there is no URL
-//    if (![launchOptions objectForKey:UIApplicationLaunchOptionsURLKey]) {
-//        UIAlertView *alertView;
-//        alertView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"This app was launched without any boundingBox. Open this app using the Overlay app to send text." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//        [alertView show];
-//    }
     [self setuserdefaults];
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -122,12 +115,6 @@
 
 
 
-/*
- 
- NSString *urlString = [NSString stringWithFormat:@"geocontent://search/bbox?lat1=%f&lng1=%f&lat2=%f&lng2=%f", lat1, lon1, lat2, lon2];
-    NSString *urlString = [NSString stringWithFormat:@"geocontent://nearby/bbox?lat1=%f&lng1=%f&lat2=%f&lng2=%f", lat1, lon1, lat2, lon2];
-    NSString *urlString = [NSString stringWithFormat:@"geocontent://browse/bbox?lat1=%f&lng1=%f&lat2=%f&lng2=%f", lat1, lon1, lat2, lon2];
- */
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
     

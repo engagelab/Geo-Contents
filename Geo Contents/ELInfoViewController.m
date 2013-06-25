@@ -9,6 +9,15 @@
 #import "ELInfoViewController.h"
 #import "ELConstants.h"
 
+
+
+/*
+ *  Info View
+ *
+ *  Discussion:
+ *    A view with static contents that describe the purpose and use of the app. All contents are made on .xib using UILabel and UIButton
+ *
+ */
 @interface ELInfoViewController ()
 
 @end
@@ -30,17 +39,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    //Create a URL object.
-    //NSURL *url = [NSURL URLWithString:INFO_PAGE_URL];
-    
-    //URL Requst Object
-    //NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    
-    //Load the request in the UIWebView.
-    //[self.infoWebView loadRequest:requestObj];
-
-    
 }
 
 
