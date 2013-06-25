@@ -276,8 +276,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
                 [self refreshView:newLocation];
                 
                 // Placed label for testing purpose only : remove it in release verion
-                distanceCoveredLabel.text = [distanceCovered stringValue];
-                [self.collectionView addSubview:distanceCoveredLabel];
+                //distanceCoveredLabel.text = [distanceCovered stringValue];
+                //[self.collectionView addSubview:distanceCoveredLabel];
                 
                 [self refreshView:newLocation];
             }
