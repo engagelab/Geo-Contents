@@ -9,7 +9,6 @@
 #import "ELContentViewController.h"
 #import "IMPhotoAlbumLayout.h"
 #import "IMAlbumPhotoCell.h"
-#import "ELMosiacCell.h"
 
 #import "ELFeature.h"
 
@@ -30,18 +29,37 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-
+/*
+ *  Mosaic View
+ *
+ *  Discussion:
+ *      Display geo-features in a grid of 3XN called mosaic view which is vertically scrolable. It is based on the UICollectionView Controller.
+ *  Main Functions:
+ *      1 - display POIs thumbnails on mosaic within Rectangular geographical region termed as Bounding Box provided by the Map View.
+ *      2 - display POIs thumbnails on mosaic accordingn to user location and update the view as the user move
+ *  Classes Used:
+ *      IMPhotoAlbumLayout  : define how the mosaic view should look.
+ *      IMAlbumPhotoCell    : a custom cell view for each item in the mosaic.
+ *      ELFeature           : a model class to hold the feature object recived from Json response from server
+ *      ELFeatureViewController :   the view controller shows the details description and high resolution image of the selected POI
+ *      ELBridgingApp       : this class take advantage of cocoa touch Custom URL Schema and transfer controll from one app to another app or within one app.
+ *      ELConstants         : most of the application constants are defined inside this class
+ *      ELRESTful           : This handle all sort of client/server communication, also responsible for parsing json response to Feature Model 
+ *      JMImageCache        : NSCache based remote-image caching and downloading mechanism for iOS.
+ *      CoreLocationUtils/CLLocation+measuring : Adds capabilities to measure distance and direction from other locations, define bounding box, and more.
+ */
 @interface ELContentViewController ()
 {
-    CLLocation *previousLocation;
-    CLLocation *newLocation;
-    NSMutableArray  *features;
-    UILabel *distanceCoveredLabel;
-    BOOL isUserAtCurrentLocation;
+    CLLocation *previousLocation;           //keep track of user last location of content update
+    CLLocation *newLocation;                // location of user after every 20 seconds
+    NSMutableArray  *features;              // feautre list to render on screen
+    UILabel *distanceCoveredLabel;          // display how much distance a uers covered in last 20 sec
+    BOOL isUserAtCurrentLocation;           // flag that keep user current location YES/NO
+    IMPhotoAlbumLayout *photoAlbumLayout;   // a custom cell view for each item in the mosaic.
+    ELFeatureViewController *secondView;    // the view controller shows the details description and high resolution image of the selected POI
 
 }
-@property (nonatomic, weak) IBOutlet IMPhotoAlbumLayout *photoAlbumLayout;
-@property (nonatomic, strong) ELFeatureViewController *secondView;    
+    
 
 @end
 
@@ -69,7 +87,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     // Start location services
     [ self startLocationServices];
         
-    // initialze
+    // initialze 
     features = [@[] mutableCopy];
     
     
@@ -80,34 +98,15 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActiveNotif:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActiveNotif:) name:UIApplicationWillResignActiveNotification object:nil];
     
-    // prepare collectionview to load features
+    // configure collectionview to load features
     [self configureCollectionView];
-    [self.collectionView reloadData];
-    
+        
     //for test purpose only display distance covered in 10 sec by a user
     distanceCoveredLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 300, 60, 20)];
     
 
 }
 
-
-
--(void)viewDidAppear:(BOOL)animated
-{
-    
-}
-
--(void) viewDidDisappear:(BOOL)animated
-{
-    //
-    //[self stopUpdatingContentViewtoMylocation];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    //app.features = [features mutableCopy];
-    
-}
 
 
 - (void)didReceiveMemoryWarning
@@ -118,23 +117,6 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 #pragma Collection view methods
-
--(void)configureCollectionView2
-{
-    UINib *cellNib = [UINib nibWithNibName:@"ELMosiacCell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"ELMosiacCell"];
-    //[self.collectionView registerClass:[Cell class] forCellWithReuseIdentifier:kCellID];
-    [self.collectionView registerClass:[ELMosiacCell class] forCellWithReuseIdentifier:@"ELMosiacCell"];
-
-    
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    [flowLayout setItemSize:CGSizeMake(107, 107)];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    
-    [self.collectionView setCollectionViewLayout:flowLayout];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-}
-
 
 
 - (void)configureCollectionView
@@ -149,11 +131,13 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
+//called when the application becomes active.
 -(void)appDidBecomeActiveNotif:(NSNotification*)notif
 {
     [self startLocationServices];
 }
 
+// called when the application is no longer active and loses focus.
 -(void)appWillResignActiveNotif:(NSNotification*)notif
 {
     [self stopLocationServices];
@@ -167,18 +151,14 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    //NSLog(@"features found %d", features.count);
     return features.count;
 }
-
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
 
     return 1;
 }
-
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -203,17 +183,15 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
 }
 
-
-
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ELFeature *feature = [features objectAtIndex:indexPath.section];
     
     feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
 
-    self.secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
-    self.secondView.feature = feature;
-	[self.navigationController pushViewController:self.secondView animated:YES];
+    secondView = [[ELFeatureViewController alloc] initWithNibName:@"ELFeatureViewController" bundle:nil];
+    secondView.feature = feature;
+	[self.navigationController pushViewController:secondView animated:YES];
 }
 
 
@@ -270,49 +248,51 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     // refuses events older than 5 seconds:
     if (abs(howRecent) < 15.0)
     {
-        
-        //set old loacation to
+        //runs only first time and as the app have no previous location
         if (previousLocation == nil)
         {
-            
+            //set the first location update to it.
             previousLocation = [locations lastObject];
 
-            
-            //updateview
+            //check if the bounding box selected by user in mapview matches his current location
             if ([CLLocation boundingBox:[self boundingBoxFromNSUserDefaults] ContainsCLLocation:[locations lastObject]] && isUserAtCurrentLocation == NO)
             {
+                //if bounding box and current location matches then sent flag to YES
                 isUserAtCurrentLocation = YES;
             }
             
+            //update the mosaic view according to user location if bounding box and current userlocation matches
             if (isUserAtCurrentLocation)
             {
                 // Create a new private queue
                 dispatch_queue_t myBackgroundQueue;
-                myBackgroundQueue = dispatch_queue_create("engagelab.task2", NULL);
+                myBackgroundQueue = dispatch_queue_create("engagelab.fetchPOIsAtLocation", NULL);
                 
                 dispatch_async(myBackgroundQueue, ^(void) {
                     
-                    // do some time consuming things here
+                    // downlaod features async on secondary thread
                     features=  [ELRESTful fetchPOIsAtLocation:location.coordinate];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         
-                        // do some things here in the main queue
-                        // for example: update UI controls, etc.
+                        // update user interface on main thread to avoid deley in loading UI
                         [self.collectionView reloadData];
                     });
                 });
                 
             }
             
+            // load features withing bounding box if the bounding box and user current location does not match
             else
             {
                 [self startViewWithBoundingBox:[self boundingBoxFromNSUserDefaults]];
+                //stop location services as we will not update view if the match was NO
                 [self stopLocationServices];
             }
             
         }
-
+        
+         //start updating the mosaic view dynamically if bounding box and current userlocation  was matched in first location update
         if (isUserAtCurrentLocation)
         {
             // find the distance covered since last location update
@@ -323,13 +303,14 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
             
             if ([distanceCovered intValue] >= 10 || abs(timeElepsed) > 20.0)
             {
+                //swipe previous with new location and update new location
                 previousLocation = newLocation;
                 newLocation = location;
                 
                 //Refresh view with new Features at this position
                 [self refreshView:newLocation];
                 
-                // Placed label for testing purpose only
+                // Placed label for testing purpose only : remove it in release verion
                 distanceCoveredLabel.text = [distanceCovered stringValue];
                 [self.collectionView addSubview:distanceCoveredLabel];
                 
@@ -343,8 +324,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 -(void)refreshView:(CLLocation*)location
 {
+    //TODO: make this operation on secondary thread
     NSMutableArray *newFeatures = [ELRESTful fetchPOIsAtLocation:location.coordinate];
-    
     //Compare if restults are diffirent
     if ([self foundNewEntriesIn:newFeatures withOldResults:features])
     {
@@ -362,7 +343,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     // Create a new private queue
     dispatch_queue_t myBackgroundQueue;
-    myBackgroundQueue = dispatch_queue_create("engagelab.task1", NULL);
+    myBackgroundQueue = dispatch_queue_create("engagelab.loadFeaturesInBoundingBox", NULL);
   
         dispatch_async(myBackgroundQueue, ^(void) {
             
@@ -404,19 +385,16 @@ return defaultBBox;
 
 -(void) loadFeaturesInBoundingBox:(NSDictionary*)bbox
 {
-    //Randomize instagram and overlay pois
-    
+    //TODO: make this operation on secondary thread
     NSArray *results = [ELRESTful fetchPOIsInBoundingBox:bbox];
-    
-    
-    for (ELFeature *feature in results) {
-        
+    // find the distance of each indivitual feature from user current location and add into Feature model
+    for (ELFeature *feature in results)
+    {
         feature.distance = [self distanceBetweenPoint1:newLocation Point2:feature.fLocation];
         [features addObject:feature];
     }
-    
+    //Randomize instagram and overlay pois
     features = [[self shuffleArray:results] mutableCopy];
-    //cach images here?
 }
 
 
@@ -430,7 +408,6 @@ return defaultBBox;
 
 -(NSNumber*)distanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
 {
-    
     double meters1 = [point1 distanceFromLocation:point2];
     
     double meters2 = [point2 distanceFromLocation:point1];
@@ -454,8 +431,6 @@ return defaultBBox;
     
     return [NSArray arrayWithArray:temp];
 }
-
-
 
 
 -(BOOL)foundNewEntriesIn:(NSMutableArray*)newArray withOldResults:(NSMutableArray*)oldArray
