@@ -7,20 +7,16 @@
 //
 
 #import "ELUserFeaturesCVController.h"
-#import "ELRESTful.h"
-#import "Cell.h"
-#import "ELTweetGenerator.h"
-#import "NSDate+Helper.h"
-#import "JMImageCache.h"
-#import "ELConstants.h"
-#import "ELHashedFeatureCVController.h"
+
+
+
+NSString *cellIdentifier = @"cvCell";                          // UICollectionViewCell xib id
 
 
 
 @interface ELUserFeaturesCVController ()
 {
     NSMutableArray  *features;
-    NSString *kCellID;
     
     ELUserFeaturesCVController *userFeatureCVController;
     ELHashedFeatureCVController *hashedFeatureCVController;
@@ -58,11 +54,9 @@
 
 
 - (void)configureCollectionView
-{
-    kCellID = @"cvCell";
-    
+{    
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:cellIdentifier];
     
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
