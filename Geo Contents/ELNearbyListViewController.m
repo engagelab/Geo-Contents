@@ -7,27 +7,17 @@
 //
 
 #import "ELNearbyListViewController.h"
-#import <CoreLocation/CoreLocation.h>
-#import "ELRESTful.h"
-#import "Cell.h"
-#import "ELTweetGenerator.h"
-#import "JMImageCache.h"
-#import "ELHashedFeatureCVController.h"
-#import "ELUserFeaturesCVController.h"
-#import "ELConstants.h"
 
-#import "NSString+Distance.h"
 
-NSString *kCellID = @"cvCell";                          // UICollectionViewCell xib id
+NSString *cellIdentifier = @"cvCell";                          // UICollectionViewCell xib id
 
 @interface ELNearbyListViewController () <UICollectionViewDelegate, UICollectionViewDataSource>
 {
-    NSMutableArray  *features;
-    
+    NSMutableArray  *features; // feautre list to render on screen
+    ELHashedFeatureCVController *hashedFeatureCVController;
+    ELUserFeaturesCVController *userFeatureCVController;
 }
 
-@property (nonatomic, strong) ELHashedFeatureCVController *hashedFeatureCVController;
-@property (nonatomic, strong) ELUserFeaturesCVController *userFeatureCVController;
 
 
 @end
@@ -62,9 +52,16 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 - (void)configureCollectionView
 {
+    /*
+     * we're going to use a custom UICollectionViewCell, which will hold
+     * option menu
+     * user profile picture
+     * user proile lable
+     * standard resulation image
+     * feature source type image
+     */
     UINib *cellNib = [UINib nibWithNibName:@"Cell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:kCellID];
-    //[self.collectionView registerClass:[Cell class] forCellWithReuseIdentifier:kCellID];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:cellIdentifier];
     
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -102,14 +99,14 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 }
 
 
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma UICollectionView delegates
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -146,19 +143,14 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 }
 
 
-
-
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
     ELFeature *feature = [features objectAtIndex:indexPath.item];
-    
-    static NSString *cellIdentifier = @"cvCell";
-    
-    // we're going to use a custom UICollectionViewCell, which will hold an image and its label
+
     Cell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     if (feature != nil) {
-        
+        //pass current feature refrence to cell 
         cell.feature = feature;
         NSURL *profileURL;
         
@@ -216,7 +208,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 
 
-
+#pragma RECLabel Delegate method, called when user tap on a hashtag / username o
 - (void)rtLabel:(id)rtLabel didSelectLinkWithURL:(NSString*)url
 {
     NSURL *urlp = [NSURL URLWithString:url];
@@ -234,18 +226,18 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
         if ([[urlp host] isEqualToString:@"tag"])
         {
             
-            self.hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
-            [self.hashedFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
-            self.hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
-            [self.navigationController pushViewController:self.hashedFeatureCVController animated:YES];
+            hashedFeatureCVController = [[ELHashedFeatureCVController alloc]initWithNibName:@"ELHashedFeatureCVController" bundle:nil];
+            [hashedFeatureCVController setTitle:[NSString stringWithFormat:@"%@%@",@"#",[dict valueForKey:@"name"]]];
+            hashedFeatureCVController.hashTag = [dict valueForKey:@"name"];
+            [self.navigationController pushViewController:hashedFeatureCVController animated:YES];
         }
         if ([[urlp host] isEqualToString:@"user"])
         {
             
-            self.userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
-            [self.userFeatureCVController setTitle:[dict valueForKey:@"username"]];
-            self.userFeatureCVController.userName = [dict valueForKey:@"username"];
-            [self.navigationController pushViewController:self.userFeatureCVController animated:YES];
+            userFeatureCVController = [[ELUserFeaturesCVController alloc]initWithNibName:@"ELUserFeaturesCVController" bundle:nil];
+            [userFeatureCVController setTitle:[dict valueForKey:@"username"]];
+            userFeatureCVController.userName = [dict valueForKey:@"username"];
+            [self.navigationController pushViewController:userFeatureCVController animated:YES];
         }
                 
     }
@@ -260,6 +252,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 }
 
 
+// refresh view by loading new features for the new location
 - (void)showItemsAtLocation:(CLLocation*)newLocation
 {
     //Empty the view
@@ -290,7 +283,7 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
 
 
 
-
+//return distance between two locations in meters
 -(NSNumber*)distanceBetweenPoint1:(CLLocation *)point1 Point2:(CLLocation *)point2
 {
     
@@ -304,10 +297,6 @@ NSString *kCellID = @"cvCell";                          // UICollectionViewCell 
     
     return distance;
 }
-
-
-
-
 
 
 
