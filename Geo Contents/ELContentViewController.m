@@ -69,7 +69,20 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     //for test purpose only display distance covered in 10 sec by a user
     distanceCoveredLabel = [[UILabel alloc]initWithFrame:CGRectMake(150, 300, 60, 20)];
     
+    // Perform set-up of a GPS button which will be positioned on external UI
+    self.gpsButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.gpsButton setImage:[UIImage imageNamed:@"gpsnone.png"] forState:UIControlStateNormal];
+    [self.gpsButton addTarget:self action:@selector(gpsButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    [self.gpsButton sizeToFit];
 
+}
+
+- (void)gpsButtonTapped {
+    isUserAtCurrentLocation = !isUserAtCurrentLocation;
+    UIImage *image = isUserAtCurrentLocation ? [UIImage imageNamed:@"gpsloc.png"] : [UIImage imageNamed:@"gpsnone.png"];
+    [self.gpsButton setImage:image forState:UIControlStateNormal];
+    if(isUserAtCurrentLocation && previousLocation)
+        [self refreshView:previousLocation];
 }
 
 

@@ -46,5 +46,7 @@
 //availble to start location service from other classes
 -(void) startLocationServices;
 
+@property UIButton *gpsButton;
+
 
 @end
